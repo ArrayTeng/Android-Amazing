@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.tengfei.androidcrossprocess.aidldemo.AIDLActivity;
 import com.example.tengfei.androidcrossprocess.blog.FirstActivity;
+import com.example.tengfei.androidcrossprocess.blog.binderpool.BinderPoolActivity;
 import com.example.tengfei.androidcrossprocess.messenger.MessengerActivity;
 
 /**
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.bt_main_messenger).setOnClickListener(this);
         findViewById(R.id.bt_main_aidl).setOnClickListener(this);
         findViewById(R.id.bt_main_blog).setOnClickListener(this);
+        findViewById(R.id.bt_main_binder_pool).setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_main_blog:
                 startActivity(FirstActivity.class);
+                break;
+            case R.id.bt_main_binder_pool:
+                startActivity(BinderPoolActivity.class);
                 break;
             default:
                 break;

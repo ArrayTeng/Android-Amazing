@@ -29,6 +29,7 @@
 
         <activity android:name=".blog.SecondActivity" android:process=":remote"/>
         <activity android:name=".blog.ThirdActivity" android:process="com.example.tengfei.androidcrossprocess.blog.ThirdActivity"/>
+        <activity android:name=".blog.binderpool.BinderPoolActivity" />
 
         <service
             android:name=".messenger.MessengerService"
@@ -40,6 +41,7 @@
             android:enabled="true"
             android:exported="true"
             android:process="com.example.tengfei.androidcrossprocess.aidldemo.BookManagerService" />
+        <service android:name=".blog.binderpool.BinderPoolService" />
     </application>
 
 </manifest>

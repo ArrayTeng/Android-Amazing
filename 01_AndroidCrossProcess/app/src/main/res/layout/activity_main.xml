@@ -28,5 +28,12 @@
         android:text="Blog"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/bt_main_binder_pool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Binder Pool"
+        android:textAllCaps="false" />
+
 
 </LinearLayout>
