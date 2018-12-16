@@ -12,6 +12,9 @@ import com.example.tengfei.androidcrossprocess.IBinderPool;
 import java.util.concurrent.CountDownLatch;
 
 
+/**
+ * @author tengfei
+ */
 public class BinderPool {
 
     private static final String TAG = "BinderPool";
