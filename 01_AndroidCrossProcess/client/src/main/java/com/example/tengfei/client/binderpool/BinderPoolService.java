@@ -19,7 +19,6 @@ import static com.example.tengfei.client.binderpool.BinderPool.PASSWORD_MANAGER_
  */
 public class BinderPoolService extends Service {
 
-//    private IBinder iBinder = new BinderPool.BinderPoolImpl();
 
     private CopyOnWriteArrayList<Info> infoCopyOnWriteArrayList = new CopyOnWriteArrayList<>();
 

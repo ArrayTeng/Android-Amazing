@@ -1,6 +1,5 @@
 package com.example.tengfei.contentproviderdemo;
 
-import android.app.slice.Slice;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;

@@ -60,13 +60,13 @@ public class BinderPoolActivity extends AppCompatActivity implements View.OnClic
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i(TAG,"bt_addInformation");
+                        Log.i(TAG, "bt_addInformation");
                         BinderPool mBinderPool = BinderPool.getInstance(BinderPoolActivity.this);
                         IBinder binder = mBinderPool.queryBinder(BinderPool.INFO_MANAGER_IMPL_CODE);
                         //将服务端返回的 Binder 对象转换为客户端需要的 AIDL 接口类型的对象
                         IInFoManager inFoManager = IInFoManager.Stub.asInterface(binder);
                         try {
-                            inFoManager.addInformation(new Info(0x001,"#info 01"));
+                            inFoManager.addInformation(new Info(0x001, "#info 01"));
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -85,8 +85,8 @@ public class BinderPoolActivity extends AppCompatActivity implements View.OnClic
                         IInFoManager getInfoManager = IInFoManager.Stub.asInterface(getInfoBinder);
                         try {
                             List<Info> infoList = getInfoManager.getInformationList();
-                            for (Info info:infoList){
-                                Log.i(TAG," #id : "+info.id+" #info : "+info.infomation);
+                            for (Info info : infoList) {
+                                Log.i(TAG, " #id : " + info.id + " #info : " + info.infomation);
                             }
                         } catch (RemoteException e) {
                             e.printStackTrace();
@@ -103,8 +103,8 @@ public class BinderPoolActivity extends AppCompatActivity implements View.OnClic
                         IBinder encryptionBinder = mBinderPool.queryBinder(BinderPool.PASSWORD_MANAGER_IMPL_CODE);
                         IPassWordManager iPassWordManager = IPassWordManager.Stub.asInterface(encryptionBinder);
                         try {
-                            String passWord  = iPassWordManager.encryption("PassWord");
-                            Log.i(TAG,passWord);
+                            String passWord = iPassWordManager.encryption("PassWord");
+                            Log.i(TAG, passWord);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -120,8 +120,8 @@ public class BinderPoolActivity extends AppCompatActivity implements View.OnClic
                         IBinder decryptBinder = mBinderPool.queryBinder(BinderPool.PASSWORD_MANAGER_IMPL_CODE);
                         IPassWordManager iPassWordManagerDecrypt = IPassWordManager.Stub.asInterface(decryptBinder);
                         try {
-                            String passWord  = iPassWordManagerDecrypt.encryption("PassWord");
-                            Log.i(TAG,passWord);
+                            String passWord = iPassWordManagerDecrypt.encryption("PassWord");
+                            Log.i(TAG, passWord);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }

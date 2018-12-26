@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * @author tengfei
+ */
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "book_provider.db";
@@ -11,8 +14,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public static final String BOOK_TABLE_NAME = "book";
     public static final String USER_TABLE_NAME = "user";
 
-    private String CREATE_BOOK_TABLE = "CREATE TABLE " + BOOK_TABLE_NAME + "(_ID INTEGER PRIMARY KEY,name TEXT)";
-    private String CREATE_USER_TABLE = "CREATE TABLE " + USER_TABLE_NAME + "(_ID INTEGER PRIMARY KEY,name TEXT,sex INT)";
+    private static final String CREATE_BOOK_TABLE = "CREATE TABLE " + BOOK_TABLE_NAME + "(_ID INTEGER PRIMARY KEY,name TEXT)";
+    private static final String CREATE_USER_TABLE = "CREATE TABLE " + USER_TABLE_NAME + "(_ID INTEGER PRIMARY KEY,name TEXT,sex INT)";
 
     public DbOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
