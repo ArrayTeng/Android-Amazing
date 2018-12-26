@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- name 最好定义为你的自定义控件的类名 -->
+    <!-- name 最好定义为你的自定义控件的类名，同时系统已经定义的属性我们在自定义控件的时候是不能再次使用的-->
     <declare-styleable name="MyTextView">
-        <attr name="text" format="string" />
-        <attr name="textSize" format="dimension" />
-        <attr name="textColor" format="color" />
-        <attr name="maxLength" format="integer" />
-        <attr name="background" format="reference|color" />
-        <attr name="inputType" format="enum">
+        <attr name="myText" format="string" />
+        <attr name="myTextSize" format="dimension" />
+        <attr name="myTextColor" format="color" />
+        <attr name="myMaxLength" format="integer" />
+        <!--之所以Background可以省略，是因为Background由View给我们管理-->
+        <!--<attr name="myBackground" format="reference|color" />-->
+        <attr name="myInputType" format="enum">
             <enum name="number" value="0x001" />
             <enum name="text" value="0x002" />
             <enum name="password" value="0x003" />

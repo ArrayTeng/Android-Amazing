@@ -15,12 +15,11 @@
         <com.example.tengfei.customview.customview.MyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:background="@color/colorPrimaryDark"
-            app:inputType="text"
-            app:maxLength="10"
-            app:text="MyTextView"
-            app:textColor="@color/colorAccent"
-            app:textSize="20sp" />
+            app:myInputType="text"
+            app:myMaxLength="10"
+            app:myText="MyTextView"
+            app:myTextColor="@color/colorAccent"
+            app:myTextSize="20sp" />
     </LinearLayout>
 
 
