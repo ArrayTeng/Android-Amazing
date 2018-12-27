@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/colorPrimary"
-        android:orientation="vertical">
 
-        <com.example.tengfei.customview.customview.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:myInputType="text"
-            app:myMaxLength="10"
-            app:myText="MyTextView"
-            app:myTextColor="@color/colorAccent"
-            app:myTextSize="20sp" />
-    </LinearLayout>
+    <com.example.tengfei.customview.customview.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:myText="MyTextView"
+        app:myTextColor="@color/colorAccent" />
 
 
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

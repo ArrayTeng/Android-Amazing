@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.tengfei.customview.activity.MyTextViewActivity;
+
 /**
  * @author tengfei
  */
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv01:
+                skipActivity(MyTextViewActivity.class);
                 break;
             default:
                 break;
