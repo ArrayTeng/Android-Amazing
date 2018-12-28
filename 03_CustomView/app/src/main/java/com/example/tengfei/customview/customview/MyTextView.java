@@ -57,6 +57,8 @@ public class MyTextView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
@@ -72,7 +74,7 @@ public class MyTextView extends View {
         if (heightMode == MeasureSpec.AT_MOST) {
             paint.getTextBounds(mText, 0, mText.length(), heightBound);
 
-            height = heightBound.height() + getPaddingTop() + getPaddingBottom();
+            height = heightBound.height() + getPaddingTop() + getPaddingBottom() + paint.getFontMetricsInt().descent;
         }
 
         setMeasuredDimension(width, height);
