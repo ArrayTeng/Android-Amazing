@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.tengfei.customview.R;
 
@@ -17,7 +17,7 @@ import com.example.tengfei.customview.R;
  *
  * @author tengfei
  */
-public class MyTextView extends View {
+public class MyTextView extends LinearLayout {
 
     private String mText;
     private int mTextSize = 15;

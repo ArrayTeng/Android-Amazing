@@ -10,10 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/colorPrimary"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="HardcodedText">
 
         <TextView
             android:id="@+id/tv01"
+            style="@style/MyTextViewStyle"
+            android:text="自定义属于自己的 TextView" />
+
+        <TextView
+            android:id="@+id/tv02"
+            style="@style/MyTextViewStyle"
+            android:text="仿 QQ 运动步数进度效果" />
+
+        <TextView
+            android:id="@+id/tv03"
+            style="@style/MyTextViewStyle"
+            android:text="自定义属于自己的 TextView" />
+
+        <TextView
+            android:id="@+id/tv04"
+            style="@style/MyTextViewStyle"
+            android:text="自定义属于自己的 TextView" />
+
+        <TextView
+            android:id="@+id/tv05"
+            style="@style/MyTextViewStyle"
+            android:text="自定义属于自己的 TextView" />
+
+        <TextView
+            android:id="@+id/tv06"
+            style="@style/MyTextViewStyle"
+            android:text="自定义属于自己的 TextView" />
+
+        <TextView
+            android:id="@+id/tv07"
             style="@style/MyTextViewStyle"
             android:text="自定义属于自己的 TextView" />
     </LinearLayout>

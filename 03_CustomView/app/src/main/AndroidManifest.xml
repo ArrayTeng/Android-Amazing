@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MyTextViewActivity" />
+        <activity android:name=".activity.MyQqMovementActivity" />
     </application>
 
 </manifest>

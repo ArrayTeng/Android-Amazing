@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
 
 /**
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.tv01).setOnClickListener(this);
+        findViewById(R.id.tv02).setOnClickListener(this);
 
     }
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv01:
                 skipActivity(MyTextViewActivity.class);
                 break;
+            case R.id.tv02:
+                skipActivity(MyQqMovementActivity.class);
             default:
                 break;
         }
