@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -89,7 +88,7 @@ public class QqStepView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        mStepText = mCurrentStep + "";
         //绘制外圆，之所以这么处理是因为画的圆弧的外边界也是有宽度的
         canvas.drawArc(mBorderWidth / 2, mBorderWidth / 2, getWidth() - mBorderWidth / 2,
                 getWidth() - mBorderWidth / 2, 135, 270, false, mOutPaint);
@@ -98,7 +97,7 @@ public class QqStepView extends View {
             return;
         }
         float sweepAngle = (float) mCurrentStep / mStepMax;
-        mStepText = mCurrentStep + "";
+
         //绘制内圆
         canvas.drawArc(mBorderWidth / 2, mBorderWidth / 2, getWidth() - mBorderWidth / 2,
                 getWidth() - mBorderWidth / 2, 135, sweepAngle * 270, false, mInnerPaint);

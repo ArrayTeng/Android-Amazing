@@ -26,7 +26,7 @@
         <TextView
             android:id="@+id/tv03"
             style="@style/MyTextViewStyle"
-            android:text="自定义属于自己的 TextView" />
+            android:text="自定义文本颜色变化" />
 
         <TextView
             android:id="@+id/tv04"

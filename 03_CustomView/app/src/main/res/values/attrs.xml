@@ -23,4 +23,9 @@
         <attr name="stepTextSize" format="dimension" />
         <attr name="stepTextColor" format="color" />
     </declare-styleable>
+    <!--自定义颜色可变 TextView-->
+    <declare-styleable name="ColorTrackTextView">
+        <attr name="originColor" format="color" />
+        <attr name="changeColor" format="color" />
+    </declare-styleable>
 </resources>
