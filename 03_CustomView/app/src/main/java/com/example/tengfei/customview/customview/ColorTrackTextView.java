@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.example.tengfei.customview.R;
 
@@ -17,11 +18,26 @@ import com.example.tengfei.customview.R;
  */
 public class ColorTrackTextView extends AppCompatTextView {
 
+    private static final String TAG = "ColorTrackTextView";
+
     private Paint mOriginPaint, mChangePaint;
     private int mOriginColor = Color.RED, mChangeColor = Color.BLACK;
     private Rect bounds;
 
     private float mCurrentProgress = 0.6F;
+
+    private Direction direction;
+
+    public enum Direction {
+        /**
+         * 从左到右变换
+         */
+        LEFT_TO_RIGHT,
+        /**
+         * 从右到左变换
+         */
+        RIGHT_TO_LEFT
+    }
 
     public ColorTrackTextView(Context context) {
         this(context, null);
@@ -59,24 +75,41 @@ public class ColorTrackTextView extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         //根据当前进度来计算出中间值
-        int middle = (int) (mCurrentProgress*getWidth());
+        int middle = (int) (mCurrentProgress * getWidth());
+        if (direction == Direction.LEFT_TO_RIGHT) {
+            drawText(canvas, 0, middle, mChangePaint);
+            drawText(canvas, middle, getWidth(), mOriginPaint);
+        } else if (direction == Direction.RIGHT_TO_LEFT) {
+            drawText(canvas, getWidth() - middle, getWidth(), mChangePaint);
+            drawText(canvas, 0, getWidth() - middle, mOriginPaint);
+        } else {
+            drawText(canvas, 0, getWidth(), mOriginPaint);
+        }
+
+    }
+
+    private void drawText(Canvas canvas, int left, int right, Paint paint) {
         String text = getText().toString();
         mChangePaint.getTextBounds(text, 0, text.length(), bounds);
         //计算出文本开始的位置
         int x = getWidth() / 2 - bounds.width() / 2;
         Paint.FontMetricsInt fontMetricsInt = mChangePaint.getFontMetricsInt();
-        int dy = (fontMetricsInt.bottom - fontMetricsInt.top)/2 - fontMetricsInt.bottom;
+        int dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
         //计算基线
-        int baseline = getHeight()/2 + dy;
+        int baseline = getHeight() / 2 + dy;
         //绘制不变色
         canvas.save();
-        canvas.clipRect(0,0,middle,getHeight());
-        canvas.drawText(text,x,baseline, mOriginPaint);
+        canvas.clipRect(left, 0, right, getHeight());
+        canvas.drawText(text, x, baseline, paint);
         canvas.restore();
-        //绘制变色
-        canvas.save();
-        canvas.clipRect(middle,0,getWidth(),getHeight());
-        canvas.drawText(text,x,baseline, mChangePaint);
-        canvas.restore();
+    }
+
+    public void setCurrentProgress(float progress) {
+        this.mCurrentProgress = progress;
+        invalidate();
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

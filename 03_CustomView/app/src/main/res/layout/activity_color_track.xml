@@ -6,10 +6,25 @@
     android:orientation="vertical">
 
     <com.example.tengfei.customview.customview.ColorTrackTextView
+        android:id="@+id/color_track_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World"
         android:textSize="20sp"
         app:changeColor="@color/colorAccent"
-        app:originColor="@color/colorPrimary" />
+        app:originColor="#080808" />
+
+    <Button
+        android:id="@+id/bt_track_left_to_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="left to right"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/bt_track_right_to_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="right to left"
+        android:textAllCaps="false" />
 </LinearLayout>
