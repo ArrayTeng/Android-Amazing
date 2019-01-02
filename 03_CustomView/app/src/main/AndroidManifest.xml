@@ -21,6 +21,7 @@
         <activity android:name=".activity.MyTextViewActivity" />
         <activity android:name=".activity.MyQqMovementActivity" />
         <activity android:name=".activity.ColorTrackTextViewActivity" />
+        <activity android:name=".activity.ColorTrackPagerActivity" />
     </application>
 
 </manifest>

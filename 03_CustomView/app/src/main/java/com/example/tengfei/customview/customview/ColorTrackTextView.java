@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.example.tengfei.customview.R;
 
@@ -21,7 +20,7 @@ public class ColorTrackTextView extends AppCompatTextView {
     private static final String TAG = "ColorTrackTextView";
 
     private Paint mOriginPaint, mChangePaint;
-    private int mOriginColor = Color.RED, mChangeColor = Color.BLACK;
+    private int mOriginColor = Color.BLACK, mChangeColor = Color.RED;
     private Rect bounds;
 
     private float mCurrentProgress = 0.6F;
@@ -111,5 +110,13 @@ public class ColorTrackTextView extends AppCompatTextView {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void setChangeColor(int mChangeColor) {
+        this.mChangePaint.setColor(mChangeColor);
+    }
+
+    public void setOriginColor(int mOriginColor) {
+        this.mOriginPaint.setColor(mOriginColor);
     }
 }
