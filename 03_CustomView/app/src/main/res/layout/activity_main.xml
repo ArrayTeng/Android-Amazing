@@ -36,17 +36,17 @@
         <TextView
             android:id="@+id/tv05"
             style="@style/MyTextViewStyle"
-            android:text="自定义属于自己的 TextView" />
+            android:text="自定义酷炫圆形进度条" />
 
-        <TextView
-            android:id="@+id/tv06"
-            style="@style/MyTextViewStyle"
-            android:text="自定义属于自己的 TextView" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv06"-->
+            <!--style="@style/MyTextViewStyle"-->
+            <!--android:text="自定义属于自己的 TextView" />-->
 
-        <TextView
-            android:id="@+id/tv07"
-            style="@style/MyTextViewStyle"
-            android:text="自定义属于自己的 TextView" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv07"-->
+            <!--style="@style/MyTextViewStyle"-->
+            <!--android:text="自定义属于自己的 TextView" />-->
     </LinearLayout>
 
 

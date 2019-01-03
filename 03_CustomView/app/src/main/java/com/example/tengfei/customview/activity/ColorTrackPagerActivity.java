@@ -43,13 +43,17 @@ public class ColorTrackPagerActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.e(TAG, " position -> " + position + " positionOffset-> " + positionOffset);
+                //当手势从右向左滑动时 positionOffset 递增
+                //当手势从左向右滑动时 positionOffset 递减
                 ColorTrackTextView leftColorTrackTextView = colorTrackTextViewList.get(position);
+                //从右到左变换
                 leftColorTrackTextView.setDirection(ColorTrackTextView.Direction.RIGHT_TO_LEFT);
                 leftColorTrackTextView.setCurrentProgress(1 - positionOffset);
                 if (position == titles.length - 1) {
                     return;
                 }
                 ColorTrackTextView rightColorTrackTextView = colorTrackTextViewList.get(position + 1);
+                //从左到右变换
                 rightColorTrackTextView.setDirection(ColorTrackTextView.Direction.LEFT_TO_RIGHT);
                 rightColorTrackTextView.setCurrentProgress(positionOffset);
             }
