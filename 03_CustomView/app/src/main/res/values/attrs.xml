@@ -32,11 +32,10 @@
     <declare-styleable name="CircleProgressBarView">
         <attr name="CircleProgressBar_outerColor" format="color" />
         <attr name="CircleProgressBar_innerColor" format="color" />
-        <attr name="CircleProgressBar_currentProgress" format="float" />
-        <attr name="CircleProgressBar_maxProgress" format="float" />
-        <attr name="CircleProgressBar_defaultProgress" format="float" />
+        <attr name="CircleProgressBar_currentProgress" format="integer" />
+        <attr name="CircleProgressBar_maxProgress" format="integer" />
+        <attr name="CircleProgressBar_defaultProgress" format="integer" />
         <attr name="CircleProgressBar_borderWidth" format="dimension" />
-        <attr name="CircleProgressBar_text" format="string" />
         <attr name="CircleProgressBar_textColor" format="color" />
         <attr name="CircleProgressBar_textSize" format="dimension" />
     </declare-styleable>

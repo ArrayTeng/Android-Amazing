@@ -24,11 +24,10 @@ public class CircleProgressBarView extends View {
 
     private int outerColor = Color.GREEN;
     private int innerColor = Color.RED;
-    private float currentProgress;
-    private float maxProgress = 0F;
-    private float defaultProgress = 0F;
+    private int currentProgress;
+    private int maxProgress = 0;
+    private int defaultProgress = 0;
     private int borderWidth = 0;
-    private String text;
     private int textColor = Color.BLUE;
     private int textSize = 50;
 
@@ -51,11 +50,10 @@ public class CircleProgressBarView extends View {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressBarView);
         outerColor = array.getColor(R.styleable.CircleProgressBarView_CircleProgressBar_outerColor, outerColor);
         innerColor = array.getColor(R.styleable.CircleProgressBarView_CircleProgressBar_innerColor, innerColor);
-        currentProgress = array.getFloat(R.styleable.CircleProgressBarView_CircleProgressBar_currentProgress, defaultProgress);
-        maxProgress = array.getFloat(R.styleable.CircleProgressBarView_CircleProgressBar_maxProgress, maxProgress);
-        defaultProgress = array.getFloat(R.styleable.CircleProgressBarView_CircleProgressBar_defaultProgress, defaultProgress);
+        currentProgress = array.getInt(R.styleable.CircleProgressBarView_CircleProgressBar_currentProgress, defaultProgress);
+        maxProgress = array.getInt(R.styleable.CircleProgressBarView_CircleProgressBar_maxProgress, maxProgress);
+        defaultProgress = array.getInt(R.styleable.CircleProgressBarView_CircleProgressBar_defaultProgress, defaultProgress);
         borderWidth = (int) array.getDimension(R.styleable.CircleProgressBarView_CircleProgressBar_borderWidth, borderWidth);
-        text = array.getString(R.styleable.CircleProgressBarView_CircleProgressBar_text);
         textColor = array.getColor(R.styleable.CircleProgressBarView_CircleProgressBar_textColor, textColor);
         textSize = array.getDimensionPixelSize(R.styleable.CircleProgressBarView_CircleProgressBar_textSize, sp2px(textSize));
         array.recycle();
@@ -70,15 +68,14 @@ public class CircleProgressBarView extends View {
         outerPaint.setStyle(Paint.Style.STROKE);
         //初始化内圆画笔对象
         innerPaint = new Paint();
-        innerPaint.setColor(Color.RED);
+        innerPaint.setColor(innerColor);
         innerPaint.setAntiAlias(true);
         innerPaint.setStrokeWidth(borderWidth);
         innerPaint.setStyle(Paint.Style.STROKE);
-        innerPaint.setStrokeCap(Paint.Cap.ROUND);
         //初始化中间文本画笔对象
         textPaint = new TextPaint();
         textPaint.setTextSize(textSize);
-        textPaint.setColor(innerColor);
+        textPaint.setColor(textColor);
         //初始化中间文本 Rect 对象
         bounds = new Rect();
     }
@@ -86,21 +83,26 @@ public class CircleProgressBarView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //开始绘制外圆
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - borderWidth / 2, outerPaint);
-        //drawArc 的 left top right bottom 四个参数是用来描绘绘制的圆弧所在的椭圆
-        //开始的角度
-        int startAngle = 90;
-        //扫过的角度
-        int sweepAngle = (int) ((currentProgress / maxProgress) * 360);
-        canvas.drawArc(borderWidth / 2, borderWidth / 2, getWidth() - borderWidth / 2,
-                getHeight() - borderWidth / 2, startAngle,
-                sweepAngle, false, innerPaint);
 
-        textPaint.getTextBounds(text, 0, text.length(), bounds);
+        //扫过的角度
+        if (maxProgress == 0) {
+            return;
+        }
+        float sweepAngle = (float) currentProgress / maxProgress;
+        //开始绘制内圆
+        canvas.drawArc(borderWidth / 2, borderWidth / 2, getWidth() - borderWidth / 2,
+                getHeight() - borderWidth / 2, 0,
+                sweepAngle * 360, false, innerPaint);
+        //绘制中间文本
+        String content = (int) (sweepAngle * 100) + "%";
+
+        textPaint.getTextBounds(content, 0, content.length(), bounds);
         Paint.FontMetricsInt fontMetricsInt = textPaint.getFontMetricsInt();
         int dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
         int baseline = getHeight() / 2 + dy;
-        canvas.drawText(text, getWidth() / 2 - bounds.width() / 2, baseline, textPaint);
+        canvas.drawText(content, getWidth() / 2 - bounds.width() / 2, baseline, textPaint);
     }
 
     @Override
@@ -114,5 +116,14 @@ public class CircleProgressBarView extends View {
 
     private int sp2px(int sp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
+    }
+
+    public void setCurrentProgress(int currentProgress) {
+        this.currentProgress = currentProgress;
+        invalidate();
+    }
+
+    public void setMaxProgress(int maxProgress) {
+        this.maxProgress = maxProgress;
     }
 }
