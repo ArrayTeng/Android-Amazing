@@ -10,6 +10,7 @@ import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
+import com.example.tengfei.customview.activity.ShapeVariableActivity;
 
 /**
  * @author tengfei
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv03).setOnClickListener(this);
         findViewById(R.id.tv04).setOnClickListener(this);
         findViewById(R.id.tv05).setOnClickListener(this);
+        findViewById(R.id.tv06).setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv05:
                 skipActivity(CircleProgressBarActivity.class);
                 break;
+            case R.id.tv06:
+                skipActivity(ShapeVariableActivity.class);
             default:
                 break;
         }
