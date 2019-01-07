@@ -43,10 +43,10 @@
             style="@style/MyTextViewStyle"
             android:text="custom shape variable widget" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv07"-->
-            <!--style="@style/MyTextViewStyle"-->
-            <!--android:text="自定义属于自己的 TextView" />-->
+        <TextView
+            android:id="@+id/tv07"
+            style="@style/MyTextViewStyle"
+            android:text="Custom RatingBar" />
     </LinearLayout>
 
 

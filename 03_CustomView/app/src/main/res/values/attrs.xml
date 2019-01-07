@@ -39,4 +39,11 @@
         <attr name="CircleProgressBar_textColor" format="color" />
         <attr name="CircleProgressBar_textSize" format="dimension" />
     </declare-styleable>
+    <!--自定义星星进度条-->
+    <declare-styleable name="RatingBarView">
+        <attr name="RatingBarView_maxRating" format="integer" />
+        <attr name="RatingBarView_noFocus" format="reference" />
+        <attr name="RatingBarView_focus" format="reference" />
+        <attr name="RatingBarView_Padding" format="dimension"/>
+    </declare-styleable>
 </resources>

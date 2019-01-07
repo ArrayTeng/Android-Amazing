@@ -24,6 +24,7 @@
         <activity android:name=".activity.ColorTrackPagerActivity" />
         <activity android:name=".activity.CircleProgressBarActivity" />
         <activity android:name=".activity.ShapeVariableActivity" />
+        <activity android:name=".activity.RatingBarActivity" />
     </application>
 
 </manifest>
