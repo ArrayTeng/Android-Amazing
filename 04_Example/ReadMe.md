@@ -1,0 +1,1 @@
+1. 在开发聊天模块需求时定义聊天气泡可以参考 PorterShapeImageView
