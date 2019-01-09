@@ -47,6 +47,11 @@
             android:id="@+id/tv07"
             style="@style/MyTextViewStyle"
             android:text="Custom RatingBar" />
+
+        <TextView
+            android:id="@+id/tv08"
+            style="@style/MyTextViewStyle"
+            android:text="ValueAnimator" />
     </LinearLayout>
 
 

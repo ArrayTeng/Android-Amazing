@@ -12,7 +12,7 @@ import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
 import com.example.tengfei.customview.activity.ShapeVariableActivity;
-import com.example.tengfei.customview.customview.RatingBarView;
+import com.example.tengfei.customview.animator.ValueAnimatorActivity;
 
 /**
  * @author tengfei
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv05).setOnClickListener(this);
         findViewById(R.id.tv06).setOnClickListener(this);
         findViewById(R.id.tv07).setOnClickListener(this);
+        findViewById(R.id.tv08).setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv07:
                 skipActivity(RatingBarActivity.class);
+                break;
+            case R.id.tv08:
+                skipActivity(ValueAnimatorActivity.class);
                 break;
             default:
                 break;
