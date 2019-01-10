@@ -10,7 +10,6 @@ import com.example.tengfei.customview.R;
  */
 public class ValueAnimatorActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
