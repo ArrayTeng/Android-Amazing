@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <com.example.tengfei.customview.customview.RatingBarView
+    <com.example.tengfei.customview.view.RatingBarView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:RatingBarView_focus="@mipmap/star_selected"

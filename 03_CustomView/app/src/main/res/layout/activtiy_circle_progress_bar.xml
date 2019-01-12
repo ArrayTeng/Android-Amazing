@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.tengfei.customview.customview.CircleProgressBarView
+    <com.example.tengfei.customview.view.CircleProgressBarView
         android:id="@+id/circle_progress_view"
         android:layout_width="250dp"
         android:layout_height="250dp"

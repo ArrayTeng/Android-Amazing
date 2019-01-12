@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.tengfei.customview.R;
-import com.example.tengfei.customview.customview.CircleProgressBarView;
+import com.example.tengfei.customview.view.CircleProgressBarView;
 
 /**
  * @author tengfei

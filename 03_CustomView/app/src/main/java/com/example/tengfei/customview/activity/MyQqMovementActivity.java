@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.animation.DecelerateInterpolator;
 
 import com.example.tengfei.customview.R;
-import com.example.tengfei.customview.customview.QqStepView;
+import com.example.tengfei.customview.view.QqStepView;
 
 /**
  * @author tengfei

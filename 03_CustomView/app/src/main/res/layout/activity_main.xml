@@ -52,6 +52,11 @@
             android:id="@+id/tv08"
             style="@style/MyTextViewStyle"
             android:text="ValueAnimator" />
+
+        <TextView
+            android:id="@+id/tv09"
+            style="@style/MyTextViewStyle"
+            android:text="ListDataScreenActivity"/>
     </LinearLayout>
 
 

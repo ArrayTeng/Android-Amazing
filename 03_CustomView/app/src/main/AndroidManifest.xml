@@ -25,7 +25,8 @@
         <activity android:name=".activity.CircleProgressBarActivity" />
         <activity android:name=".activity.ShapeVariableActivity" />
         <activity android:name=".activity.RatingBarActivity" />
-        <activity android:name=".animator.ValueAnimatorActivity"></activity>
+        <activity android:name=".animator.ValueAnimatorActivity" />
+        <activity android:name=".activity.ListDataScreenActivity"></activity>
     </application>
 
 </manifest>

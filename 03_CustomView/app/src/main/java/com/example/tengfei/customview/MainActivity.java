@@ -8,6 +8,7 @@ import android.view.View;
 import com.example.tengfei.customview.activity.CircleProgressBarActivity;
 import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
+import com.example.tengfei.customview.activity.ListDataScreenActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv06).setOnClickListener(this);
         findViewById(R.id.tv07).setOnClickListener(this);
         findViewById(R.id.tv08).setOnClickListener(this);
+        findViewById(R.id.tv09).setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv08:
                 skipActivity(ValueAnimatorActivity.class);
+                break;
+            case R.id.tv09:
+                skipActivity(ListDataScreenActivity.class);
                 break;
             default:
                 break;

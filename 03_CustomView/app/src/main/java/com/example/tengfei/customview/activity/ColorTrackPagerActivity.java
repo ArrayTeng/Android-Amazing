@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.tengfei.customview.R;
-import com.example.tengfei.customview.customview.ColorTrackTextView;
+import com.example.tengfei.customview.view.ColorTrackTextView;
 import com.example.tengfei.customview.fragment.TrackTextViewFragment;
 
 import java.util.ArrayList;

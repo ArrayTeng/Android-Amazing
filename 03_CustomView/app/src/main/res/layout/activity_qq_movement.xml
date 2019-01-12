@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.tengfei.customview.customview.QqStepView
+    <com.example.tengfei.customview.view.QqStepView
         android:id="@+id/qqStepView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

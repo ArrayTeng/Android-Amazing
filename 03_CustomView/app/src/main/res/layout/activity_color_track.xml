@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.tengfei.customview.customview.ColorTrackTextView
+    <com.example.tengfei.customview.view.ColorTrackTextView
         android:id="@+id/color_track_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

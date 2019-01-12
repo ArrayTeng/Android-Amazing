@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.tengfei.customview.customview.ShapeView
+    <com.example.tengfei.customview.view.ShapeView
         android:id="@+id/shape_view"
         android:layout_width="50dp"
         android:layout_height="50dp"

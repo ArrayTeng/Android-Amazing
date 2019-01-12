@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.tengfei.customview.R;
-import com.example.tengfei.customview.customview.ShapeView;
+import com.example.tengfei.customview.view.ShapeView;
 
 /**
  * @author tengfei

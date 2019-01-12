@@ -1,4 +1,4 @@
-package com.example.tengfei.customview.customview;
+package com.example.tengfei.customview.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
