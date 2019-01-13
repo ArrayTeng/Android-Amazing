@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 /**
- * @author tengfei
+ * @author tengfei 多条目筛选功能控件
  */
 public class ListDataScreenView extends LinearLayout {
 
