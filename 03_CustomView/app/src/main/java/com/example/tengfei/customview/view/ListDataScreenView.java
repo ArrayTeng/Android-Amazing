@@ -51,7 +51,7 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
      * 当前打开的位置
      */
     private int mCurrentPosition = -1;
-    private long DURATION_TIME = 350;
+    private long durationTime = 350;
     /**
      * 动画是否在执行
      */
@@ -75,11 +75,14 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        mMenuContainerHeight = (int) (height * 75F / 100);
-        ViewGroup.LayoutParams contentParams = mMenuContainerView.getLayoutParams();
-        contentParams.height = mMenuContainerHeight;
-        mMenuContainerView.setLayoutParams(contentParams);
-        mMenuContainerView.setTranslationY(-mMenuContainerHeight);
+        if (mMenuContainerHeight == 0 && height > 0) {
+            mMenuContainerHeight = (int) (height * 75F / 100);
+            ViewGroup.LayoutParams contentParams = mMenuContainerView.getLayoutParams();
+            contentParams.height = mMenuContainerHeight;
+            mMenuContainerView.setLayoutParams(contentParams);
+            mMenuContainerView.setTranslationY(-mMenuContainerHeight);
+        }
+
     }
 
     private void initLayout() {
@@ -139,22 +142,34 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
                 if (mCurrentPosition == -1) {
                     openMenu(position);
                 } else {
-                    closeMenu();
+                    if (mCurrentPosition == position) {
+                        closeMenu();
+                    } else {
+                        View mPreviousContainView = mMenuContainerView.getChildAt(mCurrentPosition);
+                        mPreviousContainView.setVisibility(GONE);
+                        mAdapter.closeMenu(mMenuTabView.getChildAt(mCurrentPosition));
+                        mCurrentPosition = position;
+                        View mCurrentMenuView = mMenuContainerView.getChildAt(mCurrentPosition);
+                        mCurrentMenuView.setVisibility(VISIBLE);
+                        mAdapter.openMenu(mMenuTabView.getChildAt(mCurrentPosition));
+                    }
                 }
             }
         });
     }
 
     private void closeMenu() {
+        if (mAnimatorExecute) {
+            return;
+        }
         //关闭动画，位移动画，透明度动画
         //初始化平移动画
         ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(mMenuContainerView, "translationY", 0, -mMenuContainerHeight);
-        translationAnimator.setDuration(DURATION_TIME);
+        translationAnimator.setDuration(durationTime);
         translationAnimator.start();
         //初始化透明度动画
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 1F, 0F);
-        alphaAnimator.setDuration(DURATION_TIME);
-        alphaAnimator.start();
+        alphaAnimator.setDuration(durationTime);
         alphaAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -162,25 +177,48 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
                 contentMenuView.setVisibility(GONE);
                 mCurrentPosition = -1;
                 mShadowView.setVisibility(GONE);
+                mAnimatorExecute = false;
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mAnimatorExecute = true;
+                mAdapter.closeMenu(mMenuTabView.getChildAt(mCurrentPosition));
             }
         });
+        alphaAnimator.start();
 
     }
 
     private void openMenu(int position) {
+        if (mAnimatorExecute) {
+            return;
+        }
         mShadowView.setVisibility(VISIBLE);
         //打开动画，位移动画，透明度动画
         //初始化平移动画
         View contentMenuView = mMenuContainerView.getChildAt(position);
         contentMenuView.setVisibility(VISIBLE);
         ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(mMenuContainerView, "translationY", -mMenuContainerHeight, 0);
-        translationAnimator.setDuration(DURATION_TIME);
+        translationAnimator.setDuration(durationTime);
         translationAnimator.start();
         //初始化透明度动画
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 0F, 1F);
-        alphaAnimator.setDuration(DURATION_TIME);
-        alphaAnimator.start();
+        alphaAnimator.setDuration(durationTime);
+        alphaAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mAnimatorExecute = false;
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mAnimatorExecute = true;
+                mAdapter.openMenu(mMenuTabView.getChildAt(mCurrentPosition));
+            }
+        });
         mCurrentPosition = position;
+        alphaAnimator.start();
     }
 
     @Override

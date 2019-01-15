@@ -1,5 +1,6 @@
 package com.example.tengfei.customview.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,18 @@ public class ListScreenMenuAdapter extends BaseMenuAdapter {
         TextView contentView = (TextView) LayoutInflater.from(parentView.getContext()).inflate(R.layout.item_list_screen_content, parentView, false);
         contentView.setText(items[position]);
         return contentView;
+    }
+
+    @Override
+    public void closeMenu(View view) {
+        TextView tabView = (TextView) view;
+        tabView.setTextColor(Color.BLACK);
+    }
+
+    @Override
+    public void openMenu(View view) {
+        TextView tabView = (TextView) view;
+        tabView.setTextColor(Color.BLUE);
     }
 
 }
