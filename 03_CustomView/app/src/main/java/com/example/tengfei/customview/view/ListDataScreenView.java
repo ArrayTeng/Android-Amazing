@@ -1,5 +1,7 @@
 package com.example.tengfei.customview.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
@@ -115,6 +117,7 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
         if (adapter == null) {
             throw new NullPointerException("BaseMenuAdapter can't null");
         }
+        this.mAdapter = adapter;
         for (int i = 0; i < adapter.getTabCount(); i++) {
             //获取菜单 TabView
             View tabView = adapter.getTabView(i, mMenuTabView);
@@ -152,17 +155,28 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 1F, 0F);
         alphaAnimator.setDuration(DURATION_TIME);
         alphaAnimator.start();
-        mCurrentPosition = -1;
+        alphaAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                View contentMenuView = mMenuContainerView.getChildAt(mCurrentPosition);
+                contentMenuView.setVisibility(GONE);
+                mCurrentPosition = -1;
+                mShadowView.setVisibility(GONE);
+            }
+        });
+
     }
 
     private void openMenu(int position) {
+        mShadowView.setVisibility(VISIBLE);
         //打开动画，位移动画，透明度动画
         //初始化平移动画
+        View contentMenuView = mMenuContainerView.getChildAt(position);
+        contentMenuView.setVisibility(VISIBLE);
         ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(mMenuContainerView, "translationY", -mMenuContainerHeight, 0);
         translationAnimator.setDuration(DURATION_TIME);
         translationAnimator.start();
         //初始化透明度动画
-        mShadowView.setVisibility(VISIBLE);
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 0F, 1F);
         alphaAnimator.setDuration(DURATION_TIME);
         alphaAnimator.start();
