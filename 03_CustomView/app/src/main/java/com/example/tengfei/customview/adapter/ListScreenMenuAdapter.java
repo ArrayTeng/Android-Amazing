@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.example.tengfei.customview.R;
 
+/**
+ * @author tengfei
+ */
 public class ListScreenMenuAdapter extends BaseMenuAdapter {
 
     private String[] items = {"类型", "品牌", "价格", "更多"};

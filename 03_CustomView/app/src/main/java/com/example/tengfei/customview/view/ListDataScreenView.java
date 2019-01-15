@@ -1,5 +1,6 @@
 package com.example.tengfei.customview.view;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -24,6 +25,13 @@ public class ListDataScreenView extends LinearLayout {
 
     private int mContentHeight;
 
+    private int mCurrentPosition;
+
+    private static final int DURATION_TIME = 300;
+
+
+    private int mStartTranslationY;
+
     public ListDataScreenView(Context context) {
         this(context, null);
     }
@@ -42,7 +50,7 @@ public class ListDataScreenView extends LinearLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        mContentHeight = (int) (height * (75F / 100));
+        mContentHeight = (int) (height * 75F / 100);
         ViewGroup.LayoutParams contentParams = mContentView.getLayoutParams();
         contentParams.height = mContentHeight;
         mContentView.setLayoutParams(contentParams);
@@ -89,10 +97,52 @@ public class ListDataScreenView extends LinearLayout {
             mTabLinearLayout.addView(tabView);
             LinearLayout.LayoutParams tabViewParams = (LayoutParams) tabView.getLayoutParams();
             tabViewParams.weight = 1;
+            setTabViewClick(tabView, i);
             //get menu content view
             View contentMenuView = adapter.getMenuContentView(i, mMenuMiddleLayout);
             contentMenuView.setVisibility(GONE);
             mMenuMiddleLayout.addView(contentMenuView);
         }
+    }
+
+    private void setTabViewClick(final View tabView, final int position) {
+        tabView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentPosition == -1) {
+                    openMenu(tabView, position);
+                } else {
+                    closeMenu(tabView, position);
+                }
+            }
+        });
+    }
+
+    private void closeMenu(View tabView, int position) {
+        //关闭动画，位移动画，透明度动画
+        //初始化平移动画
+        ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(mContentView, "translationY", -mContentHeight, 0);
+        translationAnimator.setDuration(DURATION_TIME);
+        translationAnimator.start();
+        //初始化透明度动画
+        mShadowView.setVisibility(VISIBLE);
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 0F, 1F);
+        alphaAnimator.setDuration(DURATION_TIME);
+        alphaAnimator.start();
+        mCurrentPosition = -1;
+    }
+
+    private void openMenu(View tabView, int position) {
+        //打开动画，位移动画，透明度动画
+        //初始化平移动画
+        ObjectAnimator translationAnimator = ObjectAnimator.ofFloat(mContentView, "translationY", 0, -mContentHeight);
+        translationAnimator.setDuration(DURATION_TIME);
+        translationAnimator.start();
+        //初始化透明度动画
+        mShadowView.setVisibility(VISIBLE);
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(mShadowView, "alpha", 1F, 0F);
+        alphaAnimator.setDuration(DURATION_TIME);
+        alphaAnimator.start();
+        mCurrentPosition = position;
     }
 }
