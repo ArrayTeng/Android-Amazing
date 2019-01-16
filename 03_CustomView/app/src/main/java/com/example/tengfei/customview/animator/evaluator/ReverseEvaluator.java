@@ -1,10 +1,10 @@
-package com.example.tengfei.customview.animator;
+package com.example.tengfei.customview.animator.evaluator;
 
 import android.animation.TypeEvaluator;
 
 /**
  * @author tengfei
- * @description 自定义 Evaluator 实现倒序输出
+ * description 自定义 Evaluator 实现倒序输出
  */
 public class ReverseEvaluator implements TypeEvaluator<Integer> {
 

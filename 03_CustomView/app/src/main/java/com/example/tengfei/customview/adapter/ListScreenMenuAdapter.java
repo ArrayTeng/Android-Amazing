@@ -1,10 +1,12 @@
 package com.example.tengfei.customview.adapter;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tengfei.customview.R;
 
@@ -12,6 +14,8 @@ import com.example.tengfei.customview.R;
  * @author tengfei
  */
 public class ListScreenMenuAdapter extends BaseMenuAdapter {
+
+    private static final String TAG = ListScreenMenuAdapter.class.getName();
 
     private String[] items = {"类型", "品牌", "价格", "更多"};
 
@@ -28,8 +32,14 @@ public class ListScreenMenuAdapter extends BaseMenuAdapter {
     }
 
     @Override
-    public View getMenuContentView(int position, ViewGroup parentView) {
+    public View getMenuContentView(final int position, ViewGroup parentView) {
         TextView contentView = (TextView) LayoutInflater.from(parentView.getContext()).inflate(R.layout.item_list_screen_content, parentView, false);
+        contentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, items[position]);
+            }
+        });
         contentView.setText(items[position]);
         return contentView;
     }

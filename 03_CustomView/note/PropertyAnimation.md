@@ -35,3 +35,5 @@
  3. Evaluator Evaluator可以看作是一个转换器用来把小数进度转换成对应的数值位置，只有在定义动画时的数值类型与 Evaluator 的返回的值类型一样，才能使用这个 Evaluator，自定义 Evaluator 只需要实现 TypeEvaluator 接口即可
 
  ofInt(0,400) -> 插值器（返回当前数值进度）-> Evaluator（根据数值进度计算当前值）-> 监听器返回
+
+ 4. 插值器与 Evaluator 的区别：插值器只能改变动画进展的快慢，而 evaluator 能改变动画返回的值

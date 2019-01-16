@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -114,8 +115,12 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
         mMenuContainerView = new FrameLayout(mContext);
         mMenuContainerView.setBackgroundColor(Color.WHITE);
         mMenuMiddleView.addView(mMenuContainerView);
+
     }
 
+    /**
+     * 适配器设计模式，所有的主要数据都是由 BaseMenuAdapter 维护
+     */
     public void setAdapter(BaseMenuAdapter adapter) {
         if (adapter == null) {
             throw new NullPointerException("BaseMenuAdapter can't null");

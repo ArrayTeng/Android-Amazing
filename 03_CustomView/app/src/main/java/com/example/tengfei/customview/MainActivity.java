@@ -11,6 +11,7 @@ import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
 import com.example.tengfei.customview.activity.ListDataScreenActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
+import com.example.tengfei.customview.activity.ParabolicAnimationActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
 import com.example.tengfei.customview.activity.ShapeVariableActivity;
 import com.example.tengfei.customview.animator.ValueAnimatorActivity;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv07).setOnClickListener(this);
         findViewById(R.id.tv08).setOnClickListener(this);
         findViewById(R.id.tv09).setOnClickListener(this);
+        findViewById(R.id.tv10).setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv09:
                 skipActivity(ListDataScreenActivity.class);
                 break;
+            case R.id.tv10:
+                skipActivity(ParabolicAnimationActivity.class);
             default:
                 break;
         }
