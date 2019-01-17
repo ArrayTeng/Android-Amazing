@@ -2,7 +2,8 @@
 
 ##### ValueAnimator
 
-1. ValueAnimator 只负责对指定值区间进行动画操作,我们需要对运算过程进程监听以便于对控件执行动画操作,在执行动画操作中必须记得在 Activity 被销毁的时候执行取消动画的操作，否则会出现内存泄露。
+1. ValueAnimator 只负责对指定值区间进行动画操作,我们需要对运算过程进程监听以便于对控件执行动画操作,在执行动画操作中必须记得在 Activity 被销毁的时候执行取消动画的操作，否则会出现内存泄露，
+但 ValueAnimator 有一个缺点，只能对动画的数值进行操作。
 2. 自定义插值器，插值器是用来控制动画的区间值是如何被计算出来的，在属性动画中常见的插值器有 LinearInterpolator(匀速返回区间的值)、DecelerateInterpolator(开始变化快，后期变化慢),自定义插值器需要实现 Interpolator 或者
  TimeInterpolator 接口，而 Interpolator 接口继承自 TimeInterpolator，所以只需要继承 TimeInterpolator 就可以了。
  ```

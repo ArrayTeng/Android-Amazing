@@ -37,6 +37,7 @@ public class ListScreenMenuAdapter extends BaseMenuAdapter {
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeMenu();
                 Log.i(TAG, items[position]);
             }
         });

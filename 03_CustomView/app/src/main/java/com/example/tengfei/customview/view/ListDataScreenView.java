@@ -6,13 +6,13 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.tengfei.customview.adapter.BaseMenuAdapter;
+import com.example.tengfei.customview.observer.AbstractMenuObserver;
 
 /**
  * @author tengfei 多条目筛选功能控件
@@ -119,13 +119,32 @@ public class ListDataScreenView extends LinearLayout implements View.OnClickList
     }
 
     /**
+     * 定义具体的观察者
+     */
+    private class MenuAdapterObserver extends AbstractMenuObserver {
+
+        @Override
+        public void closeMenu() {
+            ListDataScreenView.this.closeMenu();
+        }
+    }
+
+    private MenuAdapterObserver menuAdapterObserver;
+
+    /**
      * 适配器设计模式，所有的主要数据都是由 BaseMenuAdapter 维护
      */
     public void setAdapter(BaseMenuAdapter adapter) {
+        if (adapter != null && menuAdapterObserver != null) {
+            adapter.unregisterDataSetObserver(menuAdapterObserver);
+        }
         if (adapter == null) {
             throw new NullPointerException("BaseMenuAdapter can't null");
         }
+
         this.mAdapter = adapter;
+        menuAdapterObserver = new MenuAdapterObserver();
+        adapter.registerDataSetObserver(menuAdapterObserver);
         for (int i = 0; i < adapter.getTabCount(); i++) {
             //获取菜单 TabView
             View tabView = adapter.getTabView(i, mMenuTabView);

@@ -14,7 +14,7 @@ import com.example.tengfei.customview.activity.MyTextViewActivity;
 import com.example.tengfei.customview.activity.ParabolicAnimationActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
 import com.example.tengfei.customview.activity.ShapeVariableActivity;
-import com.example.tengfei.customview.animator.ValueAnimatorActivity;
+import com.example.tengfei.customview.activity.ValueAnimatorActivity;
 
 /**
  * @author tengfei

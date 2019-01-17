@@ -1,4 +1,4 @@
-package com.example.tengfei.customview.animator;
+package com.example.tengfei.customview.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

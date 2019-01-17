@@ -1,4 +1,4 @@
-package com.example.tengfei.customview.animator;
+package com.example.tengfei.customview.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.tengfei.customview.R;
+import com.example.tengfei.customview.view.BounceLoadingView;
 
 /**
  * @author tengfei
