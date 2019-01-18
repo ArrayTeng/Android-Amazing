@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv10:
                 skipActivity(ParabolicAnimationActivity.class);
+                break;
             case R.id.tv11:
                 skipActivity(BouquetLoadingActivity.class);
                 break;
