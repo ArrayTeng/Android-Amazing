@@ -10,7 +10,7 @@ import android.view.View;
 
 /**
  * @author tengfei
- * @description custom shape variable widget
+ * description custom shape variable widget
  */
 public class ShapeView extends View {
 

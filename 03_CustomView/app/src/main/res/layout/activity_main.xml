@@ -58,10 +58,16 @@
             android:id="@+id/tv09"
             style="@style/MyTextViewStyle"
             android:text="ListDataScreenActivity" />
+
         <TextView
             android:id="@+id/tv10"
             style="@style/MyTextViewStyle"
             android:text="ParabolicAnimationActivity" />
+
+        <TextView
+            android:id="@+id/tv11"
+            style="@style/MyTextViewStyle"
+            android:text="BouquetLoadingActivity" />
     </LinearLayout>
 
 

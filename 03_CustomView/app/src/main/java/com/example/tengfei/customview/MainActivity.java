@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.tengfei.customview.activity.BouquetLoadingActivity;
 import com.example.tengfei.customview.activity.CircleProgressBarActivity;
 import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv08).setOnClickListener(this);
         findViewById(R.id.tv09).setOnClickListener(this);
         findViewById(R.id.tv10).setOnClickListener(this);
+        findViewById(R.id.tv11).setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv10:
                 skipActivity(ParabolicAnimationActivity.class);
+            case R.id.tv11:
+                skipActivity(BouquetLoadingActivity.class);
+                break;
             default:
                 break;
         }

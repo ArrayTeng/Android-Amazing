@@ -16,6 +16,8 @@ public class CircleView extends View {
 
     private Paint mPaint;
 
+    private int mColor;
+
     public CircleView(Context context) {
         this(context, null);
     }
@@ -40,7 +42,12 @@ public class CircleView extends View {
     }
 
     public void exchangeColor(int color) {
+        mColor = color;
         mPaint.setColor(color);
         invalidate();
+    }
+
+    public int getColor() {
+        return mColor;
     }
 }
