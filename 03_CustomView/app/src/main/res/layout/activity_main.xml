@@ -68,6 +68,10 @@
             android:id="@+id/tv11"
             style="@style/MyTextViewStyle"
             android:text="BouquetLoadingActivity" />
+        <TextView
+            android:id="@+id/tv12"
+            style="@style/MyTextViewStyle"
+            android:text="BouquetLoadingActivity" />
     </LinearLayout>
 
 
