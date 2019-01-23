@@ -44,6 +44,11 @@
         <attr name="RatingBarView_maxRating" format="integer" />
         <attr name="RatingBarView_noFocus" format="reference" />
         <attr name="RatingBarView_focus" format="reference" />
-        <attr name="RatingBarView_Padding" format="dimension"/>
+        <attr name="RatingBarView_Padding" format="dimension" />
+    </declare-styleable>
+    <!--自定义字母索引列表-->
+    <declare-styleable name="LetterSideBar">
+        <attr name="LetterSideBar_textColor" format="color" />
+        <attr name="LetterSideBar_textSize" format="dimension" />
     </declare-styleable>
 </resources>

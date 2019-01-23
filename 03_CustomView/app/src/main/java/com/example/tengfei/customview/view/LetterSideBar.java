@@ -1,10 +1,14 @@
 package com.example.tengfei.customview.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.example.tengfei.customview.R;
 
 /**
  * @author tengfei
@@ -16,8 +20,8 @@ public class LetterSideBar extends View {
 
     private Paint mPaint;
 
-    private int mColor;
-    private int mTextSize;
+    private int mColor = Color.RED;
+    private int mTextSize = 20;
 
     public LetterSideBar(Context context) {
         this(context, null);
@@ -29,15 +33,21 @@ public class LetterSideBar extends View {
 
     public LetterSideBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.LetterSideBar);
+        mColor = typedArray.getColor(R.styleable.LetterSideBar_LetterSideBar_textColor,mColor);
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.LetterSideBar_LetterSideBar_textSize,sp2px(mTextSize));
+        typedArray.recycle();
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         //动态调整
         mPaint.setColor(mColor);
-        mPaint.setTextSize(sp2px(20));
+        mPaint.setTextSize(mTextSize);
     }
 
-    private float sp2px(float sp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
+    private int sp2px(int sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
 
     @Override
