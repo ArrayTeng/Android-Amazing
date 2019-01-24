@@ -9,6 +9,7 @@ import com.example.tengfei.customview.activity.BouquetLoadingActivity;
 import com.example.tengfei.customview.activity.CircleProgressBarActivity;
 import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
+import com.example.tengfei.customview.activity.LetterSideBarActivity;
 import com.example.tengfei.customview.activity.ListDataScreenActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
 import com.example.tengfei.customview.activity.MyTextViewActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv09).setOnClickListener(this);
         findViewById(R.id.tv10).setOnClickListener(this);
         findViewById(R.id.tv11).setOnClickListener(this);
+        findViewById(R.id.tv12).setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv11:
                 skipActivity(BouquetLoadingActivity.class);
+                break;
+            case R.id.tv12:
+                skipActivity(LetterSideBarActivity.class);
                 break;
             default:
                 break;

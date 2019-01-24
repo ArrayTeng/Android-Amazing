@@ -71,11 +71,11 @@
         <TextView
             android:id="@+id/tv12"
             style="@style/MyTextViewStyle"
-            android:text="BouquetLoadingActivity" />
+            android:text="自定义字母索引列表" />
         <TextView
             android:id="@+id/tv13"
             style="@style/MyTextViewStyle"
-            android:text="BouquetLoadingActivity" />
+            android:text="" />
     </LinearLayout>
 
 

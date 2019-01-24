@@ -26,9 +26,10 @@
         <activity android:name=".activity.ShapeVariableActivity" />
         <activity android:name=".activity.RatingBarActivity" />
         <activity android:name=".activity.ValueAnimatorActivity" />
-        <activity android:name=".activity.ListDataScreenActivity"></activity>
+        <activity android:name=".activity.ListDataScreenActivity" />
         <activity android:name=".activity.ParabolicAnimationActivity" />
         <activity android:name=".activity.BouquetLoadingActivity" />
+        <activity android:name=".activity.LetterSideBarActivity"></activity>
     </application>
 
 </manifest>
