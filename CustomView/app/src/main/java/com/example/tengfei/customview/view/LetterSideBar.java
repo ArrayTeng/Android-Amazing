@@ -1,5 +1,6 @@
 package com.example.tengfei.customview.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.tengfei.customview.R;
@@ -19,15 +21,25 @@ import com.example.tengfei.customview.R;
  */
 public class LetterSideBar extends View {
 
+    private static final String TAG = LetterSideBar.class.getName();
 
     public String[] mLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z", "#"};
 
-    private Paint mPaint;
+    private Paint normalPaint;
+    private Paint heightLightPaint;
 
     private int mColor = Color.RED;
     private int mTextSize = 15;
+
+    /**
+     * 当前触摸位置的字母
+     */
+    private String mCurrentTouchLetter;
+
+    private String mLastTouchLetter;
+    private int itemHeight;
 
     public LetterSideBar(Context context) {
         this(context, null);
@@ -45,11 +57,17 @@ public class LetterSideBar extends View {
         mTextSize = typedArray.getDimensionPixelSize(R.styleable.LetterSideBar_LetterSideBar_textSize, sp2px(mTextSize));
         typedArray.recycle();
 
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+        //初始化高亮的画笔
+        heightLightPaint = new Paint();
+        heightLightPaint.setAntiAlias(true);
+        heightLightPaint.setColor(Color.BLUE);
+        heightLightPaint.setTextSize(mTextSize);
+
+        normalPaint = new Paint();
+        normalPaint.setAntiAlias(true);
         //动态调整
-        mPaint.setColor(mColor);
-        mPaint.setTextSize(mTextSize);
+        normalPaint.setColor(mColor);
+        normalPaint.setTextSize(mTextSize);
     }
 
     private int sp2px(int sp) {
@@ -60,7 +78,7 @@ public class LetterSideBar extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //返回测量的文本的宽度
-        int textWidth = (int) mPaint.measureText("A");
+        int textWidth = (int) normalPaint.measureText("A");
         int width = getPaddingLeft() + getPaddingRight() + textWidth;
         int height = MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(width, height);
@@ -68,17 +86,68 @@ public class LetterSideBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int itemHeight = (getHeight() - getPaddingTop() - getPaddingBottom()) / mLetters.length;
+        itemHeight = (getHeight() - getPaddingTop() - getPaddingBottom()) / mLetters.length;
 
         for (int i = 0; i < mLetters.length; i++) {
-            int x = (int) (getWidth() / 2 - mPaint.measureText(mLetters[i]) / 2);
+            int x = (int) (getWidth() / 2 - normalPaint.measureText(mLetters[i]) / 2);
             int letterY = i * itemHeight + itemHeight / 2 + getPaddingTop();
             // y 的位置为字母基线的位置
-            Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+            Paint.FontMetrics fontMetrics = normalPaint.getFontMetrics();
             int dy = (int) ((fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom);
             int baseLine = letterY + dy;
-            canvas.drawText(mLetters[i], x, baseLine, mPaint);
+
+            if (mLetters[i].equals(mCurrentTouchLetter)) {
+                canvas.drawText(mLetters[i], x, baseLine, heightLightPaint);
+            } else {
+                canvas.drawText(mLetters[i], x, baseLine, normalPaint);
+            }
+
         }
 
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float mCurrentY = event.getY();
+                int mCurrentTouchPosition = (int) (mCurrentY / itemHeight);
+                if (mCurrentTouchPosition < 0) {
+                    mCurrentTouchPosition = 0;
+                }
+                if (mCurrentTouchPosition > mLetters.length - 1) {
+                    mCurrentTouchPosition = mLetters.length - 1;
+                }
+                mCurrentTouchLetter = mLetters[mCurrentTouchPosition];
+                if (currentTouchLetterListener != null) {
+                    currentTouchLetterListener.currentTouchLetter(mCurrentTouchLetter);
+                }
+                if (!mCurrentTouchLetter.equals(mLastTouchLetter)){
+                    mLastTouchLetter  =mCurrentTouchLetter;
+                    invalidate();
+                }
+
+                break;
+            default:
+                break;
+
+        }
+        return true;
+    }
+
+    private CurrentTouchLetterListener currentTouchLetterListener;
+
+    public void setCurrentTouchLetterListener(CurrentTouchLetterListener currentTouchLetterListener) {
+        this.currentTouchLetterListener = currentTouchLetterListener;
+    }
+
+    public interface CurrentTouchLetterListener {
+        /**
+         * 回调当前触摸的字母
+         * @param currentTouchLetter 当前触摸的字母
+         */
+        void currentTouchLetter(CharSequence currentTouchLetter);
     }
 }
