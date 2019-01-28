@@ -75,7 +75,7 @@
         <TextView
             android:id="@+id/tv13"
             style="@style/MyTextViewStyle"
-            android:text="" />
+            android:text="手势检测与缩放手势检测" />
     </LinearLayout>
 
 

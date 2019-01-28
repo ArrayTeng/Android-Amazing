@@ -9,6 +9,7 @@ import com.example.tengfei.customview.activity.BouquetLoadingActivity;
 import com.example.tengfei.customview.activity.CircleProgressBarActivity;
 import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
+import com.example.tengfei.customview.activity.GestureDetectorActivity;
 import com.example.tengfei.customview.activity.LetterSideBarActivity;
 import com.example.tengfei.customview.activity.ListDataScreenActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv10).setOnClickListener(this);
         findViewById(R.id.tv11).setOnClickListener(this);
         findViewById(R.id.tv12).setOnClickListener(this);
+        findViewById(R.id.tv13).setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv12:
                 skipActivity(LetterSideBarActivity.class);
+                break;
+            case R.id.tv13:
+                skipActivity(GestureDetectorActivity.class);
                 break;
             default:
                 break;
