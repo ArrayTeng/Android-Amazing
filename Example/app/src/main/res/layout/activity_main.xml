@@ -5,14 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="com.example.tengfei.MainActivity">
 
-    <TextView
-        android:id="@+id/tv01"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_recycler"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Chat list"
-        android:textAllCaps="false"
-        android:gravity="center"/>
-
+        android:layout_height="match_parent" />
 </LinearLayout>
