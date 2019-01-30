@@ -9,7 +9,6 @@ import com.example.tengfei.customview.activity.BouquetLoadingActivity;
 import com.example.tengfei.customview.activity.CircleProgressBarActivity;
 import com.example.tengfei.customview.activity.ColorTrackPagerActivity;
 import com.example.tengfei.customview.activity.ColorTrackTextViewActivity;
-import com.example.tengfei.customview.activity.GestureDetectorActivity;
 import com.example.tengfei.customview.activity.LetterSideBarActivity;
 import com.example.tengfei.customview.activity.ListDataScreenActivity;
 import com.example.tengfei.customview.activity.MyQqMovementActivity;
@@ -18,6 +17,7 @@ import com.example.tengfei.customview.activity.ParabolicAnimationActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
 import com.example.tengfei.customview.activity.ShapeVariableActivity;
 import com.example.tengfei.customview.activity.ValueAnimatorActivity;
+
 
 /**
  * @author tengfei
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv11).setOnClickListener(this);
         findViewById(R.id.tv12).setOnClickListener(this);
         findViewById(R.id.tv13).setOnClickListener(this);
+
     }
 
     @Override
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 skipActivity(LetterSideBarActivity.class);
                 break;
             case R.id.tv13:
-                skipActivity(GestureDetectorActivity.class);
                 break;
             default:
                 break;
