@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         initContentView();
-        initOperation();
+        initOperation(savedInstanceState);
     }
 
     /**
@@ -48,7 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isShowTitleBar()) {
             initTitleBar();
             contentLayoutParams.addRule(RelativeLayout.BELOW, R.id.title_bar);
-            mBaseLayout.addView(mTitleBar);
+            //初始化 TitleBar 布局参数
+            RelativeLayout.LayoutParams titleBarLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            mBaseLayout.addView(mTitleBar, titleBarLayoutParams);
         }
         mContentLayout = new FrameLayout(this);
         mContentLayout.setId(R.id.content_layout);
@@ -77,8 +80,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * initialization operation
+     *
+     * @param savedInstanceState savedInstanceState
      */
-    public abstract void initOperation();
+    public abstract void initOperation(@Nullable Bundle savedInstanceState);
 
     /**
      * 设置是否显示标题栏

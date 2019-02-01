@@ -1,6 +1,9 @@
 package com.example.tengfei.activity;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.example.tengfei.BaseActivity;
 import com.example.tengfei.R;
 
@@ -18,7 +21,8 @@ public class CityIndexListActivity extends BaseActivity {
     }
 
     @Override
-    public void initOperation() {
+    public void initOperation(@Nullable Bundle savedInstanceState) {
 
     }
+
 }
