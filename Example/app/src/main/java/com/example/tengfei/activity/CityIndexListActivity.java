@@ -1,8 +1,7 @@
 package com.example.tengfei.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
+import com.example.tengfei.BaseActivity;
 import com.example.tengfei.R;
 
 /**
@@ -11,11 +10,15 @@ import com.example.tengfei.R;
  * email tengfeigo@outlook.com
  * description 城市索引列表
  */
-public class CityIndexListActivity extends AppCompatActivity {
+public class CityIndexListActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_city_index_list);
+    public int setContentLayoutView() {
+        return R.layout.activity_city_index_list;
+    }
+
+    @Override
+    public void initOperation() {
+
     }
 }
