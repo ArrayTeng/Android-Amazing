@@ -10,7 +10,7 @@ import com.example.tengfei.R;
  * @author tengfei
  * date 2019/2/1 1:58 PM
  * email tengfeigo@outlook.com
- * description 自定义项目通用TitleBar
+ * description 自定义项目通用TitleBar 哪些功能？
  */
 public class TitleBar extends LinearLayout {
 
