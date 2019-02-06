@@ -2,7 +2,7 @@ package com.example.tengfei;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * @author tengfei
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.main_recycler)
     RecyclerView mRecyclerView;
@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private List<MainListEntity> listEntities = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    public int setContentLayoutView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initOperation(@Nullable Bundle savedInstanceState) {
         initData();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new MainRecyclerAdapter());
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-     class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainRecyclerHolder> {
+    class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainRecyclerHolder> {
 
         @NonNull
         @Override

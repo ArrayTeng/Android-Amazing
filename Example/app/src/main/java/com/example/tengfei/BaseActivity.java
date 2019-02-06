@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.example.tengfei.view.TitleBar;
 
+import butterknife.ButterKnife;
+
 /**
  * @author tengfei
  * date 2019/2/1 11:11 AM
@@ -60,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mBaseLayout.addView(mContentLayout, contentLayoutParams);
 
         setContentView(mBaseLayout, rootViewParams);
+        ButterKnife.bind(this);
     }
 
     /**

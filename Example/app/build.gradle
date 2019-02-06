@@ -30,4 +30,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.4.0'
     //noinspection GradleDependency
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.13.0'
+
 }
