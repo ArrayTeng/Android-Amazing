@@ -7,6 +7,14 @@ import android.support.annotation.Nullable;
 import com.example.tengfei.BaseActivity;
 import com.example.tengfei.R;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * @author tengfei
  * date 2019/1/29 5:48 PM
