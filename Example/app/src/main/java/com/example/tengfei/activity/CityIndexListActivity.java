@@ -3,11 +3,10 @@ package com.example.tengfei.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import com.example.tengfei.BaseActivity;
 import com.example.tengfei.R;
 
-import okhttp3.OkHttpClient;
+
 
 /**
  * @author tengfei
@@ -24,9 +23,8 @@ public class CityIndexListActivity extends BaseActivity {
 
     @Override
     public void initOperation(@Nullable Bundle savedInstanceState) {
-        OkHttpClient okHttpClient = new OkHttpClient();
 
-        
+
     }
 
 }
