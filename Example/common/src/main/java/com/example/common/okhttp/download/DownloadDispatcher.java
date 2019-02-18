@@ -29,12 +29,17 @@ public class DownloadDispatcher {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                downloadCallBack.onFailure(call,e);
+                downloadCallBack.onFailure(call, e);
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                long contentLength = response.body().contentLength();
+                if (contentLength <= -1) {
+                    return;
+                }
 
+                DownloadTask downloadTask = new DownloadTask(url,contentLength );
             }
         });
     }
