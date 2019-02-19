@@ -1,5 +1,9 @@
 package com.example.common.okhttp.download;
 
+import android.util.Log;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -15,8 +19,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class DownloadTask {
     private String mUrl;
-    private long mContentLenght;
+    private long mContentLength;
     private List<DownloadRunnable> mRunables;
+    private DownloadCallBack downloadCallBack;
+    private volatile int mSucceedNumber;
 
     private ExecutorService executorService = executorService();
 
@@ -36,23 +42,42 @@ public class DownloadTask {
         return executorService;
     }
 
-    public DownloadTask(String url, long contentLength) {
+    public DownloadTask(String url, long contentLength, DownloadCallBack downloadCallBack) {
         this.mUrl = url;
-        this.mContentLenght = contentLength;
+        this.mContentLength = contentLength;
+        this.downloadCallBack = downloadCallBack;
         mRunables = new ArrayList<>();
     }
 
     public void init() {
         for (int i = 0; i < THREAD_SIZE; i++) {
             //计算出每一个线程要下载的内容
-            long threadSize = mContentLenght / THREAD_SIZE;
+            long threadSize = mContentLength / THREAD_SIZE;
             long startSize = i * threadSize;
-            long endSize = (i + threadSize) - 1;
+            long endSize = (i+1)* threadSize - 1;
+            Log.i("tmd","mContentLength : "+mContentLength+"  threadSize : "+threadSize+" startSize : "+startSize+"  endSize : "+endSize);
             if (i == THREAD_SIZE - 1) {
-                endSize = mContentLenght - 1;
+                endSize = mContentLength - 1;
             }
-            DownloadRunnable downloadRunable = new DownloadRunnable(mUrl,i,startSize,endSize);
-            executorService.execute(downloadRunable);
+            DownloadRunnable downloadRunnable = new DownloadRunnable(mUrl, i, startSize, endSize, new DownloadCallBack() {
+
+                @Override
+                public void onFailure(IOException e) {
+                    downloadCallBack.onFailure(e);
+                }
+
+                @Override
+                public void onSuccess(File file) {
+                    synchronized (DownloadTask.this) {
+                        mSucceedNumber += 1;
+                        if (mSucceedNumber == THREAD_SIZE) {
+                            downloadCallBack.onSuccess(file);
+                        }
+                    }
+
+                }
+            });
+            executorService.execute(downloadRunnable);
         }
     }
 }

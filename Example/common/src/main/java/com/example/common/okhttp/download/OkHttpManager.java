@@ -16,7 +16,7 @@ import okhttp3.Response;
 public class OkHttpManager {
     private OkHttpClient okHttpClient;
 
-    private void OkHttpClient() {
+    private  OkHttpManager() {
         okHttpClient = new OkHttpClient();
     }
 

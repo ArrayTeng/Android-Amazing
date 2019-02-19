@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tengfei">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +23,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.CityIndexListActivity" />
+        <activity android:name=".activity.DownloadActivity"/>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.tengfei.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

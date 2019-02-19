@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.tengfei.activity.CityIndexListActivity;
+import com.example.tengfei.activity.DownloadActivity;
 import com.example.tengfei.entity.MainListEntity;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class MainActivity extends BaseActivity {
 
     private void initData() {
         listEntities.add(new MainListEntity("城市索引列表", CityIndexListActivity.class));
+        listEntities.add(new MainListEntity("okHttp多线程下载", DownloadActivity.class));
+
     }
 
 
@@ -57,20 +61,21 @@ public class MainActivity extends BaseActivity {
 
         @NonNull
         @Override
-        public MainRecyclerHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
+        public MainRecyclerHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,  int i) {
             View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_mian, viewGroup, false);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    skipActivity(listEntities.get(i).z);
-                }
-            });
+            Log.i("tmd",i+"");
             return new MainRecyclerHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull MainRecyclerHolder mainRecyclerHolder, int i) {
             mainRecyclerHolder.textView.setText(listEntities.get(i).title);
+            mainRecyclerHolder.textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    skipActivity(listEntities.get(i).z);
+                }
+            });
         }
 
         @Override

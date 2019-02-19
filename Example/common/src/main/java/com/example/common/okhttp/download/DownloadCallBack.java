@@ -1,5 +1,6 @@
 package com.example.common.okhttp.download;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -10,6 +11,8 @@ import okhttp3.Call;
  * email tengfeigo@outlook.com
  * description
  */
-interface DownloadCallBack {
-    void onFailure(Call call, IOException e);
+public interface DownloadCallBack {
+    void onFailure(IOException e);
+
+    void onSuccess(File file);
 }

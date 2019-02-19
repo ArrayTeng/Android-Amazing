@@ -18,6 +18,16 @@ import okhttp3.Response;
  */
 public class DownloadDispatcher {
 
+    private DownloadDispatcher(){}
+
+    public static DownloadDispatcher getInstance(){
+        return Holder.DOWNLOAD_DISPATCHER;
+    }
+
+    private static final class Holder{
+        private static final DownloadDispatcher DOWNLOAD_DISPATCHER = new DownloadDispatcher();
+    }
+
     private final Deque<DownloadTask> readyTasks = new ArrayDeque<>();
 
     private final Deque<DownloadTask> runningTasks = new ArrayDeque<>();
@@ -29,7 +39,7 @@ public class DownloadDispatcher {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                downloadCallBack.onFailure(call, e);
+                downloadCallBack.onFailure(e);
             }
 
             @Override
@@ -39,7 +49,10 @@ public class DownloadDispatcher {
                     return;
                 }
 
-                DownloadTask downloadTask = new DownloadTask(url,contentLength );
+                DownloadTask downloadTask = new DownloadTask(url, contentLength,downloadCallBack);
+                //计算出每一个线程要执行的任务，在线程池中去执行Runnable
+                downloadTask.init();
+                runningTasks.add(downloadTask);
             }
         });
     }
