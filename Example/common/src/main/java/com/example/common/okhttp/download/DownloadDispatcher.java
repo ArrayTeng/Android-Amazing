@@ -24,6 +24,8 @@ public class DownloadDispatcher {
         return Holder.DOWNLOAD_DISPATCHER;
     }
 
+
+
     private static final class Holder{
         private static final DownloadDispatcher DOWNLOAD_DISPATCHER = new DownloadDispatcher();
     }
@@ -33,6 +35,15 @@ public class DownloadDispatcher {
     private final Deque<DownloadTask> runningTasks = new ArrayDeque<>();
 
     private final Deque<DownloadTask> stopTasks = new ArrayDeque<>();
+
+    public void recyclerTask(DownloadTask downloadTask) {
+        runningTasks.remove(downloadTask);
+        //参考 OkHttp dispatch 源码
+    }
+
+    public void stopDownload(){
+
+    }
 
     public void startDownload(String url, DownloadCallBack downloadCallBack) {
         Call call = OkHttpManager.getInstance().asyncCall(url);

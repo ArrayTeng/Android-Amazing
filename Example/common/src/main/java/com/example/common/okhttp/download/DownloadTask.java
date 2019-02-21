@@ -72,12 +72,19 @@ public class DownloadTask {
                         mSucceedNumber += 1;
                         if (mSucceedNumber == THREAD_SIZE) {
                             downloadCallBack.onSuccess(file);
+                            DownloadDispatcher.getInstance().recyclerTask(DownloadTask.this);
                         }
                     }
 
                 }
             });
             executorService.execute(downloadRunnable);
+        }
+    }
+
+    public void stop(){
+        for (DownloadRunnable mRunable : mRunables) {
+            mRunable.stop();
         }
     }
 }
