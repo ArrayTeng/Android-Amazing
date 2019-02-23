@@ -28,6 +28,8 @@ public class DownloadRunnable implements Runnable {
     private static final int STATUS_STOP = 0x002;
     private int mStatus = STATUS_DOWNLOADING;
 
+    private long mProgress;
+
     public DownloadRunnable(String mUrl, int threadId, long startSize, long endSize, DownloadCallBack downloadCallBack) {
         this.mUrl = mUrl;
         this.threadId = threadId;
@@ -51,9 +53,10 @@ public class DownloadRunnable implements Runnable {
             int len = 0;
             byte[] buffer = new byte[1024];
             while ((len = inputStream.read(buffer)) != -1) {
-                if (mStatus == STATUS_STOP){
+                if (mStatus == STATUS_STOP) {
                     break;
                 }
+                mProgress += len;
                 randomAccessFile.write(buffer, 0, len);
             }
             downloadCallBack.onSuccess(file);
