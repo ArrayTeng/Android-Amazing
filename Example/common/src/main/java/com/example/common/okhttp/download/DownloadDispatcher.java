@@ -24,8 +24,6 @@ public class DownloadDispatcher {
         return Holder.DOWNLOAD_DISPATCHER;
     }
 
-
-
     private static final class Holder{
         private static final DownloadDispatcher DOWNLOAD_DISPATCHER = new DownloadDispatcher();
     }
