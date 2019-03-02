@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
  * email tengfeigo@outlook.com
  * description
  */
-class Utils {
+public class Utils {
     public static String md5Uri(String url) {
         if (TextUtils.isEmpty(url)) {
             return url;

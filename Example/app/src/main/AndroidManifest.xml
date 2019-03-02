@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tengfei">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -24,6 +26,8 @@
         </activity>
         <activity android:name=".activity.CityIndexListActivity" />
         <activity android:name=".activity.DownloadActivity"/>
+        <activity android:name=".activity.OkHttpBreakpointDownloadActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.tengfei.fileProvider"
