@@ -33,7 +33,7 @@ class Dispatcher private constructor() {
                 if (contentLength <= -1) {
                     return
                 }
-                val task = Task(contentLength, downloadCallBack)
+                val task = Task(contentLength, url, downloadCallBack)
                 task.operation()
             }
         })

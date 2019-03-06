@@ -1,5 +1,8 @@
 package com.example.okhttp
 
+import android.util.Log
+import java.io.File
+import java.io.IOException
 import java.util.concurrent.*
 
 /**
@@ -8,15 +11,16 @@ import java.util.concurrent.*
  * email tengfeigo@outlook.com
  * description 任务类，负责线程池的维护以及任务的执行
  */
-class Task(contentLength: Long, downloadCallBack: DownloadCallBack) {
+class Task(contentLength: Long, url: String, downloadCallBack: DownloadCallBack) {
     private var contentLength: Long? = null
     private var downloadCallBack: DownloadCallBack? = null
-
+    private var url: String? = null
     private var executorService: ExecutorService? = null
 
     init {
         this.contentLength = contentLength
         this.downloadCallBack = downloadCallBack
+        this.url = url
     }
 
 
@@ -44,7 +48,16 @@ class Task(contentLength: Long, downloadCallBack: DownloadCallBack) {
         for (i in 0 until threadSize) {
             val start = i * singleThreadLength
             val end = i * singleThreadLength - 1
-            //executorService().execute()
+            val downloadRunnable = DownloadRunnable(url!!, start, end, object : DownloadCallBack {
+                override fun onFailure(e: IOException) {
+                }
+
+                override fun onSuccess(file: File) {
+                    Log.i("tmd", "success")
+                }
+
+            })
+            executorService().execute(downloadRunnable)
         }
     }
 
