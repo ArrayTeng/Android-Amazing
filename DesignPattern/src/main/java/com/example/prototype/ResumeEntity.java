@@ -1,14 +1,30 @@
 package com.example.prototype;
 
-import java.io.Console;
 
 /**
  * 简历实体类
  *
  * @author tengfei
  */
-public class ResumeEntity extends AbstractResume{
+public class ResumeEntity implements Cloneable{
 
+    public String name;
+    public String age;
+    public ResumeAddress resumeAddress;
 
+    @Override
+    public String toString() {
+        return "ResumeEntity{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", resumeAddress=" + resumeAddress.address +
+                '}';
+    }
 
+    @Override
+    protected ResumeEntity clone() throws CloneNotSupportedException {
+        ResumeEntity resumeEntity = (ResumeEntity) super.clone();
+        resumeEntity.resumeAddress = (ResumeAddress) resumeAddress.clone();
+        return resumeEntity;
+    }
 }

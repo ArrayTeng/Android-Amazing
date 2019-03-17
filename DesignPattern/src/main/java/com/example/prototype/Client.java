@@ -9,6 +9,22 @@ public class Client {
 
     public static void main(String[] args)  {
         ResumeEntity resumeEntity01 =new ResumeEntity();
-        ResumeEntity resumeEntity02 = (ResumeEntity) resumeEntity01.clone();
+        resumeEntity01.name="TenFei";
+        resumeEntity01.age = "21";
+        resumeEntity01.resumeAddress = new ResumeAddress();
+        resumeEntity01.resumeAddress.address = "上海";
+
+        try {
+            ResumeEntity resumeEntity02 = resumeEntity01.clone();
+            resumeEntity02.name="feifei";
+            resumeEntity02.age="23";
+            resumeEntity02.resumeAddress.address="苏州";
+            System.out.println("resumeEntity01 : "+resumeEntity01.toString());
+            System.out.println("resumeEntity02 : "+resumeEntity02.toString());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
