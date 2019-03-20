@@ -34,5 +34,9 @@ public class SingletonObject03 {
 * 1、给 SingletonObject03 实例分配内存
 * 2、调用 SingletonObject03 的构造方法初始化成员字段
 * 3、将 SINGLETON_OBJECT_03 指向分配的内存
+*java
+* volatile 关键字的作用
+* 1、防止重排序
+* 2、线程可见行，某一线程改了公用对象（变量），短时间内另一个线程是不可见的，因为每一个线程都有自己的缓存区（线程工作区）
 *
 * */
