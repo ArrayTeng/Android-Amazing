@@ -39,8 +39,8 @@ class FileManager private constructor() {
         }
     }
 
-    fun createFile(): File {
-        val fileName = ""
+    fun createFile(url: String): File {
+        val fileName = Utils.md5Url(url)
         if (mRootDir == null) {
             mRootDir = context!!.cacheDir
         }

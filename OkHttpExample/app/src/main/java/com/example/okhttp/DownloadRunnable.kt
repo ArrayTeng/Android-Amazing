@@ -27,7 +27,7 @@ class DownloadRunnable(url: String, start: Long, end: Long, downloadCallBack: Do
     }
 
     override fun run() {
-        val file: File = FileManager.instance.createFile()
+        val file: File = FileManager.instance.createFile(url!!)
         var inputStream: InputStream? = null
         var randomAccess: RandomAccessFile? = null
         try {
