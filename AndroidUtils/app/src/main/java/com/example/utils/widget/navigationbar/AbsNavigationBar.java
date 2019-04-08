@@ -1,7 +1,6 @@
-package com.example.utils.view;
+package com.example.utils.widget.navigationbar;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

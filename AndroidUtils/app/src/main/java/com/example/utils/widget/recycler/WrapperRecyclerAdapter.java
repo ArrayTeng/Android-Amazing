@@ -1,4 +1,4 @@
-package com.example.utils.view.recycler;
+package com.example.utils.widget.recycler;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
