@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountDownView">
+        <attr name="CountDownView_text" format="string" />
+        <attr name="CountDownView_textColor" format="color" />
+        <attr name="CountDownView_textSize" format="dimension" />
+        <attr name="CountDownView_innerColor" format="color" />
+        <attr name="CountDownView_outerColor" format="color" />
+        <attr name="CountDownView_time" format="float"/>
+    </declare-styleable>
+</resources>

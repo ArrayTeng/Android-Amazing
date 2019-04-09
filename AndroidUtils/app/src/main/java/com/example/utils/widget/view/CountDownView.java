@@ -1,16 +1,20 @@
 package com.example.utils.widget.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
-import com.example.utils.utils.MyUtils;
+import com.example.utils.R;
 
 /**
  * @author tengfei
@@ -23,18 +27,24 @@ public class CountDownView extends View {
     private Paint outerPaint, innerPaint, textPaint;
     private Rect bounds;
 
-    private int outerColor = Color.GREEN;
-    private int innerColor = Color.RED;
-    private int borderWidth = 0;
-    private int textColor = Color.WHITE;
+    private String text;
     private int textSize = 50;
+    private int textColor = Color.WHITE;
+    private int innerColor = Color.RED;
+    private int outerColor = Color.GREEN;
+    private int borderWidth = 2;
+    /**
+     * 默认情况下倒计时的时间是 5 秒
+     */
+    private long countDownTime = 5000;
 
+    private ICountDownFinish iCountDownFinish;
     /**
      * 默认情况下开始的角度是 -90 度
      */
     private float startAngle = -90;
     /**
-     * 扫过的角度应该是
+     * 扫过的角度
      */
     private float sweepAngle;
 
@@ -49,18 +59,17 @@ public class CountDownView extends View {
 
     public CountDownView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        //初始化自定义属性
+        initAttrs(context, attrs, defStyleAttr);
         //初始化画笔对象
         initPaint();
-        //初始化自定义属性
-        initAttrs();
         //定义动画来根据值来计算当前进度
         initCountDownAnimator();
     }
 
     private void initCountDownAnimator() {
         ValueAnimator countDownAnimator = ValueAnimator.ofFloat(-90, 270);
-        countDownAnimator.setDuration(10000);
-        //在 5 秒的时间内将值从 0 到 360 平滑的移动
+        countDownAnimator.setDuration(countDownTime);
         countDownAnimator.addUpdateListener((ValueAnimator animation) -> {
             float currentValue = (float) animation.getAnimatedValue();
             //当前的进度
@@ -71,31 +80,52 @@ public class CountDownView extends View {
                 startAngle = -currentAngle;
             } else if (currentValue == 0) {
                 startAngle = 0;
-            } else if (currentValue > 0){
+            } else if (currentValue > 0) {
                 startAngle = currentAngle;
             }
             invalidate();
         });
+        countDownAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                //设置监听动画结束的回调
+                if (iCountDownFinish != null) {
+                    iCountDownFinish.countDownFinish();
+                }
+            }
+        });
         countDownAnimator.start();
     }
 
-    private void initAttrs() {
-
+    /**
+     * 自定义属性
+     */
+    private void initAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CountDownView, defStyleAttr, 0);
+        text = array.getString(R.styleable.CountDownView_CountDownView_text);
+        if (text == null){
+            text = "跳过";
+        }
+        textColor = array.getColor(R.styleable.CountDownView_CountDownView_textColor, textColor);
+        textSize = array.getDimensionPixelSize(R.styleable.CountDownView_CountDownView_textSize, sp2px(textSize));
+        innerColor = array.getColor(R.styleable.CountDownView_CountDownView_innerColor, innerColor);
+        outerColor = array.getColor(R.styleable.CountDownView_CountDownView_outerColor, outerColor);
+        countDownTime = (long) array.getFloat(R.styleable.CountDownView_CountDownView_time,countDownTime);
+        array.recycle();
     }
 
     private void initPaint() {
+        borderWidth = sp2px(borderWidth);
 
-        borderWidth = MyUtils.sp2px(2,this.getContext());
-
-        //初始化外圆画笔对象
         innerPaint = new Paint();
-        innerPaint.setColor(outerColor);
+        innerPaint.setColor(innerColor);
         innerPaint.setAntiAlias(true);
+        innerPaint.setAlpha(100);
         innerPaint.setStyle(Paint.Style.FILL);
 
-        //初始化内圆画笔对象
         outerPaint = new Paint();
-        outerPaint.setColor(innerColor);
+        outerPaint.setColor(outerColor);
         outerPaint.setAntiAlias(true);
         outerPaint.setStrokeWidth(borderWidth);
         outerPaint.setStyle(Paint.Style.STROKE);
@@ -123,11 +153,11 @@ public class CountDownView extends View {
                 getHeight() - borderWidth / 2, startAngle,
                 sweepAngle, false, outerPaint);
         //绘制中间的文本
-        textPaint.getTextBounds("跳过", 0, "跳过".length(), bounds);
+        textPaint.getTextBounds(text, 0, text.length(), bounds);
         Paint.FontMetricsInt fontMetricsInt = textPaint.getFontMetricsInt();
         int dy = (fontMetricsInt.bottom - fontMetricsInt.top) / 2 - fontMetricsInt.bottom;
         int baseline = getHeight() / 2 + dy;
-        canvas.drawText("跳过", getWidth() / 2 - bounds.width() / 2, baseline, textPaint);
+        canvas.drawText(text, getWidth() / 2 - bounds.width() / 2, baseline, textPaint);
     }
 
     @Override
@@ -139,5 +169,24 @@ public class CountDownView extends View {
         setMeasuredDimension(measuredWidth, measuredHeight);
     }
 
+    public interface ICountDownFinish {
+        /**
+         * 动画结束的执行回调方法
+         */
+        void countDownFinish();
+    }
+
+    /**
+     * 设置监听回调
+     */
+    public void addCountDownFinishListener(ICountDownFinish iCountDownFinish) {
+        this.iCountDownFinish = iCountDownFinish;
+    }
+
+
+    private int sp2px(int sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,
+                getResources().getDisplayMetrics());
+    }
 
 }
