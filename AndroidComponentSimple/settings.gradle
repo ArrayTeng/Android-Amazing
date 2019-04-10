@@ -1,1 +1,1 @@
-include ':app', ':moudlea'
+include ':app', ':moudlea', ':moudleb'

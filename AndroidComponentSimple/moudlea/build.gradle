@@ -7,10 +7,8 @@ if (rootProject.ext.isApplication) {
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
-
-
     defaultConfig {
-        if(rootProject.ext.isApplication){
+        if (rootProject.ext.isApplication) {
             applicationId "com.example.moudlea"
         }
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -30,12 +28,12 @@ android {
     }
 
     sourceSets {
-        main{
-            if(rootProject.ext.isApplication){
+        main {
+            if (rootProject.ext.isApplication) {
                 manifest.srcFile 'src/main/debug/AndroidManifest.xml'
-            }else{
+            } else {
                 manifest.srcFile 'src/main/release/AndroidManifest.xml'
-                java{
+                java {
                     exclude 'debug/**'
                 }
             }
