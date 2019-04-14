@@ -7,16 +7,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <com.example.utils.widget.view.CountDownView
-        android:id="@+id/bt"
-        android:layout_gravity="center"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:CountDownView_innerColor="#88888888"
-        app:CountDownView_outerColor="@color/colorAccent"
-        app:CountDownView_text="跳过"
-        app:CountDownView_time="10000"
-        app:CountDownView_textSize="10sp"
-        app:CountDownView_textColor="@android:color/white"/>
+    <!--<com.example.utils.widget.view.CountDownView-->
+        <!--android:id="@+id/bt"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--app:CountDownView_innerColor="#88888888"-->
+        <!--app:CountDownView_outerColor="@color/colorAccent"-->
+        <!--app:CountDownView_text="跳过"-->
+        <!--app:CountDownView_time="10000"-->
+        <!--app:CountDownView_textSize="10sp"-->
+        <!--app:CountDownView_textColor="@android:color/white"/>-->
+
+    <Button
+        android:onClick="click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>
