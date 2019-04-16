@@ -1,17 +1,14 @@
 package com.example.utils;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tengfei
@@ -21,24 +18,47 @@ import okhttp3.Response;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static String SHIMINYUN_PACKAGE_NAME = "mobi.w3studio.apps.android.shsmy.phone";
-    private static String SHIMINYUN_CLASS_NAME = "mobi.w3studio.apps.android.shsmy.phone.ui.ThirdPartyCallActivity";
+    private ListView listView;
+
+    private List<String> list = new ArrayList<>();
+
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = findViewById(R.id.lv);
+        myAdapter = new MyAdapter();
+        listView.setAdapter(myAdapter);
 
-
+        myAdapter.notifyDataSetChanged();
 
     }
 
 
-    public void click(View view) {
-        Intent mIntent = new Intent();
-        mIntent.setClassName(SHIMINYUN_PACKAGE_NAME, SHIMINYUN_CLASS_NAME);
-        //mIntent.putExtras(bundle);
-        //mIntent.addFlags(268435456);
-        startActivity(mIntent);
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
     }
+
+
 }
