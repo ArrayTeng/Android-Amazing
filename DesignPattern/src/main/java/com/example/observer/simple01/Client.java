@@ -1,4 +1,4 @@
-package com.example.observer;
+package com.example.observer.simple01;
 
 /**
  * @author tengfei
