@@ -1,7 +1,10 @@
 apply plugin: 'java-library'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.squareup:javapoet:1.11.1'
+    implementation 'com.google.auto.service:auto-service:1.0-rc5'
+    implementation project(':ButterKnife_annotations')
 }
 
 sourceCompatibility = "7"
