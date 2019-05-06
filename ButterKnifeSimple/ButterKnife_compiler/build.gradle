@@ -7,5 +7,6 @@ dependencies {
     implementation project(':ButterKnife_annotations')
 }
 
+
 sourceCompatibility = "7"
 targetCompatibility = "7"
