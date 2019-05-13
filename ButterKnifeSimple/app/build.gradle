@@ -36,4 +36,5 @@ dependencies {
      * annotationProcessor 注解处理器是Google内置的框架，不需要额外引入，如果你自定义了一个注解处理器，那么用 annotationProcessor 来添加依赖
      */
     annotationProcessor project(':ButterKnife_compiler')
+    implementation project(':ButterKnife')
 }
