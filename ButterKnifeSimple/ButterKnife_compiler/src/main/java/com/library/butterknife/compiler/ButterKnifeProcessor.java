@@ -1,6 +1,6 @@
-package com.example.butterknife.compiler;
+package com.library.butterknife.compiler;
 
-import com.example.butterknife.annotations.BindView;
+import com.library.butterknife.annotations.BindView;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -101,27 +101,39 @@ public class ButterKnifeProcessor extends AbstractProcessor {
 
             //使用JavaPoet生成类
             String activityClassNameStr = enclosingElement.getSimpleName().toString();
-            ClassName unBinderClassName = ClassName.get("com.example.butterknife", "Unbinder");
+            ClassName unBinderClassName = ClassName.get("com.library.butterknife", "Unbinder");
             //构建类
             ClassName activityClassName = ClassName.bestGuess(activityClassNameStr);
 
             TypeSpec.Builder classBuilder = TypeSpec.classBuilder(activityClassNameStr + "_ViewBinding")
                     .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                     .addSuperinterface(unBinderClassName)
-                    .addField(activityClassName,"target",Modifier.PRIVATE);
+                    .addField(activityClassName, "target", Modifier.PRIVATE);
             //构建方法
-            ClassName callSuperClassName = ClassName.get("android.support.annotation","CallSuper");
+            ClassName callSuperClassName = ClassName.get("android.support.annotation", "CallSuper");
             MethodSpec.Builder unBinderMethodBuilder = MethodSpec.methodBuilder("unBinder")
                     .addAnnotation(Override.class)
                     .addAnnotation(callSuperClassName)
-                    .addModifiers(Modifier.PUBLIC,Modifier.FINAL);
-            classBuilder.addMethod(unBinderMethodBuilder.build());
+                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+
+
+            unBinderMethodBuilder.addStatement("$T target = this.target",activityClassName);
+            unBinderMethodBuilder.addStatement("if (target == null) throw new IllegalStateException(\"Bindings already cleared.\");");
 
             //构建构造函数
             MethodSpec.Builder constructorMethodBuilder = MethodSpec.constructorBuilder()
-                    .addParameter(activityClassName,"target")
-                    .addModifiers(Modifier.PUBLIC)
-                    .addComment("this.target = target");
+                    .addParameter(activityClassName, "target")
+                    .addModifiers(Modifier.PUBLIC);
+            constructorMethodBuilder.addStatement("this.target = target");
+            // findViewById 功能的实现
+            for (Element viewBindElement : viewBindElements) {
+                String fileName = viewBindElement.getSimpleName().toString();
+                ClassName utilsClassName = ClassName.get("com.library.butterknife","Utils");
+                int resId = viewBindElement.getAnnotation(BindView.class).value();
+                constructorMethodBuilder.addStatement("target.$L = $T.findViewById(target,$L)",fileName,utilsClassName,resId);
+                unBinderMethodBuilder.addStatement("target.$L = null",fileName);
+            }
+            classBuilder.addMethod(unBinderMethodBuilder.build());
             classBuilder.addMethod(constructorMethodBuilder.build());
             try {
                 //获取对应的包名

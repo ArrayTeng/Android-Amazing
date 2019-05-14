@@ -1,4 +1,4 @@
-package com.example.butterknife.annotations;
+package com.library.butterknife.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

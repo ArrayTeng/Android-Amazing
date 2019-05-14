@@ -1,4 +1,4 @@
-package com.example.butterknife;
+package com.library.butterknife;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.UiThread;
@@ -18,7 +18,6 @@ public interface Unbinder {
     Unbinder EMPTY = new Unbinder() {
         @Override
         public void unBinder() {
-
         }
     };
 }

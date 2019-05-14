@@ -1,4 +1,4 @@
-package com.example.butterknife;
+package com.library.butterknife;
 
 import android.app.Activity;
 
