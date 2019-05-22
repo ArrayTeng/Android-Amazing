@@ -54,11 +54,18 @@ public class ButterKnifeProcessor extends AbstractProcessor {
         mElementUtils = processingEnvironment.getElementUtils();
     }
 
+    /**
+     * 指定支持的 java 版本
+     */
     @Override
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latestSupported();
     }
 
+    /**
+     * 指定支持的注解类型
+     * @return 返回支持的注解类型的 set 集合
+     */
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new LinkedHashSet<>();
@@ -77,10 +84,12 @@ public class ButterKnifeProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
+        //获取所有被 BindView 注解标记的元素
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
         Map<Element, List<Element>> elementMap = new LinkedHashMap<>();
 
         for (Element element : elements) {
+            //获取元素的外层元素
             Element enclosingElement = element.getEnclosingElement();
             List<Element> viewBindElements = elementMap.get(enclosingElement);
             if (viewBindElements == null) {

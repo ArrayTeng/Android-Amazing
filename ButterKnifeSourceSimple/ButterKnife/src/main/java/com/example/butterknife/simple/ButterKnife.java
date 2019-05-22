@@ -5,8 +5,6 @@ import android.util.Log;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.PortUnreachableException;
-import java.security.InvalidAlgorithmParameterException;
 
 /**
  * @author tengfei
