@@ -3,9 +3,10 @@ package com.example.proxy.dongtaiproxy;
 /**
  * @author tengfei
  */
-public class RealSubject implements Subject {
+public class RealSubject implements ISubject {
+
     @Override
-    public void request() {
-        System.out.println("RealSubject");
+    public String commitCode(String code) {
+        return code;
     }
 }

@@ -3,7 +3,7 @@ package com.example.proxy.dongtaiproxy;
 /**
  * @author tengfei
  */
-public interface Subject {
+public interface ISubject {
 
-    void request();
+    String commitCode(String code);
 }
