@@ -5,9 +5,16 @@ import android.view.View;
 
 import com.example.ioc.xutils.annotion.BindView;
 import com.example.ioc.xutils.annotion.ContentView;
+import com.example.ioc.xutils.annotion.EventBase;
+import com.example.ioc.xutils.proxy.ListenerInvocationHandler;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -48,6 +55,43 @@ public class InjectUtils {
             method.invoke(context, layoutId);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void inJectClick(Context context) {
+        Class<?> clazz = context.getClass();
+        Method[] methods = clazz.getDeclaredMethods();
+        //遍历所有方法
+        for (Method method : methods) {
+            //获取方法上的注解
+            Annotation[] annotations = method.getDeclaredAnnotations();
+            //遍历所有的注解
+            for (Annotation annotation : annotations) {
+                Class<? extends Annotation> annotationType = annotation.annotationType();
+                EventBase eventBase = annotationType.getAnnotation(EventBase.class);
+                if (eventBase == null) {
+                    continue;
+                }
+                String callBackMethod = eventBase.callBackMethod();
+                String listenerSetter = eventBase.listenerSetter();
+                Class<?> listenerTypeClazz = eventBase.listenerType();
+                Map<String,Method> methodMap = new HashMap<>();
+                methodMap.put(callBackMethod,method);
+                try {
+                    Method declaredMethod = annotationType.getDeclaredMethod("value");
+                    int[] valueIds = (int[]) declaredMethod.invoke(annotation);
+                    for (int id:valueIds){
+                        Method findViewById = clazz.getMethod("findViewById",int.class);
+                        View view = (View) findViewById.invoke(context,id);
+                        Method setOnClickListener = view.getClass().getMethod(listenerSetter,listenerTypeClazz);
+                        ListenerInvocationHandler handler = new ListenerInvocationHandler(context,methodMap);
+                        Object proxy = Proxy.newProxyInstance(listenerTypeClazz.getClassLoader(),new Class[]{listenerTypeClazz},handler);
+                        setOnClickListener.invoke(view,proxy);
+                    }
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
