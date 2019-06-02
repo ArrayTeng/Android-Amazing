@@ -14,7 +14,7 @@ import com.example.ioc.xutils.annotion.OnClick;
  * @author tengfei
  */
 @ContentView(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     @BindView(R.id.main_text)
     private TextView mTextView;

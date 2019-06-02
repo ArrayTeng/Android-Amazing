@@ -25,11 +25,11 @@ public class ListenerInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         String name = method.getName();
-        Method listenerMethod = mMethodMap.get(name);
-        if (listenerMethod!=null){
-            return listenerMethod.invoke(mContext,args);
+        Method callBackMethod = mMethodMap.get(name);
+        if (callBackMethod!=null){
+            return callBackMethod.invoke(mContext,args);
         }else {
-            return method.invoke(mContext,args);
+            return method.invoke(proxy,args);
         }
     }
 }
