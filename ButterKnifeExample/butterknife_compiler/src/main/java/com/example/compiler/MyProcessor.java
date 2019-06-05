@@ -63,8 +63,8 @@ public class MyProcessor extends AbstractProcessor {
         mAnnotatedClassMap.clear();
         //增加View绑定
         processBindView(roundEnvironment);
-
-        for (AnnotatedClass annotatedClass:mAnnotatedClassMap.values()){
+        processBindClick(roundEnvironment);
+        for (AnnotatedClass annotatedClass : mAnnotatedClassMap.values()) {
             try {
                 annotatedClass.generateFile().writeTo(mFiler);
             } catch (IOException e) {
@@ -72,6 +72,14 @@ public class MyProcessor extends AbstractProcessor {
             }
         }
         return true;
+    }
+
+    private void processBindClick(RoundEnvironment roundEnvironment) {
+        for (Element element : roundEnvironment.getElementsAnnotatedWith(OnClick.class)) {
+            AnnotatedClass annotatedClass = getAnnotatedClass(element);
+            ClickViewField clickViewField = new ClickViewField(element);
+            annotatedClass.addClickViewField(clickViewField);
+        }
     }
 
     private void processBindView(RoundEnvironment roundEnvironment) {
@@ -93,11 +101,11 @@ public class MyProcessor extends AbstractProcessor {
         String enclosingClassName = enclosingElement.getQualifiedName().toString();
         //第一次获取的时候肯定是 null
         AnnotatedClass annotatedClass = mAnnotatedClassMap.get(enclosingClassName);
-        if (annotatedClass == null){
+        if (annotatedClass == null) {
             //在 AnnotatedClass 中传入了外层元素和 Elements 工具
-            annotatedClass = new AnnotatedClass(enclosingElement,mElementUtils);
+            annotatedClass = new AnnotatedClass(enclosingElement, mElementUtils);
             //将 annotatedClass 保存在 map 中
-            mAnnotatedClassMap.put(enclosingClassName,annotatedClass);
+            mAnnotatedClassMap.put(enclosingClassName, annotatedClass);
         }
         return annotatedClass;
     }
