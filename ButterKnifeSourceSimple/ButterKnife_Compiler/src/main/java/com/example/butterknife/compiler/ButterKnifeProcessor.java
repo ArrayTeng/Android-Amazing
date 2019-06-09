@@ -1,6 +1,7 @@
 package com.example.butterknife.compiler;
 
 import com.example.butterknife.annotations.BindView;
+import com.example.butterknife.annotations.OnClick;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -32,7 +33,7 @@ import javax.lang.model.util.Elements;
  * date 2019/5/15 2:22 PM
  * email tengfeigo@outlook.com
  * description
-/**
+ * /**
  * 自定义注解处理器 -- APT 只是生成代码的一个工具，继承 AbstractProcessor ，点击运行的时候会访问到继承自 AbstractProcessor 的类，
  * 在 ButterKnifeProcessor 中定义要生成的代码
  * <p>
@@ -64,6 +65,7 @@ public class ButterKnifeProcessor extends AbstractProcessor {
 
     /**
      * 指定支持的注解类型
+     *
      * @return 返回支持的注解类型的 set 集合
      */
     @Override
@@ -79,27 +81,29 @@ public class ButterKnifeProcessor extends AbstractProcessor {
         Set<Class<? extends Annotation>> annotations = new LinkedHashSet<>();
         //需要解析的自定义注解
         annotations.add(BindView.class);
+        annotations.add(OnClick.class);
         return annotations;
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
         //获取所有被 BindView 注解标记的元素
-        Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
-        Map<Element, List<Element>> elementMap = new LinkedHashMap<>();
+        Set<? extends Element> bindViewElements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
+        //外层原属
+        Map<Element, List<Element>> bingViewElementMap = new LinkedHashMap<>();
 
-        for (Element element : elements) {
+        for (Element element : bindViewElements) {
             //获取元素的外层元素
             Element enclosingElement = element.getEnclosingElement();
-            List<Element> viewBindElements = elementMap.get(enclosingElement);
+            List<Element> viewBindElements = bingViewElementMap.get(enclosingElement);
             if (viewBindElements == null) {
                 viewBindElements = new ArrayList<>();
-                elementMap.put(enclosingElement, viewBindElements);
+                bingViewElementMap.put(enclosingElement, viewBindElements);
             }
             viewBindElements.add(element);
         }
 
-        for (Map.Entry<Element, List<Element>> entry : elementMap.entrySet()) {
+        for (Map.Entry<Element, List<Element>> entry : bingViewElementMap.entrySet()) {
             Element enclosingElement = entry.getKey();
             List<Element> viewBindElements = entry.getValue();
             //使用JavaPoet生成类
@@ -127,10 +131,10 @@ public class ButterKnifeProcessor extends AbstractProcessor {
             // findViewById 功能的实现
             for (Element viewBindElement : viewBindElements) {
                 String fieldName = viewBindElement.getSimpleName().toString();
-                ClassName utilsClassName = ClassName.get("com.example.butterknife.simple","Utils");
+                ClassName utilsClassName = ClassName.get("com.example.butterknife.simple", "Utils");
                 int resId = viewBindElement.getAnnotation(BindView.class).value();
-                constructMethodBuilder.addStatement("target.$L = $T.findViewById(target,$L)",fieldName,utilsClassName,resId);
-                unBinderMethodBuilder.addStatement("target.$L = null",fieldName);
+                constructMethodBuilder.addStatement("target.$L = $T.findViewById(target,$L)", fieldName, utilsClassName, resId);
+                unBinderMethodBuilder.addStatement("target.$L = null", fieldName);
             }
 
             //将构建的方法和构造方法添加到类中
