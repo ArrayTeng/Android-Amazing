@@ -10,7 +10,7 @@ import android.util.Log
  * description
  */
 @Suppress("UNREACHABLE_CODE")
-class MyPresenter(private var context: Context) : LifecycleListener {
+class BasePresenter(private var context: Context) : LifecycleListener {
 
     override fun onCreate() {
         Log.i("tmd","onCreate"+context.javaClass.simpleName)
