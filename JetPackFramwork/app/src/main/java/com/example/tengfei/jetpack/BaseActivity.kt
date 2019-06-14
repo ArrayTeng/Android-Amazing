@@ -14,7 +14,7 @@ import android.support.v7.app.AppCompatActivity
  * email tengfeigo@outlook.com
  * description
  */
-abstract class BaseActivity:AppCompatActivity(),LifecycleOwner {
+abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var lifecycleRegistry: LifecycleRegistry
 
@@ -24,10 +24,13 @@ abstract class BaseActivity:AppCompatActivity(),LifecycleOwner {
         lifecycleRegistry = LifecycleRegistry(this)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.addObserver(initLifecycleObserver())
+        initData()
     }
 
+    abstract fun initData()
+
     @LayoutRes
-    abstract fun initContentView():Int
+    abstract fun initContentView(): Int
 
     abstract fun initLifecycleObserver(): LifecycleObserver
 
@@ -60,6 +63,8 @@ abstract class BaseActivity:AppCompatActivity(),LifecycleOwner {
         super.onDestroy()
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     }
+
+
 
 
 }

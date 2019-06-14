@@ -1,7 +1,10 @@
 package com.example.tengfei.jetpack
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.os.SystemClock
+import java.util.*
 
 /**
  * @author tengfei
@@ -11,11 +14,28 @@ import android.arch.lifecycle.ViewModel
  */
 class LiveDataTimerViewModel : ViewModel() {
 
+    private var mInitialTime: Long = 0
+
+    private val mElapsedTime: MutableLiveData<Long> = MutableLiveData()
 
     companion object {
-        val ONE_SECOND = 1000
+        const val ONE_SECOND: Long = 1000
     }
 
+    init {
+        mInitialTime = SystemClock.elapsedRealtime()
+        val timer = Timer()
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                val longValue: Long = (SystemClock.elapsedRealtime() - mInitialTime) / 1000
+                mElapsedTime.postValue(longValue)
+            }
+        }, ONE_SECOND, ONE_SECOND)
+    }
+
+    fun getElapsedTime():LiveData<Long>{
+        return mElapsedTime
+    }
 
 
 }
