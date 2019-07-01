@@ -84,7 +84,35 @@ val stringArrayVararg: Array<String> = arrayOf("Kotlin", "Java", "Js")
 // infix fun Any.to(other: Any) = Pair(this,other)
 // 有时会有把一个对象解构成多个变量的需求，在 Kotlin 中这种语法称为解构声明
 
-val pair =  "滕飞" to "25"
+val pair = "滕飞" to "25"
+
+// 13 kotlin 中分割字符串
+
+// 14 正则表达式和三重引号字符串
+fun parsePath(path: String) {
+    val directory = path.substringBeforeLast("/")
+    val fullName = path.substringAfterLast("/")
+
+    val fileName = fullName.substringBeforeLast(".")
+    val extension = fullName.substringAfterLast(".")
+
+    println("dir: $directory,name:$fileName extension:$extension")
+}
+
+// 15 局部函数
+fun savePerson(person: Person) {
+    person.validatePerson()
+}
+
+fun Person.validatePerson() {
+    fun validate(value: String) {
+        if (value.isNullOrEmpty()) {
+            throw IllegalArgumentException("不可以保存 $name")
+        }
+    }
+    validate(name)
+}
+
 
 fun main(arrays: Array<String>) {
     //查看 1 2 3 三项的对象类型
@@ -114,12 +142,23 @@ fun main(arrays: Array<String>) {
 
     println("扩展Collection对象${list.joinToStringExtend(separator = ",", postfix = "}", prefix = "{")}")
 
-    println("Kotlin中的展开运算${listOf("Args",*stringArrayVararg)}")
+    println("Kotlin中的展开运算${listOf("Args", *stringArrayVararg)}")
 
-    val(name,age) = Person("tengfei",25)
+    val (name, age) = Person("tengfei", 25)
 
-    val(x,y) = Point(1,2)
+    val (x, y) = Point(1, 2)
 
     println("$x$y")
 
+    println("12.234-56.89".split(".", "-"))
+
+    parsePath("/users/yole/kotlin-book/chapter.adoc")
+
+    val kotlinLogo = """| //
+                        .| //
+                        .| // \"""
+    println(kotlinLogo.trimMargin("."))
+
+    val price = """${'$'} 99.9"""
+    println(price)
 }
