@@ -74,6 +74,18 @@ var StringBuilder.lastChar: Char
         this.setCharAt(length - 1, value)
     }
 
+// 11 处理集合：可变参数、中缀调用和库的支持
+
+val stringArrayVararg: Array<String> = arrayOf("Kotlin", "Java", "Js")
+
+// 12 中缀调用 参考 http://www.imooc.com/article/287847
+// 使用 “to” 来声明 map 的 key 与 value 之间的对应关系，这种形式的函数调用被称为中缀调用,
+// 中缀调用可以与只有一个参数的函数一起使用，无论是普通的函数还是扩展函数。中缀符号需要通过 infix 修饰符来进行标记
+// infix fun Any.to(other: Any) = Pair(this,other)
+// 有时会有把一个对象解构成多个变量的需求，在 Kotlin 中这种语法称为解构声明
+
+val pair =  "滕飞" to "25"
+
 fun main(arrays: Array<String>) {
     //查看 1 2 3 三项的对象类型
     println(" 1 ${set.javaClass}")
@@ -101,5 +113,13 @@ fun main(arrays: Array<String>) {
     println("Kotlin".lastChar())
 
     println("扩展Collection对象${list.joinToStringExtend(separator = ",", postfix = "}", prefix = "{")}")
+
+    println("Kotlin中的展开运算${listOf("Args",*stringArrayVararg)}")
+
+    val(name,age) = Person("tengfei",25)
+
+    val(x,y) = Point(1,2)
+
+    println("$x$y")
 
 }

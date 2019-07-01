@@ -24,7 +24,7 @@ class User : BaseObservable() {
     var header: String = ""
 
     companion object {
-        @BindingAdapter("header")
+        @BindingAdapter("bind:header")
         @JvmStatic
         fun loadImage(imageView: ImageView, imgUrl: String) {
             Glide.with(imageView.context).load(imgUrl).into(imageView)
