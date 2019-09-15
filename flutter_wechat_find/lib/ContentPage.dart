@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wechat_find/CustomAppBar.dart';
+import 'package:flutter_wechat_find/RecommendCard.dart';
 
 class ContentPage extends StatefulWidget {
   final ValueChanged<int> valueChanged;
@@ -38,19 +39,14 @@ class _ContentPageState extends State<ContentPage> {
             child: PageView(
           onPageChanged: widget.valueChanged,
           controller: _pageController,
-          children: <Widget>[_wrapItem(0), _wrapItem(1), _wrapItem(2)],
+          children: <Widget>[_wrapItem(RecommendCard()), _wrapItem(RecommendCard()), _wrapItem(RecommendCard()),_wrapItem(RecommendCard())],
         ))
       ],
     );
   }
 
-  _wrapItem(int index) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Container(
-        decoration: BoxDecoration(color: _colors[index]),
-      ),
-    );
+  _wrapItem(Widget widget) {
+    return Padding(padding: EdgeInsets.all(10), child: widget);
   }
 
   //实现沉浸式状态栏
