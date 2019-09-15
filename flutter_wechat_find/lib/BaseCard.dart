@@ -8,6 +8,7 @@ class BaseCard extends StatefulWidget {
 
 class BaseCardState extends State<BaseCard> {
   Color subTitleColor = Colors.grey;
+  Color bottomTitleColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
     return PhysicalModel(
@@ -25,14 +26,13 @@ class BaseCardState extends State<BaseCard> {
 
   topContent() {
     return Padding(
-        padding: EdgeInsets.only(left: 20, top: 25, bottom: 20),
+        padding: EdgeInsets.only(left: 20, top: 26, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              children: <Widget>[
-                topTitle('')
-              ],
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[topTitle(''), topTitle2()],
             ),
             subTitle('')
           ],
@@ -54,6 +54,14 @@ class BaseCardState extends State<BaseCard> {
   }
 
   topTitle(String data) {
-    return Text(data,style: TextStyle(fontSize: 22));
+    return Text(data, style: TextStyle(fontSize: 22));
+  }
+
+  topTitle2() {
+    return Container();
+  }
+
+  bottomTitle(String title){
+    return Text(title,style: TextStyle(fontSize: 12,color: bottomTitleColor), );
   }
 }
