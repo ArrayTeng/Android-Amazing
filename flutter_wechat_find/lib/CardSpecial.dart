@@ -10,6 +10,14 @@ class CardSpecial extends BaseCard {
 }
 
 class _CardSpecialState extends BaseCardState {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bottomTitleColor = Colors.blue;
+  }
+
   @override
   topContent() {
     return Column(
@@ -73,6 +81,20 @@ class _CardSpecialState extends BaseCardState {
 
   @override
   bottomContent() {
-    return super.bottomContent();
+    return Expanded(child: Column(
+      crossAxisAlignment : CrossAxisAlignment.stretch,//水平撑开
+      mainAxisAlignment: MainAxisAlignment.spaceAround,//y轴均匀分布
+      children: <Widget>[
+        Padding(padding: EdgeInsets.only(left: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Image.network("http://www.devio.org/io/flutter_beauty/double_quotes.jpg",width: 26,height: 26,),
+            Text("揭露历史真相")
+          ],
+        ),),
+        bottomTitle("更多好书领不停 >")
+      ],
+    ));
   }
 }
