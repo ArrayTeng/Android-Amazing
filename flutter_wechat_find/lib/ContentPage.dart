@@ -5,6 +5,7 @@ import 'package:flutter_wechat_find/CustomAppBar.dart';
 import 'package:flutter_wechat_find/RecommendCard.dart';
 
 import 'CardFree.dart';
+import 'CardSpecial.dart';
 
 class ContentPage extends StatefulWidget {
   final ValueChanged<int> valueChanged;
@@ -42,7 +43,7 @@ class _ContentPageState extends State<ContentPage> {
             child: PageView(
           onPageChanged: widget.valueChanged,
           controller: _pageController,
-          children: <Widget>[_wrapItem(RecommendCard()), _wrapItem(CardShare()), _wrapItem(CardFree()),_wrapItem(RecommendCard())],
+          children: <Widget>[_wrapItem(RecommendCard()), _wrapItem(CardShare()), _wrapItem(CardFree()),_wrapItem(CardSpecial())],
         ))
       ],
     );
