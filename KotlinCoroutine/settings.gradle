@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Kotlin协程以及RetroApollo实现'
+rootProject.name='KotlinCoroutine'
