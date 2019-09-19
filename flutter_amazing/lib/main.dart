@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_amazing/widget_lifecycle_page.dart';
 
+import 'dynamic_theme.dart';
 import 'launch_app.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget  {
+
+
+  @override
+  State<StatefulWidget> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> implements AbsDynamicTheme{
+
+ Brightness _brightness = Brightness.light;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'Schyler',
         primarySwatch: Colors.blue,
+       brightness: _brightness
       ),
-      home: MyHomePage(),
+      home: DynamicThemePage(absDynamicTheme: this,),
     );
+  }
+
+  @override
+  changeTheme(bool isNight) {
+    setState(() {
+      isNight?_brightness = Brightness.dark:_brightness=Brightness.light;
+    });
   }
 }
 
@@ -35,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _clickItemEvent("打开第三方应用", LaunchAppPage()),
-              _clickItemEvent("修改主题", LaunchAppPage())
+              _clickItemEvent("Flutter生命周期", WidgetLifecyclePage()),
             ],
           ),
         ));
