@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_amazing/image_page.dart';
 import 'package:flutter_amazing/widget_lifecycle_page.dart';
 
-import 'dynamic_theme.dart';
+
 import 'launch_app.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget  {
 
-
   @override
   State<StatefulWidget> createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> implements AbsDynamicTheme{
+class MyAppState extends State<MyApp>{
 
  Brightness _brightness = Brightness.light;
 
@@ -23,15 +23,14 @@ class MyAppState extends State<MyApp> implements AbsDynamicTheme{
 
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: 'Schyler',
+        //fontFamily: 'Schyler',
         primarySwatch: Colors.blue,
        brightness: _brightness
       ),
-      home: DynamicThemePage(absDynamicTheme: this,),
+      home: MyImagePage()
     );
   }
 
-  @override
   changeTheme(bool isNight) {
     setState(() {
       isNight?_brightness = Brightness.dark:_brightness=Brightness.light;
