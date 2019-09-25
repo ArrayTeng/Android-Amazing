@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="carType">
+        <item>运输汽车</item>
+        <item>专用汽车</item>
+        <item>微型车</item>
+        <item>中型车</item>
+        <item>大型车</item>
+        <item>甲壳虫型汽车</item>
+    </string-array>
+
+    <string-array name="carProvince">
+        <item>京</item>
+        <item>津</item>
+        <item>冀</item>
+        <item>晋</item>
+        <item>吉</item>
+        <item>辽</item>
+        <item>沪</item>
+        <item>浙</item>
+        <item>闽</item>
+        <item>湘</item>
+    </string-array>
+</resources>
