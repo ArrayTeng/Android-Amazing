@@ -4,6 +4,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/tengfei/AndroidStudy/Android-Amazing/HighSpeedCommunication/tengfei.jks')
+            storePassword '123456'
+            keyAlias = 'tengfei'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.traffic"
@@ -17,6 +25,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -32,5 +43,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+    implementation 'com.github.chaychan:BottomBarLayout:1.2.0'
 
 }

@@ -39,7 +39,7 @@ class ContentEditTextLayout : FrameLayout {
 
 
 
-        contentView.contentEditText.setFilters(arrayOf(InputFilter.LengthFilter(180)))
+        contentView.contentEditText.filters = arrayOf(InputFilter.LengthFilter(180))
 
         contentView.contentEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

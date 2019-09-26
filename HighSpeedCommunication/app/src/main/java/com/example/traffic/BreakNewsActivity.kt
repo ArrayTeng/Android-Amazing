@@ -27,8 +27,9 @@ class BreakNewsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_break_news)
+        setupToolbar()
 
-        tagFlowLayout.setAdapter(object : TagAdapter<String>(tagList) {
+        tagFlowLayout.adapter = object : TagAdapter<String>(tagList) {
             override fun getView(parent: FlowLayout?, position: Int, info: String?): View {
                 val itemFlow: TextView = layoutInflater.inflate(R.layout.item_flow, parent, false) as TextView
                 itemFlow.text = info
@@ -36,6 +37,6 @@ class BreakNewsActivity : BaseActivity() {
                 return itemFlow
             }
 
-        })
+        }
     }
 }
