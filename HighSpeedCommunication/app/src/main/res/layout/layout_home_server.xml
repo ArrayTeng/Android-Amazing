@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/homeServerImage"
@@ -26,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="政策法规"
+            tools:text="政策法规"
             android:textSize="18sp" />
 
         <TextView
@@ -39,8 +36,7 @@
             android:textSize="18sp"
             app:layout_constraintLeft_toRightOf="@id/homeServerImage"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="homeServerTitle" />
+            app:layout_constraintTop_toBottomOf="@id/homeServerTitle" />
 
     </android.support.constraint.ConstraintLayout>
-</LinearLayout>
 

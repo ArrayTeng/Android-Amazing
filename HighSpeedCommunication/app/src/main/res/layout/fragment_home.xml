@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="hahdhahhd"/>
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:id="@+id/breakNews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:id="@+id/knockOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+
+        <com.example.traffic.widget.HomeServerFunctionView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:title="政策法规"
+            app:subTitle="公众出行政策"
+            app:contentSrc="@mipmap/icon_policy_list"/>
+    </LinearLayout>
+
+
+
+
 </LinearLayout>

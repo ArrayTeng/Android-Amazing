@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.content_edit_text.view.*
 class ContentEditTextLayout : FrameLayout {
 
     constructor(context: Context) : super(context) {
-
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
