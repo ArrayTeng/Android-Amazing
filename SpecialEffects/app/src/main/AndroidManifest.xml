@@ -12,28 +12,17 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity android:name=".eleSearch.EleSearchActivity" >
-
-<!--            <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
-        </activity>
-        <activity android:name=".eleSearch.EleSearchResultActivity" />
-        <activity android:name=".behavior.CustomBehaviorActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".eleSearch.EleSearchActivity" />
+        <activity android:name=".eleSearch.EleSearchResultActivity" />
+        <activity android:name=".behavior.CustomBehaviorActivity" />
+
     </application>
 
 </manifest>

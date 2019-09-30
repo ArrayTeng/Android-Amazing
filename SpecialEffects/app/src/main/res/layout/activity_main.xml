@@ -6,9 +6,10 @@
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
-    <Button
+    <com.example.specialeffects.view.AvatarView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="仿饿了吗搜索框跳转" />
+        android:layout_height="wrap_content" />
+
+
 
 </LinearLayout>
