@@ -28,6 +28,7 @@ constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: 
     companion object {
         val WIDTH = px2dp(300F)
         val PADDING = px2dp(50F)
+        val EDGE_WIDTH = px2dp(10F)
     }
 
     init {
@@ -43,9 +44,12 @@ constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: 
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val saved = canvas.saveLayer(rectF, paint)
+
 
         canvas.drawOval(PADDING, PADDING, PADDING + WIDTH, PADDING + WIDTH, paint)
+        val saved = canvas.saveLayer(rectF, paint)
+        canvas.drawOval(PADDING + EDGE_WIDTH, PADDING + EDGE_WIDTH, PADDING + WIDTH - EDGE_WIDTH, PADDING + WIDTH - EDGE_WIDTH, paint);
+
         paint.xfermode = xfermode
         canvas.drawBitmap(bitmap, PADDING, PADDING, paint)
         paint.xfermode = null
