@@ -1,7 +1,10 @@
 package com.example.specialeffects.utils
 
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.TypedValue
+import com.example.specialeffects.R
 
 /**
  * @author tengfei
@@ -18,3 +21,5 @@ fun px2dp(dp: Float): Float {
         Resources.getSystem().displayMetrics
     )
 }
+
+

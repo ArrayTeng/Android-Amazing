@@ -72,9 +72,6 @@ class SportView @JvmOverloads constructor(
             (width / 2).toFloat(), height/2 - offset, paint
         )
 
-        paint.textAlign = Paint.Align.LEFT
-        paint.getTextBounds("Hello World",0,"Hello World".length,rect)
-        canvas.drawText("Hello World", 0F,200F,paint)
 
     }
 
