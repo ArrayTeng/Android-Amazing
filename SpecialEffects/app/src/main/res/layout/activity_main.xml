@@ -6,7 +6,7 @@
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
-    <com.example.specialeffects.view.ImageTextView
+    <com.example.specialeffects.view.CameraView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

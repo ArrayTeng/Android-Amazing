@@ -5,9 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.text.Layout
-import android.text.StaticLayout
-import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.example.specialeffects.R
@@ -44,7 +41,7 @@ constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         paint.textSize = px2dp(20F)
-        canvas.drawBitmap(getAvater(200),width - px2dp(100F),px2dp(70F),paint)
+        canvas.drawBitmap(getAvatar(200),width - px2dp(100F),px2dp(70F),paint)
 
         var oldIndex = 0
 
@@ -61,7 +58,7 @@ constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: 
     }
 
 
-    private fun getAvater(width: Int): Bitmap {
+    private fun getAvatar(width: Int): Bitmap {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeResource(resources, R.drawable.avatar_rengwuxian, options)
