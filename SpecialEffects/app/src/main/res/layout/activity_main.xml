@@ -7,9 +7,9 @@
     tools:context=".MainActivity">
 
     <com.example.specialeffects.view.CameraView
+        android:id="@+id/cameraView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
 
 </LinearLayout>

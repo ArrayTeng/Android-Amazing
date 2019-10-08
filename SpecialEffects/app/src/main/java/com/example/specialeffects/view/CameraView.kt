@@ -6,6 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import com.example.specialeffects.R
+import com.example.specialeffects.utils.px2dp
 
 /**
  * @author tengfei
@@ -21,8 +22,34 @@ class CameraView
     private val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val camera: Camera = Camera()
 
+    private var bottomFlip = 0F
+        get() = field
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    private var topFlip = 0F
+        get() = field
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    private var flipRotation = 0F
+        get() = field
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    companion object {
+        val PADDING = px2dp(100F)
+        val IMAGEWIDTH = px2dp(200F)
+    }
+
     init {
-        camera.rotateX(30F)
+
         //固定写法用于适配
         camera.setLocation(0F, 0F, -6 * Resources.getSystem().displayMetrics.density)
     }
@@ -31,19 +58,30 @@ class CameraView
         super.onDraw(canvas)
         //绘制上半部分
         canvas.save()
-        canvas.translate(400F, 400F)
-        canvas.clipRect(-600 / 2, -600 / 2, 600 / 2, 0)
-        canvas.translate(-400F, -400F)
-        canvas.drawBitmap(getAvatar(600), 100F, 100F, paint)
+        canvas.translate(PADDING + IMAGEWIDTH / 2, PADDING + IMAGEWIDTH / 2)
+        canvas.rotate(-flipRotation)
+        camera.save()
+        camera.rotateX(topFlip)
+        camera.applyToCanvas(canvas)
+        camera.restore()
+        canvas.clipRect(-IMAGEWIDTH, -IMAGEWIDTH, IMAGEWIDTH, 0F)
+        canvas.rotate(flipRotation)
+        canvas.translate(-(PADDING + IMAGEWIDTH / 2), -(PADDING + IMAGEWIDTH / 2))
+        canvas.drawBitmap(getAvatar(IMAGEWIDTH.toInt()), PADDING, PADDING, paint)
         canvas.restore()
 
         //绘制下半部分
         canvas.save()
-        canvas.translate(400F, 400F)
+        canvas.translate(PADDING + IMAGEWIDTH / 2, PADDING + IMAGEWIDTH / 2)
+        canvas.rotate(-flipRotation)
+        camera.save()
+        camera.rotateX(bottomFlip)
         camera.applyToCanvas(canvas)
-        canvas.clipRect(-600 / 2, 0, 600 / 2, 600 / 2)
-        canvas.translate(-400F, -400F)
-        canvas.drawBitmap(getAvatar(600), 100F, 100F, paint)
+        camera.restore()
+        canvas.clipRect(-IMAGEWIDTH, 0F, IMAGEWIDTH, IMAGEWIDTH)
+        canvas.rotate(flipRotation)
+        canvas.translate(-(PADDING + IMAGEWIDTH / 2), -(PADDING + IMAGEWIDTH / 2))
+        canvas.drawBitmap(getAvatar(IMAGEWIDTH.toInt()), PADDING, PADDING, paint)
         canvas.restore()
     }
 
