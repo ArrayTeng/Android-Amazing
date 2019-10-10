@@ -6,10 +6,9 @@
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
-    <com.example.specialeffects.view.CircleView
-        android:id="@+id/circleView"
+    <com.example.specialeffects.view.ProvinceView
+        android:id="@+id/provinceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/avatar_rengwuxian"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>

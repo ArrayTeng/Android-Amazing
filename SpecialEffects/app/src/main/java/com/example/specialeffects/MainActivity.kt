@@ -1,11 +1,12 @@
 package com.example.specialeffects
 
-import android.animation.Keyframe
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import android.animation.TimeInterpolator
+import android.animation.TypeEvaluator
 import android.os.Bundle
+import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import com.example.specialeffects.utils.px2dp
+import com.example.specialeffects.utils.achieveAllCitys
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,18 +16,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val keyframe0 = Keyframe.ofFloat(0F, px2dp(50F))
-        val keyframe1 = Keyframe.ofFloat(0.5F,  px2dp(100F))
-        val keyframe2 = Keyframe.ofFloat(1F, px2dp(50F))
 
-        val propertyValuesHolder =
-            PropertyValuesHolder.ofKeyframe("radious", keyframe0, keyframe1, keyframe2)
+        val objectAnimator = ObjectAnimator.ofObject(provinceView, "province",
+            MyTypeEvaluator(),"台湾省")
+        objectAnimator.startDelay = 3000
+        objectAnimator.duration = 5000
+        objectAnimator.interpolator = LinearInterpolator()
+        objectAnimator.start()
+    }
+}
 
-        val animator = ObjectAnimator.ofPropertyValuesHolder(circleView, propertyValuesHolder)
-        animator.startDelay = 3000
-        animator.duration = 5000
-        animator.start()
+class MyTypeEvaluator : TypeEvaluator<String> {
+    override fun evaluate(fraction: Float, startValue: String?, endValue: String?): String {
+        val startIndex = achieveAllCitys().indexOf(startValue)
+        val endValueIndex = achieveAllCitys().indexOf(endValue)
+        val targetIndex = (startIndex+(endValueIndex - startIndex))*fraction
+        return achieveAllCitys()[targetIndex.toInt()]
+    }
+}
 
-
+class MyInterpolator :TimeInterpolator {
+    override fun getInterpolation(input: Float): Float {
+        TODO()
     }
 }
