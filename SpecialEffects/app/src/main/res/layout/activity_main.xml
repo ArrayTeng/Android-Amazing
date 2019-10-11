@@ -6,9 +6,10 @@
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
-    <com.example.specialeffects.view.ProvinceView
-        android:id="@+id/provinceView"
+
+    <com.example.specialeffects.view.MaterialEditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:hint="Hello World" />
 
 </FrameLayout>

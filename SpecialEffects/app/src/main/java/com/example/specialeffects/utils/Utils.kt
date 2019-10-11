@@ -3,6 +3,7 @@ package com.example.specialeffects.utils
 import android.content.res.Resources
 import android.util.TypedValue
 
+
 /**
  * @author tengfei
  * date 2019-09-30 17:00
@@ -17,6 +18,11 @@ fun px2dp(dp: Float): Float {
         dp,
         Resources.getSystem().displayMetrics
     )
+}
+
+fun dp2px(dpValue: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.density
+    return dpValue * scale + 0.5f
 }
 
 fun achieveAllCitys(): List<String> {
