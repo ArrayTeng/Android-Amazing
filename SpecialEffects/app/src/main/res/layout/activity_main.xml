@@ -8,6 +8,7 @@
 
 
     <com.example.specialeffects.view.MaterialEditText
+        android:id="@+id/materialEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Hello World" />
