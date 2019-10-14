@@ -40,6 +40,9 @@ class TagLayout : ViewGroup {
             if (spaceWidthMode != MeasureSpec.UNSPECIFIED && widthLineUsed + childView.measuredWidth > spaceWidthSize) {
                 widthLineUsed = 0
                 heightUsed += verticalHeightUsed
+                verticalHeightUsed = 0
+                measureChildWithMargins(childView, widthMeasureSpec, 0, heightMeasureSpec, heightUsed)
+
             }
             val boundRect = Rect()
             rectList.add(boundRect)
@@ -57,7 +60,7 @@ class TagLayout : ViewGroup {
         }
 
         val width: Int = widthUsed
-        val height: Int = verticalHeightUsed
+        val height: Int = verticalHeightUsed + heightUsed
         setMeasuredDimension(width, height)
 
     }
