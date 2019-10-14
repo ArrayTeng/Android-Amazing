@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +8,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <com.example.specialeffects.view.MaterialEditText
-        android:id="@+id/materialEditText"
+    <com.example.specialeffects.view.TagLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Hello World"
-        app:useGlabe="true"
-        />
+        android:layout_height="match_parent">
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京市" />
 
-</FrameLayout>
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="天津市" />
+
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上海市" />
+
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重庆市" />
+
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="河北省" />
+
+        <com.example.specialeffects.view.ColoredTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="山西省" />
+    </com.example.specialeffects.view.TagLayout>
+
+</LinearLayout>
