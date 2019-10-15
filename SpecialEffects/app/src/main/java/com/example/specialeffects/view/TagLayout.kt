@@ -16,9 +16,9 @@ import kotlin.math.max
  */
 class TagLayout : ViewGroup {
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
 
     private var rectList = ArrayList<Rect>()
