@@ -69,9 +69,15 @@ class ScalableImageView @JvmOverloads constructor(
     /**
      * 如果控件设置了双击，那么 onSingleTapUp 失效并且在 onDoubleTap 情况下单击由 onSingleTapConfirmed 处理
      */
-    override fun onDoubleTap(e: MotionEvent?): Boolean {
+    override fun onDoubleTap(e: MotionEvent): Boolean {
         big = !big
-        if (big) scaleObjectAnimator.start() else scaleObjectAnimator.reverse()
+        if (big) {
+            offsetX = (e.x - width / 2) - (e.x - width / 2) * (bigScale / smallScale)
+            offsetY = (e.y - height / 2) - (e.y - height / 2) * (bigScale / smallScale)
+            scaleObjectAnimator.start()
+        } else {
+            scaleObjectAnimator.reverse()
+        }
         invalidate()
         return false
     }
@@ -165,14 +171,14 @@ class ScalableImageView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.translate(offsetX, offsetY)
+        canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction)
         val scale = smallScale + (bigScale - smallScale) * scaleFraction
         canvas.scale(scale, scale, (width / 2).toFloat(), (height / 2).toFloat())
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint)
     }
 
     override fun run() {
-        if (overScroller.computeScrollOffset()){
+        if (overScroller.computeScrollOffset()) {
             offsetX = overScroller.currX.toFloat()
             offsetY = overScroller.currY.toFloat()
             invalidate()
