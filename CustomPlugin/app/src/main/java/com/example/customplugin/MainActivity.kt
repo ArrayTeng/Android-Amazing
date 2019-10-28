@@ -1,4 +1,4 @@
-package com.example.plugin
+package com.example.customplugin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

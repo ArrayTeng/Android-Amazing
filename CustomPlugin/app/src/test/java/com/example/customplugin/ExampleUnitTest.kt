@@ -1,4 +1,4 @@
-package com.example.plugin
+package com.example.customplugin
 
 import org.junit.Test
 
