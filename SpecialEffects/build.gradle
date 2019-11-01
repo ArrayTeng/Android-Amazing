@@ -3,11 +3,13 @@
 buildscript {
     ext.kotlin_version = '1.3.41'
     repositories {
+        // 指定你项目中 plugin 从哪些地方下载
         google()
         jcenter()
         
     }
     dependencies {
+        //指定你项目中有哪些 plugin
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong

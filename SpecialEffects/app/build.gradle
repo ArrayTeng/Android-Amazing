@@ -20,6 +20,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "price", "nation"
+    productFlavors {
+
+
+        free {
+            dimension "price"
+        }
+
+        paid {
+            dimension "price"
+        }
+
+        china {
+            dimension "nation"
+        }
+
+        global {
+            dimension "nation"
+        }
+
+    }
 }
 
 dependencies {

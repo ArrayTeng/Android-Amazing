@@ -1,8 +1,0 @@
-<!--用于集成调试-->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.share">
-
-    <application android:theme="@style/AppTheme">
-        <activity android:name=".ShareActivity" />
-    </application>
-</manifest>

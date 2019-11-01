@@ -1,2 +1,2 @@
-include ':app', ':cooker-plugin'
+include ':app'
 rootProject.name='CustomPlugin'
