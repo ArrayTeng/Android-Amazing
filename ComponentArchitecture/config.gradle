@@ -1,0 +1,29 @@
+ext {
+
+    //false集成模式，true 组件模式
+    isRunAlone = false
+
+    android = [
+            compileSdkVersion: 28,
+            minSdkVersion    : 26,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    appId = [
+            app    : "com.example.component",
+            moudle1: "com.example.firstmoudle",
+            moudle2: "com.example.secondmoudle"
+    ]
+
+    appcompat = "1.1.0"
+    ktx = "1.1.0"
+    constraintlayout = "1.1.3"
+
+    dependencies = [
+            appcompat       : "androidx.appcompat:appcompat:$appcompat",
+            ktx             : "androidx.core:core-ktx:$ktx",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    ]
+}

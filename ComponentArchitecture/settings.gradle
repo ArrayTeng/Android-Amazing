@@ -1,0 +1,2 @@
+include ':app', ':moudle1', ':moudle2', ':router_core', ':router_annotation', ':router_compiler', ':base'
+rootProject.name='ComponentArchitecture'
