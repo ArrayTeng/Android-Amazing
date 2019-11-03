@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.routerannotation.Router;
+import com.example.routerannotation.Route;
 
 /**
  * @author tengfei
@@ -14,7 +14,7 @@ import com.example.routerannotation.Router;
  * description
  */
 
-@Router()
+@Route()
 public class MainActivity extends AppCompatActivity {
 
     @Override
