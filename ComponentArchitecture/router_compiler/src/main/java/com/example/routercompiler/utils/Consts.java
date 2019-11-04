@@ -17,7 +17,7 @@ public class Consts {
     public static final String ANN_TYPE_Extra = "com.example.routerannotation.Extra";
 
 
-    public static final String IROUTE_GROUP = "com.dn_alan.router_core.template.IRouteGroup";
+    public static final String IROUTE_GROUP = "com.example.routercore.IRouteGroup";
     public static final String IROUTE_ROOT = "com.dn_alan.router_core.template.IRouteRoot";
     public static final String IEXTRA = "com.dn_alan.router_core.template.IExtra";
 
@@ -62,6 +62,6 @@ public class Consts {
     public static final String NAME_OF_GROUP = PROJECT + SEPARATOR + "Group" + SEPARATOR;
     public static final String NAME_OF_EXTRA = SEPARATOR + "Extra";
 
-    public static final String PACKAGE_OF_GENERATE_FILE = "com.dn_alan.router_core";
+    public static final String PACKAGE_OF_GENERATE_FILE = "com.example.component";
 
 }

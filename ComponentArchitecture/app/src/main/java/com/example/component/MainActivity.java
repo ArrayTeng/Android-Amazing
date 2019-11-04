@@ -14,7 +14,7 @@ import com.example.routerannotation.Route;
  * description
  */
 
-@Route()
+@Route(path = "/main/test")
 public class MainActivity extends AppCompatActivity {
 
     @Override
