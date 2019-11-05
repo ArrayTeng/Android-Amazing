@@ -1,0 +1,2 @@
+include ':app', ':poet'
+rootProject.name='JavaPoetDemo'
