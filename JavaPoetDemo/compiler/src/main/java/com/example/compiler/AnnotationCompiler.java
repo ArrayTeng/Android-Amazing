@@ -81,6 +81,7 @@ public class AnnotationCompiler extends AbstractProcessor {
 
     private void procese(Set<? extends Element> elements) {
         for (Element element : elements) {
+
             int id = element.getAnnotation(ContentView.class).id();
             String className = element.getSimpleName().toString();
             MethodSpec methodSpec = MethodSpec.constructorBuilder()
