@@ -17,6 +17,14 @@ android {
         versionCode androidConfig.versionCode
         versionName androidConfig.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]    //把模块名字保存到参数中（key--->values）
+            }
+        }
+
+
     }
     buildTypes {
         release {
