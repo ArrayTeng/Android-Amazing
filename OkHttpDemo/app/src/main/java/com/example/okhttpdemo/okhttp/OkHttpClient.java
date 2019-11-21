@@ -25,14 +25,14 @@ public class OkHttpClient {
     }
 
     public Call newCall(Request request){
-        return RealCall.newRealCall(this);
+        return RealCall.newRealCall(this,request);
     }
 
     public static class Builder {
         String interceptor;
         String cache;
         public OkHttpClient build() {
-            return new OkHttpClient();
+            return new OkHttpClient(this);
         }
 
         public Builder addInterceptor(String interceptor){

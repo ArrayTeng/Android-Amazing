@@ -2,6 +2,10 @@ package com.example.okhttpdemo.okhttp;
 
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -16,12 +20,15 @@ public class RealCall implements Call {
 
     private OkHttpClient okHttpClient;
 
-    private RealCall(OkHttpClient okHttpClient) {
+    private Request originalRequest;
+
+    private RealCall(OkHttpClient okHttpClient, Request request) {
+        this.originalRequest = request;
         this.okHttpClient = okHttpClient;
     }
 
-    public static RealCall newRealCall(OkHttpClient okHttpClient) {
-        return new RealCall(okHttpClient);
+    public static RealCall newRealCall(OkHttpClient okHttpClient, Request request) {
+        return new RealCall(okHttpClient, request);
     }
 
 
@@ -31,6 +38,8 @@ public class RealCall implements Call {
     }
 
     public class AsyncCall extends NamedRunable {
+
+        private static final String GET = "GET";
 
         CallBack callBack;
 
@@ -47,7 +56,32 @@ public class RealCall implements Call {
 
         @Override
         void execute() {
-            Log.e(TAG, "execute: 任务最终被执行" );
+
+            Log.e(TAG, "execute: 任务最终被执行");
+
+            try {
+                URL url = new URL(originalRequest.url);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                if (originalRequest.method.name().equals(GET)) {
+
+                }
+                connection.connect();
+                int responseCode = connection.getResponseCode();
+                if (responseCode == 200) {
+                    InputStream inputStream = connection.getInputStream();
+                    Response response = new Response(inputStream);
+                    callBack.onResponse(RealCall.this, response);
+                } else {
+                    //callBack.onFailure(RealCall.this, e);
+                    InputStream inputStream = connection.getInputStream();
+                    Response response = new Response(inputStream);
+                    callBack.onResponse(RealCall.this, response);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                callBack.onFailure(RealCall.this, e);
+            }
         }
     }
 }
