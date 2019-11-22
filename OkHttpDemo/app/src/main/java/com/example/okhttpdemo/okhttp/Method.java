@@ -7,5 +7,28 @@ package com.example.okhttpdemo.okhttp;
  * description
  */
 public enum Method {
-    get,post
+
+    GET("GET"),
+
+    POST("POST");
+
+    private String name;
+
+    Method(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean doOutPut() {
+        switch (this) {
+            case POST:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }

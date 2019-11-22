@@ -8,6 +8,7 @@ import com.example.okhttpdemo.okhttp.Call;
 import com.example.okhttpdemo.okhttp.CallBack;
 import com.example.okhttpdemo.okhttp.OkHttpClient;
 import com.example.okhttpdemo.okhttp.Request;
+import com.example.okhttpdemo.okhttp.RequestBody;
 import com.example.okhttpdemo.okhttp.Response;
 
 import java.io.IOException;
@@ -27,9 +28,15 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .build();
 
+        RequestBody requestBody = new RequestBody.Builder()
+                .type(RequestBody.FROM)
+                .addParam("username","hello")
+                .addParam("password","123456")
+                .build();
+
         Request request = new Request.Builder()
-                .post()
-                .url("https://www.baidu.com")
+                .post(requestBody)
+                .url("https://www.wanandroid.com/user/login")
                 .header("", "")
                 .Build();
 

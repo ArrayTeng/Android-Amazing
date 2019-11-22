@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -62,18 +63,24 @@ public class RealCall implements Call {
             try {
                 URL url = new URL(originalRequest.url);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                if (originalRequest.method.name().equals(GET)) {
+                connection.setRequestMethod(originalRequest.method.getName());
+                connection.setDoOutput(originalRequest.method.doOutPut());
 
+                RequestBody body = originalRequest.body;
+                if (body!=null){
+                    connection.setRequestProperty("Content-Type",body.type);
+                    connection.setRequestProperty("Content-Length",String.valueOf(body.getLength()));
                 }
+
                 connection.connect();
+
+                if (body!=null){
+                    OutputStream outputStream = connection.getOutputStream();
+                    body.onWriteStream(outputStream);
+                }
                 int responseCode = connection.getResponseCode();
+
                 if (responseCode == 200) {
-                    InputStream inputStream = connection.getInputStream();
-                    Response response = new Response(inputStream);
-                    callBack.onResponse(RealCall.this, response);
-                } else {
-                    //callBack.onFailure(RealCall.this, e);
                     InputStream inputStream = connection.getInputStream();
                     Response response = new Response(inputStream);
                     callBack.onResponse(RealCall.this, response);

@@ -11,25 +11,28 @@ public class Request {
 
     public String url;
     public Method method;
+    public RequestBody body;
 
     public Request() {
         this(new Builder());
     }
 
-    public Request(Builder builder){
+    public Request(Builder builder) {
         url = builder.url;
         method = builder.method;
+        body = builder.body;
     }
 
 
     public static class Builder {
 
+        public RequestBody body;
         Method method;
         String url;
 
         public Request Build() {
-            if (method == null){
-                method = Method.get;
+            if (method == null) {
+                method = Method.GET;
             }
             return new Request(this);
         }
@@ -44,13 +47,14 @@ public class Request {
         }
 
         public Builder get() {
-            method = Method.get;
+            method = Method.GET;
             return this;
         }
 
 
-        public Builder post() {
-            method = Method.post;
+        public Builder post(RequestBody requestBody) {
+            method = Method.POST;
+            this.body = requestBody;
             return this;
         }
     }
