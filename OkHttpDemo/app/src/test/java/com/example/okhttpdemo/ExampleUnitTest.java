@@ -1,17 +1,15 @@
 package com.example.okhttpdemo;
 
 
+import android.util.Log;
+
 import org.junit.Test;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.HttpUrl;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 /**
@@ -21,38 +19,29 @@ import okhttp3.Response;
  */
 public class ExampleUnitTest {
 
+    private static final String TAG = "ExampleUnitTest_TAG";
+
 
     @Test
-    public void test(){
+    public void test() {
+
+//        List<Interceptor> interceptorList = new ArrayList<>();
+//        interceptorList.add(new BridgeInterceptor());
+//        interceptorList.add(new CacheInterceptor());
+//        interceptorList.add(new ConnectInterceptor());
+//
+//        Request request = new Request();
+//
+//        Interceptor.Chain chain = new RealInterceptorChain(interceptorList, 0, request);
+//
+//
+//        Response response = chain.proceed(request);
+//
+//        System.out.println(response.toString());
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-
+                .cache(new Cache())
                 .build();
-
-        HttpUrl url = new HttpUrl.Builder()
-                .addQueryParameter("","")
-                .build();
-
-        RequestBody
-
-        Request request = new Request.Builder()
-                .url(url)
-                .get()
-                .build();
-
-
-        Call call = okHttpClient.newCall(request);
-
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
     }
 
 }
