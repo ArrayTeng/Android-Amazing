@@ -1,6 +1,5 @@
-package com.example.okhttpdemo;
+package com.example.okhttpdemo.okhttp;
 
-import java.security.cert.CertPathValidatorException;
 import java.util.List;
 
 /**

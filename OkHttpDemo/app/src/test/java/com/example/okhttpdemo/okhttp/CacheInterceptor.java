@@ -1,6 +1,4 @@
-package com.example.okhttpdemo;
-
-import android.util.Log;
+package com.example.okhttpdemo.okhttp;
 
 /**
  * @author tengfei
@@ -8,13 +6,13 @@ import android.util.Log;
  * email arrayadapter.cn@gmail.com
  * description
  */
-public class BridgeInterceptor implements Interceptor {
-
-
+public class CacheInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) {
         Request request = chain.request();
-        System.out.println("intercept: BridgeInterceptor");
+        System.out.println("intercept: CacheInterceptor");
+
+
         return chain.proceed(request);
     }
 }

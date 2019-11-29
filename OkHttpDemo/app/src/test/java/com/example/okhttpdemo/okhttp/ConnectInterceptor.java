@@ -1,6 +1,4 @@
-package com.example.okhttpdemo;
-
-import android.util.Log;
+package com.example.okhttpdemo.okhttp;
 
 /**
  * @author tengfei

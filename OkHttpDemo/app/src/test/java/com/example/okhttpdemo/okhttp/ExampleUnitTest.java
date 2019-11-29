@@ -1,4 +1,4 @@
-package com.example.okhttpdemo;
+package com.example.okhttpdemo.okhttp;
 
 
 import android.util.Log;
@@ -6,10 +6,13 @@ import android.util.Log;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.Cache;
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 
 /**
@@ -39,9 +42,19 @@ public class ExampleUnitTest {
 //
 //        System.out.println(response.toString());
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .cache(new Cache())
-                .build();
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .cache()
+//                .build();
+//
+//        Request request = new Request.Builder()
+//
+//                .build();
+//
+//
+//        Call call = okHttpClient.newCall();
+//
+//        call.enqueue();
+
     }
 
 }
