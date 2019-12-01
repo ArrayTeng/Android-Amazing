@@ -4,6 +4,8 @@ package com.example.demo.retrofit;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -22,6 +24,7 @@ public class Retrofit {
     private String baseUrl;
     private Call.Factory factory;
 
+    private Map<Method,ServiceMethod> serviceMethodCacheMap = new ConcurrentHashMap<>();
 
     private Retrofit(Builder builder) {
         this.baseUrl = builder.baseUrl;
@@ -34,11 +37,24 @@ public class Retrofit {
 
         return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class[]{service}, new InvocationHandler() {
             @Override
-            public Object invoke(Object proxy, Method method, Object[] args) {
-                //解析 method 上的注解根据注解来拼装 request
-                return null;
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable{
+                if (method.getDeclaringClass() == Object.class){
+                    return method.invoke(this,args);
+                }
+                //ServiceMethod 负责解析接口方法里定义的注解
+                ServiceMethod serviceMethod = loadServiceMethod(method);
+                return new OkHttpCall(serviceMethod,args);
             }
         });
+    }
+
+    private ServiceMethod loadServiceMethod(Method method) {
+        ServiceMethod serviceMethod = serviceMethodCacheMap.get(method);
+        if (serviceMethod == null){
+            serviceMethod = new ServiceMethod.Builder(this,method).build();
+            serviceMethodCacheMap.put(method,serviceMethod);
+        }
+        return serviceMethod;
     }
 
     public static class Builder {

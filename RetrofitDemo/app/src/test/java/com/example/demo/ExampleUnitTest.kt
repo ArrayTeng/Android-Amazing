@@ -1,9 +1,10 @@
 package com.example.demo
 
+import com.example.demo.retrofit.Call
+import com.example.demo.retrofit.CallBack
+import com.example.demo.retrofit.Response
 import com.example.demo.retrofit.Retrofit
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -14,16 +15,22 @@ class ExampleUnitTest {
 
 
     @Test
-    fun retrofitDemoTest(){
+    fun retrofitDemoTest() {
         val retrofit = Retrofit.Builder()
             .url("")
             .build()
 
-        val service  = retrofit.create(Service::class.java)
-        service.test()
+        val service = retrofit.create(Service::class.java)
+        val call = service.test("", "", "", "")
+
+        call.enqueue(object : CallBack<String> {
+            override fun onFailure(call: Call<String>?, t: Throwable?) {
+            }
+
+            override fun onResponse(call: Call<String>?, response: Response<String>?) {
+            }
+        })
     }
-
-
 
 
 }
