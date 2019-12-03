@@ -8,7 +8,7 @@ package com.example.demo.retrofit;
  */
 public interface IParameterHandler<T> {
 
-    void apply(T value);
+    void apply(RequestBuilder requestBuilder, Object arg);
 
     class Query<T> implements IParameterHandler<T> {
 
@@ -19,8 +19,8 @@ public interface IParameterHandler<T> {
         }
 
         @Override
-        public void apply(T value) {
-
+        public void apply(RequestBuilder requestBuilder, Object arg) {
+            requestBuilder.addQuery(key, arg.toString());
         }
     }
 }

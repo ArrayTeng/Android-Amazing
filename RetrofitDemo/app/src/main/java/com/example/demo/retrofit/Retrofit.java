@@ -24,6 +24,15 @@ public class Retrofit {
     private String baseUrl;
     private Call.Factory factory;
 
+    public String baseUrl(){
+        return baseUrl;
+    }
+
+
+    public Call.Factory factory(){
+        return this.factory;
+    }
+
     private Map<Method,ServiceMethod> serviceMethodCacheMap = new ConcurrentHashMap<>();
 
     private Retrofit(Builder builder) {
