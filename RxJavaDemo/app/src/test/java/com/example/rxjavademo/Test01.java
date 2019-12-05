@@ -11,10 +11,11 @@ import com.example.rxjavademo.rxjava.Observer;
  * email arrayadapter.cn@gmail.com
  * description
  */
-public class Test {
+public class Test01 {
 
     @org.junit.Test
     public void test() {
+        //Observable 调用 just 方法返回 ObservableJust 对象
         Observable.just("hello").subscribe(new Observer() {
             @Override
             public void onSubscribe() {
