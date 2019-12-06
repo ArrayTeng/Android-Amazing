@@ -17,6 +17,7 @@ public class ObservableJust<T> extends Observable<T> {
 
     @Override
     protected void subscribeActual(Observer<T> observer) {
+        @SuppressWarnings("unchecked")
         ScalarDisposable scalarDisposable = new ScalarDisposable(item, observer);
         observer.onSubscribe();
         scalarDisposable.run();

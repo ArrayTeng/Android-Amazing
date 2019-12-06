@@ -4,24 +4,26 @@ import androidx.annotation.NonNull;
 
 /**
  * @author tengfei
- * date 2019-12-05 21:35
+ * date 2019-12-06 17:27
  * email arrayadapter.cn@gmail.com
  * description
  */
-public class LambdaObserver<T> implements Observer<T> {
-    Consumer<T> onNext;
+public class LambdaObservable<T> implements Observer<T>{
 
-    public LambdaObserver(Consumer<T> onNext) {
-        this.onNext = onNext;
+    private Consumer<T> consumer;
+
+    public  LambdaObservable(Consumer<T> consumer) {
+        this.consumer = consumer;
     }
 
     @Override
     public void onSubscribe() {
+
     }
 
     @Override
     public void onNext(@NonNull T item) {
-        onNext.onNext(item);
+        consumer.onNext(item);
     }
 
     @Override

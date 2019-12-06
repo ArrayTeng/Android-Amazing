@@ -2,6 +2,8 @@ package com.example.rxjavademo.rxjava;
 
 import androidx.annotation.NonNull;
 
+import com.example.rxjavademo.R;
+
 /**
  * @author tengfei
  * date 2019-12-04 20:46
@@ -10,12 +12,11 @@ import androidx.annotation.NonNull;
  */
 public abstract class Observable<T> implements ObservableSource<T> {
 
-
     public static <T> Observable just(T item) {
         return onAssembly(new ObservableJust<T>(item));
     }
 
-    private static <T> Observable<T> onAssembly(ObservableJust<T> source) {
+    private static <T> Observable<T> onAssembly(Observable<T> source) {
         return source;
     }
 
@@ -25,16 +26,19 @@ public abstract class Observable<T> implements ObservableSource<T> {
         subscribeActual(observer);
     }
 
-    public void subscribe(@NonNull Consumer<T> consumer) {
-        subscribe(consumer, null, null);
+    /**
+     * 如果只执行 Consumer ，Observable.just 返回的是 ObservableJust 对象，所以最终是 Observable 调用的下面的
+     * subscribe(Consumer<T> consumer) 方法并执行 subscribeActual 方法，由于 ObservableJust 继承了 Observable 所以会重写
+     * 抽象方法 subscribeActual ，也就是说 Observable.just("").subscribe(Consumer<T> consumer) 最终执行的是 ObservableJust 对象
+     * 里重写的 subscribeActual 方法
+     */
+    public <T> void subscribe(Consumer<T> consumer) {
+        subscribeActual(new LambdaObservable(consumer));
     }
-
-    public void subscribe(@NonNull Consumer<T> onNext, Consumer<T> onError, Consumer<T> onComplete) {
-        subscribe(new LambdaObserver<T>(onNext));
-    }
-
 
     protected abstract void subscribeActual(Observer<T> observer);
 
-
+    public <R> Observable<R> map(Function<T, R> function) {
+        return onAssembly(new ObservableMap(this,function));
+    }
 }

@@ -1,6 +1,9 @@
 package com.example.rxjavademo;
 
+import android.graphics.Bitmap;
+
 import com.example.rxjavademo.rxjava.Consumer;
+import com.example.rxjavademo.rxjava.Function;
 import com.example.rxjavademo.rxjava.Observable;
 
 import org.junit.Test;
@@ -16,11 +19,19 @@ public class Test02 {
 
     @Test
     public void test(){
-        Observable.just("").subscribe(new Consumer() {
+        Observable.just("https://www.baidu.com").map(new Function<String,Bitmap>() {
             @Override
-            public void onNext(Object item) {
-
+            public Bitmap apply(String s) {
+                return null;
             }
+
         });
+    }
+
+
+
+    @Test
+    public void testRxJava(){
+
     }
 }
