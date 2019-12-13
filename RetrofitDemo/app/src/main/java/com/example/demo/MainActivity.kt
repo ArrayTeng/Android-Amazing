@@ -2,10 +2,22 @@ package com.example.demo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.demo.retrofit.Call
-import com.example.demo.retrofit.CallBack
-import com.example.demo.retrofit.Response
-import com.example.demo.service.IService
+import okhttp3.*
+import java.io.IOException
+import android.text.TextUtils
+import com.example.demo.okhttp.ExRequestBody
+import java.net.URLConnection
+
+
+private fun guessMimeType(filePath: String): String {
+    val fileNameMap = URLConnection.getFileNameMap()
+
+    val mimType = fileNameMap.getContentTypeFor(filePath)
+
+    return if (TextUtils.isEmpty(mimType)) {
+        "application/octet-stream"
+    } else mimType
+}
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,20 +25,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val retrofit = com.example.demo.retrofit.Retrofit.Builder()
-            .url("http://gank.io/api/")
+        val okHttpClient = OkHttpClient.Builder()
             .build()
 
-        val service = retrofit.create(IService::class.java)
-        val call = service.test("1", "2", "3")
 
-        call.enqueue(object : CallBack<String> {
-            override fun onFailure(call: Call<String>?, t: Throwable?) {
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("","")
+            .addFormDataPart("file","tengfei.apk", RequestBody.create(MediaType.parse(guessMimeType("")),""))
+            .build()
+
+        val exRequestBody:ExRequestBody = ExRequestBody(requestBody)
+
+        val request: Request = Request.Builder()
+            .post(exRequestBody)
+            .url("")
+            .build()
+
+        val call = okHttpClient.newCall(request)
+
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onResponse(call: Call<String>?, response: Response<String>?) {
-
+            override fun onResponse(call: Call, response: Response) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
+
         })
 
     }
