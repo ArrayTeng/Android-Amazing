@@ -3,7 +3,7 @@ package com.example.algorithm.day01;
 /**
  * @author tengfei
  */
-public class Day01Test {
+public class Test {
 
     public static void main(String[] args) {
         Array<Integer> array = new Array<>();
