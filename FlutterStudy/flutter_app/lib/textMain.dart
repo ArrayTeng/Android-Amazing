@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(TextWidget());
@@ -19,22 +21,30 @@ class TestApp extends StatefulWidget {
 }
 
 class _TestAppState extends State {
+  String btnInfo = '';
 
-  TextStyle blackStyle = TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20);
+  TextStyle blackStyle =
+      TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20);
 
-  TextStyle redStyle = TextStyle(color: Colors.red,fontWeight: FontWeight.normal,fontSize: 15);
+  TextStyle redStyle =
+      TextStyle(color: Colors.red, fontWeight: FontWeight.normal, fontSize: 15);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('flutter 文本控件')),
-      body: Container(
-        child: Text.rich(TextSpan(children: <TextSpan>[
-          TextSpan(text:'文本是视图系统中常见的控件，它用来显示一段特定样式的字符串，类似'),
-          TextSpan(text: 'Android',style: redStyle),
-          TextSpan(text: '中的',style: blackStyle)
-        ]),textAlign: TextAlign.center,),
-      ),
-    );
+        appBar: AppBar(title: Text('flutter 文本控件')),
+        body: Container(
+          child: ListView.separated(
+            itemCount: 100,
+            separatorBuilder: (BuildContext context, int index)=>index%2==0?Divider(color: Colors.red):Divider(color: Colors.blue),
+            itemBuilder: (BuildContext context, int index) => ListTile(title: Text('title $index'),subtitle: Text('$index'),),
+          ),
+        ));
   }
 }
+
+
+
+
+
+
