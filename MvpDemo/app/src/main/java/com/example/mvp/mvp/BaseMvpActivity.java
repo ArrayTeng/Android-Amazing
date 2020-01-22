@@ -20,6 +20,8 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends AppCompat
         super.onCreate(savedInstanceState);
         initContentView();
         mPresenter = createPresenter();
+
+        //noinspection unchecked
         mPresenter.attach(this);
         initView();
         initData();

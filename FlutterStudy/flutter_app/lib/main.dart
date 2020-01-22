@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/PageFirst.dart';
-
-import 'Page5.dart';
-import 'Page6.dart';
+import 'package:flutter_app/AnimatePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: PageFirst());
+        home: AnimatePage());
   }
 }
 
