@@ -1,0 +1,2 @@
+include ':app', ':libnavannotation', ':libcompiler'
+rootProject.name='皮皮虾'
