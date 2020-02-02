@@ -17,12 +17,13 @@ import com.example.libnavannotation.FragmentDestination;
  * email arrayadapter.cn@gmail.com
  * description
  */
-@FragmentDestination(pageUrl = "main/tabs/home" ,isStart = true)
-public class Fragment01 extends Fragment {
+@FragmentDestination(pageUrl = "main/tabs/find")
+public class Fragment03 extends Fragment {
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment01,container,false);
+        return inflater.inflate(R.layout.fragment03,container,false);
     }
 }

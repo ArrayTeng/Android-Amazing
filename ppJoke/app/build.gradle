@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-noarg'
@@ -35,11 +34,20 @@ android {
 
 noArg {
     //PoKo的路径必须是你定义PoKo类的路径
-    annotations "com.example.tengfei.poke"
+    annotations "com.example.tengfei.poko.PoKo"
 }
 
 allOpen{
-    annotations "com.example.tengfei.poke"
+    annotations "com.example.tengfei.poko.PoKo"
+}
+
+kotlin{
+    experimental{
+        coroutines "enable"
+    }
+    androidExtensions{
+        experimental = true
+    }
 }
 
 dependencies {
@@ -51,7 +59,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.alibaba:fastjson:1.2.62'
+    implementation 'com.alibaba:fastjson:1.2.32'
+
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
 
     implementation project(path: ':libnavannotation')
     kapt project(path: ':libcompiler')

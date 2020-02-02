@@ -1,6 +1,8 @@
 package com.example.tengfei.model
 
-import com.example.tengfei.poke.PoKo
+import android.os.Parcelable
+import com.example.tengfei.poko.PoKo
+import kotlinx.android.parcel.Parcelize
 
 /**
  * @author tengfei
@@ -10,11 +12,12 @@ import com.example.tengfei.poke.PoKo
  */
 
 @PoKo
-class Destination(
-    isLogin: Boolean,
-    pageUrl: String,
-    isActivity: Boolean,
-    isStart: Boolean,
-    id: Int,
-    clazzName: String
-)
+@Parcelize
+data class Destination (
+    var isLogin: Boolean,
+    var pageUrl: String,
+    var isActivity: Boolean,
+    var isStart: Boolean,
+    var id: Int,
+    var clazzName: String
+): Parcelable

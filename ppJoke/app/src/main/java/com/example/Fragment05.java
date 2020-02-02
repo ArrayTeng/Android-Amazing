@@ -1,4 +1,4 @@
-package com.example.tengfei;
+package com.example;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.libnavannotation.FragmentDestination;
+import com.example.tengfei.R;
 
 /**
  * @author tengfei
@@ -17,12 +18,13 @@ import com.example.libnavannotation.FragmentDestination;
  * email arrayadapter.cn@gmail.com
  * description
  */
-@FragmentDestination(pageUrl = "main/tabs/home" ,isStart = true)
-public class Fragment01 extends Fragment {
+@FragmentDestination(pageUrl = "main/tabs/publish")
+public class Fragment05 extends Fragment {
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment01,container,false);
+        return inflater.inflate(R.layout.fragment04,container,false);
     }
 }
