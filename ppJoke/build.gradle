@@ -5,10 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
 
     }
 }

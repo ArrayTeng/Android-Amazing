@@ -1,11 +1,14 @@
 package com.example.libnetwork;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.arch.core.executor.ArchTaskExecutor;
+
+import com.example.libnetwork.cache.CacheManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -184,13 +187,13 @@ public abstract class Request<T, R extends Request> implements Cloneable {
     }
 
     private ApiResponse<T> readCache() {
-//        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
-//        Object cache = CacheManager.getCache(key);
-//        ApiResponse<T> result = new ApiResponse<>();
-//        result.status = 304;
-//        result.message = "缓存获取成功";
-//        result.body = (T) cache;
-//        result.success = true;
+        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
+        Object cache = CacheManager.getCache(key);
+        ApiResponse<T> result = new ApiResponse<>();
+        result.status = 304;
+        result.message = "缓存获取成功";
+        result.body = (T) cache;
+        result.success = true;
         return result;
     }
 
@@ -236,13 +239,13 @@ public abstract class Request<T, R extends Request> implements Cloneable {
     }
 
     private void saveCache(T body) {
-//        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
-//        CacheManager.save(key, body);
+        String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
+        CacheManager.save(key, body);
     }
 
     private String generateCacheKey() {
-//        cacheKey = UrlCreator.createUrlFromParams(mUrl, params);
-//        return cacheKey;
+        cacheKey = UrlCreator.createUrlFromParams(mUrl, params);
+        return cacheKey;
     }
 
     @NonNull

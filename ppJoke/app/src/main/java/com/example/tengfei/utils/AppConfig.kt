@@ -4,6 +4,7 @@ package com.example.tengfei.utils
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
+import com.example.libcommon.utils.AppGlobal
 import com.example.tengfei.model.BottomBar
 import com.example.tengfei.model.Destination
 import java.io.BufferedReader

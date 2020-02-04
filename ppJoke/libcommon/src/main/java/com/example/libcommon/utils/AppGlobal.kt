@@ -1,4 +1,4 @@
-package com.example.tengfei.utils
+package com.example.libcommon.utils
 
 import android.annotation.SuppressLint
 import android.app.Application
