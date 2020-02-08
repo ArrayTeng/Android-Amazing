@@ -18,6 +18,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.libcommon.utils.PixUtilsKt;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 /**
  * @author tengfei
  * date 2020-02-07 17:06
@@ -55,7 +57,7 @@ public class PPImageView extends AppCompatImageView {
 
 
     public void bindData(int widthPx, int heightPx, int marginLeft, String imageUrl) {
-        bindData(widthPx,heightPx,marginLeft,PixUtilsKt.getScreenWidth(),PixUtilsKt.getScreenHeight(),imageUrl);
+        bindData(widthPx, heightPx, marginLeft, PixUtilsKt.getScreenWidth(), PixUtilsKt.getScreenWidth(), imageUrl);
     }
 
     public void bindData(int widthPx, int heightPx, int marginLeft, int maxWidth, int maxHeight, String imageUrl) {
@@ -92,6 +94,20 @@ public class PPImageView extends AppCompatImageView {
         ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(finalWidth, finalHeight);
         marginLayoutParams.leftMargin = heightPx > PixUtilsKt.dp2px(widthPx) ? marginLeft : 0;
         setLayoutParams(marginLayoutParams);
+    }
+
+    public void setBlurBackground(String coverUrl, int radious) {
+        //设置高斯模糊
+        Glide.with(this).load(coverUrl)
+                .override(50)
+                .transform(new BlurTransformation())
+                .dontAnimate()
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        setBackground(resource);
+                    }
+                });
     }
 
 
