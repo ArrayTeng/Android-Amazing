@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.libcommon.utils.PixUtilsKt;
+import com.example.libcommon.utils.PixUtils;
 import com.example.tengfei.R;
 
 
@@ -40,7 +40,7 @@ public class ListPlayView extends FrameLayout {
 
     public ListPlayView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(context).inflate(R.layout.layout_player, this, false);
+        LayoutInflater.from(context).inflate(R.layout.layout_player, this, true);
 
         bufferView = findViewById(R.id.buffer_view);
         cover = findViewById(R.id.cover);
@@ -73,8 +73,8 @@ public class ListPlayView extends FrameLayout {
 
     private void setSize(int widthPx, int heightPx) {
 
-        int maxWidth = PixUtilsKt.getScreenWidth();
-        int maxHeight = PixUtilsKt.getScreenWidth();
+        int maxWidth = PixUtils.getScreenWidth();
+        int maxHeight = PixUtils.getScreenWidth();
 
         //控件的宽高
         int layoutWidth = maxWidth;

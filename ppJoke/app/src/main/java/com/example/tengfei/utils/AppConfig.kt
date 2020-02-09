@@ -41,7 +41,7 @@ object AppConfig {
     }
 
     fun parseFile(fileName: String): String {
-        val inputStream = AppGlobal.getApp()!!.assets.open(fileName)
+        val inputStream = AppGlobal.getApplication().assets.open(fileName)
         val inputStreamReader = InputStreamReader(inputStream)
         val bufferedReader = BufferedReader(inputStreamReader)
         var line: String? = null

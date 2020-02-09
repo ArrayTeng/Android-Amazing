@@ -7,7 +7,6 @@ import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphNavigator
-import androidx.navigation.fragment.FragmentNavigator
 import com.example.libcommon.utils.AppGlobal
 import com.example.tengfei.navigator.FixFragmentNavigator
 
@@ -38,7 +37,7 @@ object NavGraphBuilder {
                 activityDestination.id = value.id
                 activityDestination.setComponentName(
                     ComponentName(
-                        AppGlobal.getApp()!!.packageName,
+                        AppGlobal.getApplication().packageName,
                         value.clazzName
                     )
                 )

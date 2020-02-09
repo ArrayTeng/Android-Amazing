@@ -1,5 +1,7 @@
 package com.example.tengfei.model;
 
+import androidx.annotation.Nullable;
+
 /**
  * @author tengfei
  * date 2020-02-07 16:50
@@ -26,4 +28,19 @@ public class Ugc {
     public boolean hasLiked;
     public boolean hasdiss;
     public boolean hasDissed;
+
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null || !(obj instanceof Ugc))
+            return false;
+        Ugc newUgc = (Ugc) obj;
+        return likeCount == newUgc.likeCount
+                && shareCount == newUgc.shareCount
+                && commentCount == newUgc.commentCount
+                && hasFavorite == newUgc.hasFavorite
+                && hasLiked == newUgc.hasLiked
+                && hasdiss == newUgc.hasdiss;
+    }
+
 }

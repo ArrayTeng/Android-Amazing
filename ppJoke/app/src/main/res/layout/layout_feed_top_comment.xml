@@ -6,11 +6,12 @@
     <data>
         <variable
             name="commont"
-            type="com.example.tengfei.model.Comment" />
+            type="Comment" />
 
         <import type="android.text.TextUtils"/>
         <import type="android.view.View"/>
         <import type="com.example.tengfei.utils.StringConvert"/>
+        <import type="com.example.tengfei.model.Comment"/>
 
     </data>
 
@@ -23,7 +24,8 @@
         android:paddingBottom="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_16"
-        android:background="@color/color_gray">
+        android:background="@color/color_gray"
+        android:visibility="@{commont==null?View.GONE:View.VISIBLE}">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -90,7 +92,7 @@
                 android:layout_marginRight="@dimen/dp_36"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{comment.commentText}"
+                android:text="@{commont.commentText}"
                 android:textColor="@color/color_3d3"
                 android:textSize="@dimen/sp_14"
                 android:visibility="@{TextUtils.isEmpty(commont.commentText)?View.GONE:View.VISIBLE}"
@@ -99,7 +101,8 @@
             <FrameLayout
                 android:layout_width="@dimen/dp_80"
                 android:layout_height="@dimen/dp_80"
-                android:layout_marginTop="@dimen/dp_10">
+                android:layout_marginTop="@dimen/dp_10"
+                android:visibility="@{TextUtils.isEmpty(commont.imageUrl)?View.GONE:View.VISIBLE}">
 
                 <com.example.tengfei.view.PPImageView
                     android:id="@+id/avatar"

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +18,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.libcommon.utils.PixUtilsKt;
+import com.example.libcommon.utils.PixUtils;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -57,7 +59,7 @@ public class PPImageView extends AppCompatImageView {
 
 
     public void bindData(int widthPx, int heightPx, int marginLeft, String imageUrl) {
-        bindData(widthPx, heightPx, marginLeft, PixUtilsKt.getScreenWidth(), PixUtilsKt.getScreenWidth(), imageUrl);
+        bindData(widthPx, heightPx, marginLeft, PixUtils.getScreenWidth(), PixUtils.getScreenWidth(), imageUrl);
     }
 
     public void bindData(int widthPx, int heightPx, int marginLeft, int maxWidth, int maxHeight, String imageUrl) {
@@ -91,9 +93,15 @@ public class PPImageView extends AppCompatImageView {
             finalWidth = (int) (widthPx / (heightPx * 1.0f / maxHeight));
         }
 
-        ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(finalWidth, finalHeight);
-        marginLayoutParams.leftMargin = heightPx > PixUtilsKt.dp2px(widthPx) ? marginLeft : 0;
-        setLayoutParams(marginLayoutParams);
+        ViewGroup.LayoutParams params = getLayoutParams();
+        params.width = finalWidth;
+        params.height = finalHeight;
+        if (params instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) params).leftMargin = heightPx > widthPx ? PixUtils.dp2px(marginLeft) : 0;
+        } else if (params instanceof LinearLayout.LayoutParams) {
+            ((LinearLayout.LayoutParams) params).leftMargin = heightPx > widthPx ? PixUtils.dp2px(marginLeft) : 0;
+        }
+        setLayoutParams(params);
     }
 
     public void setBlurBackground(String coverUrl, int radious) {

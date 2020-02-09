@@ -19,7 +19,7 @@ public abstract class CacheDatabase extends RoomDatabase {
     private static final CacheDatabase CACHE_DATABASE;
     static {
         //noinspection ConstantConditions
-        CACHE_DATABASE = Room.databaseBuilder(AppGlobal.Companion.getApp(),CacheDatabase.class,"ppjoke_cache")
+        CACHE_DATABASE = Room.databaseBuilder(AppGlobal.getApplication(),CacheDatabase.class,"ppjoke_cache")
                 .allowMainThreadQueries()
                 .build();
 

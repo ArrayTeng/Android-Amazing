@@ -1,5 +1,7 @@
 package com.example.tengfei.model;
 
+import androidx.annotation.Nullable;
+
 /**
  * @author tengfei
  * date 2020-02-07 16:48
@@ -42,4 +44,19 @@ public class Comment {
     public boolean hasLiked;
     public User author;
     public  Ugc ugc;
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null || !(obj instanceof Comment))
+            return false;
+
+        Comment newComment = (Comment) obj;
+        return likeCount == newComment.likeCount
+                && hasLiked == newComment.hasLiked
+                && (author != null && author.equals(newComment.author))
+                && (ugc != null && ugc.equals(newComment.ugc));
+    }
+
+
+
 }
