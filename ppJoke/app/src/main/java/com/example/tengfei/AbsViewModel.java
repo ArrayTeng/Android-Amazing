@@ -23,6 +23,8 @@ public abstract class AbsViewModel<T> extends ViewModel {
 
     private MutableLiveData<Boolean> mutableLiveData = new MutableLiveData<>();
 
+    public PagedList.Config config;
+
     private DataSource.Factory factory = new DataSource.Factory() {
         @NonNull
         @Override
@@ -55,7 +57,7 @@ public abstract class AbsViewModel<T> extends ViewModel {
 
     public AbsViewModel() {
 
-        PagedList.Config config = new PagedList.Config.Builder()
+        config = new PagedList.Config.Builder()
                 //每次分页的时候需要加载的数量
                 .setPageSize(10)
                 //加载初始化数据，第一次加载数据的时候加载的数量

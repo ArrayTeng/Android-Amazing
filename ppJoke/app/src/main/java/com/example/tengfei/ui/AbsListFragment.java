@@ -43,7 +43,7 @@ public abstract class AbsListFragment<T,M extends AbsViewModel<T>> extends Fragm
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView recyclerView;
     private EmptyView emptyView;
-    private PagedListAdapter<T, RecyclerView.ViewHolder> adapter;
+    public PagedListAdapter<T, RecyclerView.ViewHolder> adapter;
 
     protected M mViewModel;
 
@@ -69,6 +69,7 @@ public abstract class AbsListFragment<T,M extends AbsViewModel<T>> extends Fragm
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),LinearLayoutManager.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
+        genericViewModel();
         afterCreateView();
         return binding.getRoot();
     }
@@ -79,6 +80,12 @@ public abstract class AbsListFragment<T,M extends AbsViewModel<T>> extends Fragm
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+    }
+
+
+    public void genericViewModel(){
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
         Type[] arguments = type.getActualTypeArguments();
         if (arguments.length>1){
@@ -101,7 +108,6 @@ public abstract class AbsListFragment<T,M extends AbsViewModel<T>> extends Fragm
             });
 
         }
-
     }
 
     public void submitList(PagedList<T> pagedList) {
