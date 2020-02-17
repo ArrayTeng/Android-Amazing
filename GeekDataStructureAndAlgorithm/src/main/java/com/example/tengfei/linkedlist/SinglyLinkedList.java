@@ -1,8 +1,5 @@
 package com.example.tengfei.linkedlist;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author tengfei
  */
@@ -107,7 +104,7 @@ public class SinglyLinkedList<T> {
      */
     public Node<T> getNodeByIndex(int index) {
         if (index >= size) {
-            throw new IllegalArgumentException("index >= size");
+            return null;
         }
         Node prev = dummyHeader;
         for (int i = 0; i < index; i++) {
@@ -144,17 +141,41 @@ public class SinglyLinkedList<T> {
      * 链表中环的检测
      */
     public boolean checkCircle() {
-        Node head = getNodeByIndex(0);
-        Set<Node> nodesSeen = new HashSet<>();
-        while (head != null) {
-            if (nodesSeen.contains(head)) {
-                return true;
-            } else {
-                nodesSeen.add(head);
-            }
-            head = head.next;
+        Node node = getNodeByIndex(0);
+        if (node == null) return false;
+        Node slow = node;
+        Node fast = node.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (fast == slow) return true;
         }
+
         return false;
+    }
+
+    /**
+     * 合并两个有序链表
+     */
+    public static Node<Integer> mergeTwoLists(Node<Integer> l1, Node<Integer> l2) {
+        Node dummyNode = new Node<>();
+
+        Node p = dummyNode;
+
+        while (l1 != null && l2 != null) {
+            if (l1.data <= l2.data) {
+                p.next = l1;
+                l1 = l1.next;
+            } else {
+                p.next = l2;
+                l2 = l2.next;
+            }
+            p = p.next;
+        }
+
+        p.next = l1 == null ? l2 : l1;
+        return dummyNode.next;
     }
 
     /**
