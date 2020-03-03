@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 
 /**
  * @author tengfei
- * date 2020-03-02 23:04
+ * date 2020-03-03 14:12
  * email arrayadapter.cn@gmail.com
  * description
  */
-public interface ObservableSource<T> {
+public interface Function<T,R> {
 
-    void subscribe(@NonNull Observer<T> observer);
+    R apply(@NonNull T t) throws Exception;
 }

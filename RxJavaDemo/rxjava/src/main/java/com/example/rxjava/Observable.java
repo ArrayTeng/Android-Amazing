@@ -10,19 +10,28 @@ import androidx.annotation.NonNull;
  */
 public abstract class Observable<T> implements ObservableSource<T> {
 
-    public static <T> ObservableSource<T> just(T item) {
+    public static <T> Observable<T> just(T item) {
 
         return onAssembly(new ObservableJust<T>(item));
     }
 
-    private static <T> ObservableSource<T> onAssembly(ObservableJust<T> source) {
+    //Function 泛型 第一个是原始数据类型，第二个是转换后的数据类型
+    public final <R> Observable<R> map(Function<T,R> mapper){
+        return onAssembly(new ObservableMap<T,R>(this,mapper));
+    }
+
+    private static <T> Observable<T> onAssembly(Observable<T> source) {
         return source;
     }
 
     @Override
-    public void subscribe(@NonNull Observer<? super T> observer) {
+    public void subscribe(@NonNull Observer<T> observer) {
         subscribeActual(observer);
     }
 
-    protected abstract void subscribeActual(Observer<? super T> observer);
+    public void subscribe(@NonNull Consumer<T> consumer){
+        subscribe(new LambdaObserver<T>(consumer));
+    }
+
+    protected abstract void subscribeActual(Observer<T> observer);
 }

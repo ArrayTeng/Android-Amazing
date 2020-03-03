@@ -1,6 +1,5 @@
 package com.example.rxjava;
 
-import androidx.annotation.NonNull;
 
 /**
  * @author tengfei
@@ -16,13 +15,10 @@ public class ObservableJust<T> extends Observable<T> {
         this.item = item;
     }
 
-
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
+    protected void subscribeActual(Observer<T> observer) {
         ScalarDisposable sd = new ScalarDisposable(observer, item);
         sd.onSubscribe();
         sd.run();
     }
-
-
 }
