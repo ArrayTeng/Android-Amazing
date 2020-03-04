@@ -16,8 +16,8 @@ public abstract class Observable<T> implements ObservableSource<T> {
     }
 
     //Function 泛型 第一个是原始数据类型，第二个是转换后的数据类型
-    public final <R> Observable<R> map(Function<T,R> mapper){
-        return onAssembly(new ObservableMap<T,R>(this,mapper));
+    public final <R> Observable<R> map(Function<T, R> mapper) {
+        return onAssembly(new ObservableMap<T, R>(this, mapper));
     }
 
     private static <T> Observable<T> onAssembly(Observable<T> source) {
@@ -29,9 +29,13 @@ public abstract class Observable<T> implements ObservableSource<T> {
         subscribeActual(observer);
     }
 
-    public void subscribe(@NonNull Consumer<T> consumer){
+    public void subscribe(@NonNull Consumer<T> consumer) {
         subscribe(new LambdaObserver<T>(consumer));
     }
 
     protected abstract void subscribeActual(Observer<T> observer);
+
+    public <T> Observable<T> subscribeOn(Schedulers schedulers) {
+        return onAssembly(new ObservableSchedulers(this,schedulers));
+    }
 }
