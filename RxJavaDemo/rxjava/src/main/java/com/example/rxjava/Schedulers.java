@@ -1,5 +1,9 @@
 package com.example.rxjava;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -16,8 +20,12 @@ public abstract class Schedulers {
 
     static Schedulers IO;
 
+    static final Schedulers MAINTHREAD;
+
     static{
         IO = new IOSchedulers();
+
+        MAINTHREAD = new MainSchedulers(new Handler(Looper.getMainLooper()));
     }
 
 
@@ -26,9 +34,11 @@ public abstract class Schedulers {
         return IO;
     }
 
-    public  void scheduleDirct(Runnable runnable) {
-
+    public static Schedulers mainThread() {
+        return MAINTHREAD;
     }
+
+    public  abstract void scheduleDirct(Runnable runnable);
 
     private static class IOSchedulers extends Schedulers {
 
@@ -48,6 +58,19 @@ public abstract class Schedulers {
         @Override
         public void scheduleDirct(Runnable runnable) {
             service.execute(runnable);
+        }
+    }
+
+    private static class MainSchedulers extends Schedulers {
+        Handler handler;
+        public MainSchedulers(Handler handler) {
+           this.handler = handler;
+        }
+
+        @Override
+        public void scheduleDirct(Runnable runnable) {
+            Message message = Message.obtain(handler,runnable);
+            handler.sendMessage(message);
         }
     }
 }

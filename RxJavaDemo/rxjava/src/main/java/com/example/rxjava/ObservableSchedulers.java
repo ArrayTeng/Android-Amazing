@@ -8,9 +8,9 @@ package com.example.rxjava;
  */
 final class ObservableSchedulers<T> extends Observable<T> {
 
-    final Observable source;
+    final Observable<T> source;
     final Schedulers schedulers;
-    public <T> ObservableSchedulers(Observable source, Schedulers schedulers) {
+    public ObservableSchedulers(Observable<T> source, Schedulers schedulers) {
         this.source = source;
         this.schedulers = schedulers;
     }

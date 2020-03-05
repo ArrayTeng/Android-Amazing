@@ -30,12 +30,16 @@ public abstract class Observable<T> implements ObservableSource<T> {
     }
 
     public void subscribe(@NonNull Consumer<T> consumer) {
-        subscribe(new LambdaObserver<T>(consumer));
+        subscribe(new LambdaObserver(consumer));
     }
 
     protected abstract void subscribeActual(Observer<T> observer);
 
-    public <T> Observable<T> subscribeOn(Schedulers schedulers) {
+    public  Observable<T> subscribeOn(Schedulers schedulers) {
         return onAssembly(new ObservableSchedulers(this,schedulers));
+    }
+
+    public Observable<T> observerOn(Schedulers schedulers) {
+        return onAssembly(new ObserverOnObservable(this,schedulers));
     }
 }
