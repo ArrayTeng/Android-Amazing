@@ -1,17 +1,51 @@
 package com.example.rxjavademo;
 
+import com.example.rxjavademo.study.Function;
+import com.example.rxjavademo.study.Observable;
+import com.example.rxjavademo.study.Observer;
+import com.example.rxjavademo.study.Schedulers;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import androidx.annotation.NonNull;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        Observable.just("hello")
+                .map(new Function<String, Integer>() {
+                    @Override
+                    public Integer apply(String item) {
+                        System.out.println(Thread.currentThread().getName());
+                        return 123;
+                    }
+                }).map(new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer item) {
+                System.out.println(Thread.currentThread().getName());
+                return 46;
+            }
+        }).subscribeOn(Schedulers.IO)
+                .observerOn(Schedulers.MAINTHREAD).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe() {
+                System.out.println(Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onNext(@NonNull Integer integer) {
+                System.out.println("  onNext " + integer);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 }

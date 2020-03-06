@@ -22,6 +22,8 @@ public class ObservableMap<T, R> extends Observable<R> {
     @Override
     protected void subscribeActual(Observer<R> observer) {
         //调用上一个 observable 的 subscribe 方法
+        //如果只有map的话最后一个 observable 对象在调用 subscribe 方法传入 observer 对象的时候会回调当前这个函数
+        //然后会调用上一个 observable 对象的 subscribe 函数并将当前的 observer 对象给包装到  MapObserver 中。依次递归到 observablejust 中
         source.subscribe(new MapObserver<T, R>(observer, mapper));
     }
 
