@@ -30,6 +30,7 @@
         <activity android:name=".activity.ParabolicAnimationActivity" />
         <activity android:name=".activity.BouquetLoadingActivity" />
         <activity android:name=".activity.LetterSideBarActivity" />
+        <activity android:name=".activity.LockPatternActivity" />
     </application>
 
 </manifest>
