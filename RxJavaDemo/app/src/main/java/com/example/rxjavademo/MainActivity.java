@@ -1,6 +1,10 @@
 package com.example.rxjavademo;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 
 import com.example.rxjavademo.study.Function;
@@ -9,6 +13,7 @@ import com.example.rxjavademo.study.Observer;
 import com.example.rxjavademo.study.Schedulers;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -18,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity_TAG";
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Observable.just("hello")
                 .map(new Function<String, Integer>() {
