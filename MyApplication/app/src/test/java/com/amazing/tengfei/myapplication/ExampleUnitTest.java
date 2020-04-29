@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.function.Consumer;
 
 import static org.junit.Assert.*;
@@ -16,15 +19,25 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
+        Callable<String> callable = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return "Hello";
+            }
+        };
 
-        List<Integer> secondList = new ArrayList<>(list);
-        secondList.add(4);
+        FutureTask<String> futureTask = new FutureTask<>(callable);
 
-        list.forEach( index -> System.out.println(index));
+        new Thread(futureTask).start();
+
+        try {
+            String task = futureTask.get();
+            System.out.println(task);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 }
