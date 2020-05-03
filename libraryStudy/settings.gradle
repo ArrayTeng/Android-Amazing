@@ -1,0 +1,3 @@
+rootProject.name='libraryStudy'
+include ':app'
+include ':eventbus'
