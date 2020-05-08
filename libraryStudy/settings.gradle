@@ -1,3 +1,7 @@
 rootProject.name='libraryStudy'
 include ':app'
 include ':eventbus'
+include ':ArouterCompiler'
+include ':RouterAnnotation'
+include ':aroutercore'
+include ':aroutertest'
