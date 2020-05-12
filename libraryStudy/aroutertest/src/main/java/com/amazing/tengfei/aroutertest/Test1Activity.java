@@ -1,7 +1,10 @@
 package com.amazing.tengfei.aroutertest;
 
+import android.os.Bundle;
+
 import com.amazing.tengfei.routerannotation.ARouter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -13,4 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 @ARouter(path = "/test/Test1Activity")
 public class Test1Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test1);
+    }
 }

@@ -39,4 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     annotationProcessor project(path: ':ArouterCompiler')
     implementation project(path: ':aroutercore')
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
 }
