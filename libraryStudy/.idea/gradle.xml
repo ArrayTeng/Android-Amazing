@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/aroutercore" />
             <option value="$PROJECT_DIR$/aroutertest" />
             <option value="$PROJECT_DIR$/eventbus" />
+            <option value="$PROJECT_DIR$/kotlindemo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

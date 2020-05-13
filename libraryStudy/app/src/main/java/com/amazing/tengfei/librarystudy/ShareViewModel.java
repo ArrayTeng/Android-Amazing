@@ -3,8 +3,10 @@ package com.amazing.tengfei.librarystudy;
 import android.icu.util.IslamicCalendar;
 import android.text.TextUtils;
 
+import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 /**
@@ -15,7 +17,7 @@ import androidx.lifecycle.ViewModel;
  */
 public class ShareViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mutableLiveData = new MutableLiveData<>();
+    private  MutableLiveData<String> mutableLiveData = new MutableLiveData<>();
 
     public void setText(String s) {
         mutableLiveData.setValue(s);
