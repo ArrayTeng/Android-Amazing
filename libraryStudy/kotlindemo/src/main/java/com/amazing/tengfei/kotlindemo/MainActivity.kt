@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
+
     lateinit var viewModel: MainViewModel
 
     lateinit var sp: SharedPreferences
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycle.addObserver(MyObserver())
 
-        refreshCounter();
+//        refreshCounter();
 
 
         infoBt.setOnClickListener {
@@ -33,6 +35,18 @@ class MainActivity : AppCompatActivity() {
         infoClear.setOnClickListener {
             viewModel.clear()
         }
+
+
+        getUser.setOnClickListener {
+            val userId = Math.random()
+            viewModel.getUser(userId.toString())
+        }
+
+        viewModel.user.observe(this, Observer<User> {
+            infoText.text = it.firstName
+        })
+
+
 
     }
 

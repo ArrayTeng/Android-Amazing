@@ -19,7 +19,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 @Route(path = "/main/main")
@@ -37,7 +39,7 @@ public class MainActivity extends BaseActivity {
 
             return false;
         }
-    },this);
+    }, this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +47,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
+        ShareViewModel shareViewModel = ViewModelProviders.of(this).get(ShareViewModel.class);
+        shareViewModel.getText().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.e(TAG, "onChanged: MainActivity" + s);
+            }
+        });
 
         viewPager = findViewById(R.id.pager);
 
@@ -61,13 +70,13 @@ public class MainActivity extends BaseActivity {
         getLifecycle().addObserver(new LifecycleObserver() {
 
             @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-            void onResume(){
-                Log.e(TAG, "onResume: OnLifecycleEvent   "+"onResume");
+            void onResume() {
+                Log.e(TAG, "onResume: OnLifecycleEvent   " + "onResume");
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            void onPause(){
-                Log.e(TAG, "onPause: OnLifecycleEvent   "+"onResume");
+            void onPause() {
+                Log.e(TAG, "onPause: OnLifecycleEvent   " + "onResume");
             }
 
         });
