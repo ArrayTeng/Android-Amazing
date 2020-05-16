@@ -1,10 +1,13 @@
 package com.amazing.tengfei.kotlindemo.navigation
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.ui.setupWithNavController
 import com.amazing.tengfei.kotlindemo.R
 import kotlinx.android.synthetic.main.activity_navigation.*
@@ -24,8 +27,13 @@ class NavigationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navigation)
         navController = Navigation.findNavController(this, R.id.navigationFragment)
 
+        if(::navController.isInitialized){
+
+        }
+
         val navGraph = navController.navInflater.inflate(R.navigation.mobile_navigaion)
         navController.graph = navGraph
+
 
         bottomNavigationView.setupWithNavController(navController)
 
@@ -48,3 +56,5 @@ class NavigationActivity : AppCompatActivity() {
 
 
 }
+
+

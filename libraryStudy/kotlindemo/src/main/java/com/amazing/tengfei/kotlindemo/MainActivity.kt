@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sp = getPreferences(Context.MODE_PRIVATE)
+
         val countReserved = sp.getInt("countReserved", 0)
         viewModel = ViewModelProvider(this, MainViewModelFactory(countReserved)).get(MainViewModel::class.java)
 
