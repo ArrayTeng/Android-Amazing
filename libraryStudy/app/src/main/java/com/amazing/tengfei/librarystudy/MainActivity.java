@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.amazing.tengfei.librarystudy.lifecycle.LifecycleHandler;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +44,14 @@ public class MainActivity extends BaseActivity {
         }
     }, this);
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Glide.with(this).load("").into(new ImageButton(this));
 
 
         ShareViewModel shareViewModel = ViewModelProviders.of(this).get(ShareViewModel.class);
