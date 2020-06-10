@@ -1,4 +1,4 @@
-package com.amazing.tengfei.asmlifecycledemo;
+package com.amazing.tengfei.dexclassloaderhotfix;
 
 import org.junit.Test;
 
