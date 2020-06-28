@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterstudy/WeatherPage.dart';
 import 'package:flutterstudy/widget.dart';
 
 class DemoWidget extends StatelessWidget {
-  final String text;
 
-  DemoWidget(this.text);
+  DemoWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,9 @@ class DemoWidget extends StatelessWidget {
       child: Card(
         child: FlatButton(
             onPressed: () {
-              print("click");
+              Navigator.push(context,MaterialPageRoute(builder: (context) => WeatherPage())).then((res){
+
+              });
             },
             child: Padding(
               padding: EdgeInsets.all(10.0),
