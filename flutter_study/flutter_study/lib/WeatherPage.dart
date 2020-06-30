@@ -8,6 +8,9 @@ class WeatherPage extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(title: Text("WeatherPage"),),
+      body: Container(
+          child: Text("Hello World"),
+      ),
     );
   }
 }
