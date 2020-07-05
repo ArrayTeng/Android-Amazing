@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterstudy/key/BubbleDemoPage.dart';
+import 'package:flutterstudy/dio/page/ListPage.dart';
+
+import 'dio/page/ExpansionTilePage.dart';
 
 void main() => runApp(DemoApp());
 
@@ -7,11 +9,8 @@ class DemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dio网络请求',
-      home: Scaffold(
-        appBar: AppBar(title: Text("Dio网络请求"),),
-        body: BubbleDemoPage()
-      ),
+      title: 'Flutter学习',
+      home: ExpansionTilePage()
     );
   }
 }
