@@ -1,2 +1,0 @@
-include ':app', ':client'
-rootProject.name='BinderDemo'

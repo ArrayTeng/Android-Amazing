@@ -17,6 +17,7 @@ import com.example.tengfei.customview.activity.ParabolicAnimationActivity;
 import com.example.tengfei.customview.activity.RatingBarActivity;
 import com.example.tengfei.customview.activity.ShapeVariableActivity;
 import com.example.tengfei.customview.activity.ValueAnimatorActivity;
+import com.example.tengfei.customview.view.calendar.CalendarAct;
 
 
 /**
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 skipActivity(LetterSideBarActivity.class);
                 break;
             case R.id.tv13:
+                skipActivity(CalendarAct.class);
                 break;
             default:
                 break;

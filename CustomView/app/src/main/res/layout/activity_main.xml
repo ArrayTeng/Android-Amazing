@@ -75,11 +75,8 @@
         <TextView
             android:id="@+id/tv13"
             style="@style/MyTextViewStyle"
-            android:text="手势检测与缩放手势检测" />
-        <TextView
-            android:id="@+id/tv14"
-            style="@style/MyTextViewStyle"
-            android:text="九宫格解锁" />
+            android:text="自定义日历" />
+
     </LinearLayout>
 
 

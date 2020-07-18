@@ -1,1 +1,42 @@
-{"main/tabs/sofa":{"isLogin":false,"pageUrl":"main/tabs/sofa","isActivity":false,"isStart":false,"id":2062657361,"clazzName":"com.example.tengfei.Fragment02"},"main/tabs/publish":{"isLogin":false,"pageUrl":"main/tabs/publish","isActivity":true,"isStart":false,"id":1708012282,"clazzName":"com.example.Fragment05"},"main/tabs/home":{"isLogin":false,"pageUrl":"main/tabs/home","isActivity":false,"isStart":true,"id":1035749277,"clazzName":"com.example.tengfei.ui.home.HomeFragment"},"main/tabs/find":{"isLogin":false,"pageUrl":"main/tabs/find","isActivity":false,"isStart":false,"id":2062657362,"clazzName":"com.example.tengfei.Fragment03"},"main/tabs/my":{"isLogin":false,"pageUrl":"main/tabs/my","isActivity":false,"isStart":false,"id":2062657363,"clazzName":"com.example.tengfei.Fragment04"}}
+{
+  "main/tabs/sofa": {
+    "isLogin": false,
+    "pageUrl": "main/tabs/sofa",
+    "isActivity": false,
+    "isStart": false,
+    "id": 2062657361,
+    "clazzName": "com.example.tengfei.Fragment02"
+  },
+  "main/tabs/publish": {
+    "isLogin": false,
+    "pageUrl": "main/tabs/publish",
+    "isActivity": true,
+    "isStart": false,
+    "id": 1708012282,
+    "clazzName": "com.example.Fragment05"
+  },
+  "main/tabs/home": {
+    "isLogin": false,
+    "pageUrl": "main/tabs/home",
+    "isActivity": false,
+    "isStart": true,
+    "id": 1035749277,
+    "clazzName": "com.example.tengfei.ui.home.HomeFragment"
+  },
+  "main/tabs/find": {
+    "isLogin": false,
+    "pageUrl": "main/tabs/find",
+    "isActivity": false,
+    "isStart": false,
+    "id": 2062657362,
+    "clazzName": "com.example.tengfei.Fragment03"
+  },
+  "main/tabs/my": {
+    "isLogin": false,
+    "pageUrl": "main/tabs/my",
+    "isActivity": false,
+    "isStart": false,
+    "id": 2062657363,
+    "clazzName": "com.example.tengfei.Fragment04"
+  }
+}
