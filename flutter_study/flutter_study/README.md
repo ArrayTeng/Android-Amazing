@@ -1,6 +1,6 @@
-# flutterstudy
+# flutter_study
 
-A new Flutter application.
+冲刺flutter学习
 
 ## Getting Started
 
