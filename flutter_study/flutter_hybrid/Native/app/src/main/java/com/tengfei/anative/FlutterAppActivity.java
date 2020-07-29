@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.tengfei.anative.plugin.BasicMessageChannelPlugin;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import io.flutter.embedding.android.FlutterActivity;
 
 /**
@@ -30,12 +31,10 @@ public class FlutterAppActivity extends FlutterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initParams = getIntent().getStringExtra(KEY);
-    }
+        if (getFlutterEngine()!=null){
+            BasicMessageChannelPlugin.registerWith(getFlutterEngine().getDartExecutor(),this);
 
-    @Nullable
-    @Override
-    public String getCachedEngineId() {
-        return "MY_CACHED_ENGINE_ID";
+        }
     }
 
     /**

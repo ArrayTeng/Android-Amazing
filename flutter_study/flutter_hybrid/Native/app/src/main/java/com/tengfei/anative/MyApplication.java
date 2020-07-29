@@ -21,12 +21,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //在MyApplication中预先初始化Flutter引擎以提升Flutter页面打开速度
-        FlutterEngine flutterEngine = new FlutterEngine(this);
+        //FlutterEngine flutterEngine = new FlutterEngine(this);
 
         // Start executing Dart code to pre-warm the FlutterEngine.
-        flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
+        //flutterEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
         // Cache the FlutterEngine to be used by FlutterActivity.
-        FlutterEngineCache.getInstance().put(CACHED_ENGINE_ID, flutterEngine);
+        //FlutterEngineCache.getInstance().put(CACHED_ENGINE_ID, flutterEngine);
 
 
     }
