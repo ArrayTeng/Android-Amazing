@@ -21,7 +21,9 @@ Widget buildView(
             child: Card(
               color: Colors.lightBlueAccent,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  dispatch(GridPageActionCreator.onOpenList());
+                },
                 child: Container(
                   child: Center(
                     child: Text(state.gridModels[index].name),
