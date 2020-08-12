@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   fish_redux: ^0.3.4
+  keyboard_actions: ^3.3.0
   flutter:
     sdk: flutter
 

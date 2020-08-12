@@ -17,8 +17,8 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
           child: Offstage(),
         ),
       ),
-      body:Container(
-          child:Column(
+      body: Container(
+          child: Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(left: 30),
@@ -71,22 +71,24 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
                 Row(
                   children: <Widget>[
                     Expanded(child: buildOrderAgentWidget('3','预授权转消费','images/main_dash_preauth_order.png')),
-                    Expanded(child: buildOrderAgentWidget('2','嗨车体检','images/main_dash_removal.png')),
+                    Expanded(child: buildOrderAgentWidget('2','嗨车体检','images/main_dash_preauth_order.png')),
                     Expanded(child: Container()),
                   ],
                 ),
+
                 Padding(padding: EdgeInsets.only(left: 30,top: 20,bottom: 12.5),child: Text('订单操作',style: TextStyle(fontSize: 15,color: Color(0xFF333333),fontWeight: FontWeight.bold),),),
+
                 Row(
                   children: <Widget>[
-                    Expanded(child: buildOrderAgentWidget('-','共享库存订单','images/main_dash_car.png')),
-                    Expanded(child: buildOrderAgentWidget('7','超售订单','images/main_dash_car.png')),
-                    Expanded(child: buildOrderAgentWidget('-','首次客户','images/main_dash_no_carno_order.png'))
+                    Expanded(child: buildOrderAgentWidget('2','待取车','images/main_dash_car.png')),
+                    Expanded(child: buildOrderAgentWidget('5','待还车','images/main_dash_car.png')),
+                    Expanded(child: buildOrderAgentWidget('5','分配车牌','images/main_dash_no_carno_order.png'))
                   ],
                 ),
                 Row(
                   children: <Widget>[
                     Expanded(child: buildOrderAgentWidget('3','预授权转消费','images/main_dash_preauth_order.png')),
-                    Expanded(child: buildOrderAgentWidget('2','嗨车体检','images/main_dash_removal.png')),
+                    Expanded(child: buildOrderAgentWidget('2','嗨车体检','images/main_dash_preauth_order.png')),
                     Expanded(child: Container()),
                   ],
                 ),
