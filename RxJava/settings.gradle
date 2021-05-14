@@ -1,0 +1,3 @@
+include ':RxJava-library'
+include ':app'
+rootProject.name = "RxJava"
