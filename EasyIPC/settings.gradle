@@ -1,0 +1,3 @@
+rootProject.name = "EasyIPC"
+include ':app'
+include ':ipclib'
