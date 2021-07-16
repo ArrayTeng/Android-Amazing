@@ -1,5 +1,7 @@
 package com.example.easyipc;
 
+import android.util.Log;
+
 public class ExampleSingle implements IExampleSingle{
 
     private UserInfo userInfo;
@@ -8,7 +10,8 @@ public class ExampleSingle implements IExampleSingle{
 
     }
 
-    public static ExampleSingle getInstance(){
+    public static ExampleSingle getInstance(String name ,Integer age){
+        Log.e("tmd","服务调用成功    "+name + age);
         return Holder.INSTANCE;
     }
 

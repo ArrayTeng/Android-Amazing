@@ -1,5 +1,8 @@
 package com.example.ipclib.cache;
 
+import com.example.ipclib.bean.RequestBean;
+import com.example.ipclib.bean.RequestParameter;
+
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -65,13 +68,50 @@ public class CacheCenter {
             return  result.toString();
         }
 
-        for (Class<?> aClass : classes) {
-            result.append("-").append(aClass.getName());
+        for (int i = 0; i < length; ++i) {
+            result.append("-").append(classes[i].getName());
         }
 
         return result.toString();
     }
 
+    public static String getMethodParameters(RequestBean requestBean){
+        StringBuilder result = new StringBuilder();
+        result.append(requestBean.getMethodName());
+
+        if (requestBean.getRequestParameters() == null||requestBean.getRequestParameters().length ==0){
+            return  result.toString();
+        }
+
+        int length = requestBean.getRequestParameters().length;
+        RequestParameter[] requestParameters = requestBean.getRequestParameters();
+        for (int i = 0;i<length;i++){
+            result.append("-").append(requestParameters[i].getParameterClassName());
+        }
+
+        return result.toString();
+    }
+
+    public Method getMethod(RequestBean requestBean){
+        ConcurrentHashMap<String,Method> map = mAllMethodMap.get(requestBean.getClassName());
+        if (map!=null){
+            String key = getMethodParameters(requestBean);
+            Method method = map.get(key);
+            return method;
+        }
+
+        return null;
+    }
+
+    public Class<?> getClassType(String parameterClassName) {
+        try {
+            Class clazz = Class.forName(parameterClassName);
+            return clazz;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

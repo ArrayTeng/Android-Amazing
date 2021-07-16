@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         //打开服务
         EasyBinderIPC.getInstance().open(this)
 
-        ExampleSingle.getInstance().userInfo = UserInfo("tengfei","27")
+        //ExampleSingle.getInstance("tengfei",28).userInfo = UserInfo("tengfei","27")
 
         //注册服务
         EasyBinderIPC.getInstance().register(ExampleSingle::class.java)

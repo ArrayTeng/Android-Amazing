@@ -7,7 +7,7 @@ import com.example.ipclib.core.EasyBinderIPC
 
 class SecondActivity : AppCompatActivity() {
 
-    var iExampleSingle:IExampleSingle?=null
+    private var iExampleSingle:IExampleSingle?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class SecondActivity : AppCompatActivity() {
 
     fun getObject(view: View) {
 
-        iExampleSingle = EasyBinderIPC.getInstance().getInstance(IExampleSingle::class.java,"tengfei","27岁",175)
+        iExampleSingle = EasyBinderIPC.getInstance().getInstance(IExampleSingle::class.java,"tengfei",28)
 
     }
 
