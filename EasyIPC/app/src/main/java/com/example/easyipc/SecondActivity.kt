@@ -6,6 +6,9 @@ import android.view.View
 import com.example.ipclib.core.EasyBinderIPC
 
 class SecondActivity : AppCompatActivity() {
+
+    var iExampleSingle:IExampleSingle?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
@@ -16,6 +19,8 @@ class SecondActivity : AppCompatActivity() {
     }
 
     fun getObject(view: View) {
+
+        iExampleSingle = EasyBinderIPC.getInstance().getInstance(IExampleSingle::class.java,"tengfei","27岁",175)
 
     }
 
