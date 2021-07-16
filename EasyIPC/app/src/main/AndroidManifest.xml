@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyIPC">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,9 +18,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.ipclib.EasyServiceManager" android:exported="true">
+        <activity android:name=".SecondActivity" android:process=":T"/>
+
+        <service
+            android:name="com.example.ipclib.EasyServiceManager"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.example.ipclib.EasyServiceManager"/>
+                <action android:name="com.example.ipclib.EasyServiceManager" />
             </intent-filter>
         </service>
     </application>

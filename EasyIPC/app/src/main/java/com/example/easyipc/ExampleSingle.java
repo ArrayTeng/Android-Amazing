@@ -22,7 +22,6 @@ public class ExampleSingle implements IExampleSingle{
         return userInfo;
     }
 
-    @Override
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }

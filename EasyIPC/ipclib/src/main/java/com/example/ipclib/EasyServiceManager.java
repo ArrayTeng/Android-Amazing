@@ -6,6 +6,9 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+/**
+ * 具体的服务 - 总服务
+ */
 public class EasyServiceManager extends Service {
 
     @Nullable

@@ -7,7 +7,7 @@ public interface IExampleSingle {
 
     UserInfo getUserInfo();
 
-    void setUserInfo(UserInfo userInfo);
+    //void setUserInfo(UserInfo userInfo);
 
 
 }
