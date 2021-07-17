@@ -31,6 +31,14 @@ public class CacheCenter {
     }
 
 
+    public void putObject(String className,Object instance){
+        mInstanceObjectMap.put(className,instance);
+    }
+
+    public Object getObject(String className) {
+        return mInstanceObjectMap.get(className);
+    }
+
     public void register(Class clazz) {
         registerClass(clazz);
         registerMethod(clazz);

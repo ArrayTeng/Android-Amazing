@@ -18,6 +18,7 @@ import com.example.ipclib.cache.CacheCenter;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 
 public class EasyBinderIPC {
@@ -75,7 +76,15 @@ public class EasyBinderIPC {
 //
         sendRequest(clazz, null, parameters,EasyServiceManager.SERVICE_GET);
 
-        return null;
+
+
+        return getProxy(clazz);
+    }
+
+    private <T> T getProxy(Class<T> clazz) {
+        ClassLoader classLoader = mContext.getClassLoader();
+
+        return  (T)Proxy.newProxyInstance(classLoader,new Class[]{clazz},new EasyInvocationHandler(clazz));
     }
 
     public <T> String sendRequest(Class<T> clazz, Method method, Object[] parameters, int type) {
@@ -105,13 +114,14 @@ public class EasyBinderIPC {
         String request = gson.toJson(requestBean);
 
         //执行IPC请求
+        String response = null;
         try {
-            String response = easyBinderInterface.request(request);
+            response = easyBinderInterface.request(request);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
 
-        return "";
+        return response;
     }
 
 

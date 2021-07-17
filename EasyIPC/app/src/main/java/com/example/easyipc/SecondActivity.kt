@@ -2,7 +2,9 @@ package com.example.easyipc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.example.ipclib.core.EasyBinderIPC
 
 class SecondActivity : AppCompatActivity() {
@@ -20,12 +22,15 @@ class SecondActivity : AppCompatActivity() {
 
     fun getObject(view: View) {
 
-        iExampleSingle = EasyBinderIPC.getInstance().getInstance(IExampleSingle::class.java,"tengfei",28)
+        iExampleSingle = EasyBinderIPC.getInstance().getInstance(IExampleSingle::class.java)
+
+        //Log.e("tmd",iExampleSingle.toString())
 
     }
 
     fun getUser(view: View) {
-
+        val userInfo = iExampleSingle?.userInfo
+        Toast.makeText(this,userInfo?.name,Toast.LENGTH_SHORT).show()
     }
 
 

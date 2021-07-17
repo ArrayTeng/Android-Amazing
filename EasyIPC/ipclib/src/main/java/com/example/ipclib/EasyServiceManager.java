@@ -45,7 +45,10 @@ public class EasyServiceManager extends Service {
                         Method method = cacheCenter.getMethod(requestBean);
                         if(method!=null){
                             try {
-                                method.invoke(null,makeParameterObject(requestBean));
+                                Object object = method.invoke(null,makeParameterObject(requestBean));
+                                if (object!=null){
+                                    cacheCenter.putObject(requestBean.getClassName(),object);
+                                }
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             } catch (InvocationTargetException e) {
@@ -54,7 +57,18 @@ public class EasyServiceManager extends Service {
                         }
                         break;
                     case SERVICE_INVOKE:
-
+                        Object object = cacheCenter.getObject(requestBean.getClassName());
+                        Method invokeMethod = cacheCenter.getMethod(requestBean);
+                        Object[] methodParameters = makeParameterObject(requestBean);
+                        try {
+                            Object response = invokeMethod.invoke(object,methodParameters);
+                            String data = gson.toJson(response);
+                            return data;
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + type);

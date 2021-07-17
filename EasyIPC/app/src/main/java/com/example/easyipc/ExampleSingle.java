@@ -10,8 +10,8 @@ public class ExampleSingle implements IExampleSingle{
 
     }
 
-    public static ExampleSingle getInstance(String name ,Integer age){
-        Log.e("tmd","服务调用成功    "+name + age);
+    public static ExampleSingle getInstance(){
+        Log.e("tmd","服务调用成功    ");
         return Holder.INSTANCE;
     }
 
