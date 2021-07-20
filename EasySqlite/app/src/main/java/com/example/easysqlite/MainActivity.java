@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+
 import com.example.easysqlite.bean.User;
 import com.example.easysqlite.sql.BaseDao;
 import com.example.easysqlite.sql.BaseDaoFactory;
@@ -14,7 +16,7 @@ import com.example.easysqlite.sql.IBaseDao;
 
 public class MainActivity extends AppCompatActivity {
 
-    private IBaseDao iBaseDao;
+    private IBaseDao<User> iBaseDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    public void insert(View view) {
+        iBaseDao.insert(new User("滕飞",27));
+        iBaseDao.insert(new User("tengfei",18));
+        iBaseDao.insert(new User("xiaoming",25));
     }
 }

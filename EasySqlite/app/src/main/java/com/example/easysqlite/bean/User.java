@@ -12,5 +12,8 @@ public class User {
     @DbFiled("filed_age")
     Integer age;
 
-
+    public User(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
 }
