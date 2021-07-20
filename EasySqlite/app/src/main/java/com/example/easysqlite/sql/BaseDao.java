@@ -1,6 +1,7 @@
 package com.example.easysqlite.sql;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.easysqlite.sql.annotion.DbFiled;
 import com.example.easysqlite.sql.annotion.DbTable;
@@ -45,6 +46,8 @@ public class BaseDao<T> implements IBaseDao<T> {
 
             String sql = createTable();
 
+            Log.e("tmd"," SQL语句  "+sql);
+
             try {
                 sqLiteDatabase.execSQL(sql);
             } catch (Exception e) {
@@ -59,7 +62,7 @@ public class BaseDao<T> implements IBaseDao<T> {
 
     private String createTable() {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("create table if not exists");
+        stringBuffer.append("create table if not exists ");
         stringBuffer.append(tabName);
         stringBuffer.append(" (");
         Field[] fields = entityClass.getDeclaredFields();
@@ -85,7 +88,7 @@ public class BaseDao<T> implements IBaseDao<T> {
             stringBuffer.deleteCharAt(stringBuffer.length() - 1);
         }
 
-        stringBuffer.append(" ) ");
+        stringBuffer.append(")");
 
         return stringBuffer.toString();
     }

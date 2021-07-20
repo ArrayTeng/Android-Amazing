@@ -10,7 +10,7 @@ public class User {
     String name;
 
     @DbFiled("filed_age")
-    int age;
+    Integer age;
 
 
 }

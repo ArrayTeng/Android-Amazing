@@ -1,20 +1,20 @@
 package com.example.easysqlite;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-
 import com.example.easysqlite.bean.User;
 import com.example.easysqlite.sql.BaseDao;
 import com.example.easysqlite.sql.BaseDaoFactory;
+import com.example.easysqlite.sql.IBaseDao;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private IBaseDao iBaseDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermission(this);
 
-        BaseDaoFactory.getInstance().createBaseDao(BaseDao.class, User.class);
+        iBaseDao = BaseDaoFactory.getInstance().createBaseDao(BaseDao.class, User.class);
     }
 
     private boolean checkPermission(Activity activity) {
