@@ -18,7 +18,10 @@ import java.util.Set;
 
 /**
  * 2021-7-20
- * 1、将数据库中表的列名和java bean中的成员变量映射到一个map里
+ * 1、将数据库中表的列名和java bean中的成员变量映射到一个map里，完成插入数据的操作
+ *
+ * 2021-7-21
+ *
  *
  * @param <T>
  */
@@ -84,7 +87,7 @@ public class BaseDao<T> implements IBaseDao<T> {
         String[] columnNames = cursor.getColumnNames();
         //获取所有的Field
         Field[] columnFields = entityClass.getDeclaredFields();
-
+        //将你的列名和Field映射到一起
         for (String columnName : columnNames) {
 
             Field resultField = null;
@@ -181,9 +184,35 @@ public class BaseDao<T> implements IBaseDao<T> {
         return sqLiteDatabase.insert(tabName, null, contentValues);
     }
 
+    /**
+     *
+     * @param entity 待插入的数据
+     * @param where 要修改的对象，如果为null表示所有的都要修改
+     * @return
+     */
     @Override
     public int update(T entity, T where) {
+        Map<String,String> values = getValues(entity);
+
+        ContentValues contentValues = getContentValues(values);
+
+        Map<String,String> whereClauseMap = getValues(entity);
+
+        Condition condition = new Condition(whereClauseMap);
+
+        sqLiteDatabase.update(tabName,contentValues,condition.whereClause,condition.whereArgs);
         return 0;
+    }
+
+    class Condition{
+
+        String whereClause;
+        String[] whereArgs;
+
+        public Condition(Map<String,String> whereClauseMap){
+
+        }
+
     }
 
     @Override
