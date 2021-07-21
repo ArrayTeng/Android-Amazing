@@ -45,4 +45,18 @@ public class MainActivity extends AppCompatActivity {
         iBaseDao.insert(new User("tengfei",18));
         iBaseDao.insert(new User("xiaoming",25));
     }
+
+    public void update(View view) {
+
+        User user = new User();
+        user.name = "xiaoming";
+
+        iBaseDao.update(new User("滕大肥",25),user);
+
+    }
+
+    public void delete(View view) {
+
+        iBaseDao.delete(new User("滕大肥",25));
+    }
 }

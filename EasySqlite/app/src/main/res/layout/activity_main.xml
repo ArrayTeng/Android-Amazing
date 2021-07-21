@@ -13,4 +13,16 @@
         android:text="插入数据的操作"
         android:onClick="insert"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改数据的操作"
+        android:onClick="update"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除数据的操作"
+        android:onClick="delete"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

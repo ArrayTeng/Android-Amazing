@@ -7,10 +7,13 @@ import com.example.easysqlite.sql.annotion.DbTable;
 public class User {
 
     @DbFiled("filed_name")
-    String name;
+    public String name;
 
     @DbFiled("filed_age")
-    Integer age;
+    public Integer age;
+
+    public User() {
+    }
 
     public User(String name, Integer age) {
         this.name = name;

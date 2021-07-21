@@ -10,6 +10,7 @@ import com.example.easysqlite.sql.annotion.DbFiled;
 import com.example.easysqlite.sql.annotion.DbTable;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -196,28 +197,41 @@ public class BaseDao<T> implements IBaseDao<T> {
 
         ContentValues contentValues = getContentValues(values);
 
-        Map<String,String> whereClauseMap = getValues(entity);
+        Map<String,String> whereClauseMap = getValues(where);
 
         Condition condition = new Condition(whereClauseMap);
 
-        sqLiteDatabase.update(tabName,contentValues,condition.whereClause,condition.whereArgs);
-        return 0;
+        return  sqLiteDatabase.update(tabName,contentValues,condition.whereClause,condition.whereArgs);
     }
 
-    class Condition{
+    static class Condition{
 
         String whereClause;
         String[] whereArgs;
 
         public Condition(Map<String,String> whereClauseMap){
-
+            ArrayList<String> arrayList = new ArrayList<>();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(" 1=1");
+            Set<String> keys = whereClauseMap.keySet();
+            for (String key : keys) {
+                String value = whereClauseMap.get(key);
+                if (value != null) {
+                    stringBuilder.append(" and " + key + " =?");
+                    arrayList.add(value);
+                }
+            }
+            this.whereClause = stringBuilder.toString();
+            this.whereArgs = arrayList.toArray(new String[arrayList.size()]);
         }
 
     }
 
     @Override
     public int delete(T where) {
-        return 0;
+        Map<String,String> map = getValues(where);
+        Condition condition = new Condition(map);
+        return sqLiteDatabase.delete(tabName,condition.whereClause,condition.whereArgs);
     }
 
     @Override
