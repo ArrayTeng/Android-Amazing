@@ -6,12 +6,15 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.easysqlite.bean.User;
 import com.example.easysqlite.sql.BaseDao;
 import com.example.easysqlite.sql.BaseDaoFactory;
 import com.example.easysqlite.sql.IBaseDao;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,5 +61,12 @@ public class MainActivity extends AppCompatActivity {
     public void delete(View view) {
 
         iBaseDao.delete(new User("滕大肥",25));
+    }
+
+    public void query(View view) {
+
+        List<User> list = iBaseDao.query(new User());
+
+        Log.e("tmd",list.size()+"");
     }
 }

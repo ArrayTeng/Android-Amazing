@@ -1,5 +1,6 @@
 package com.example.easysqlite.sql;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,9 +21,8 @@ import java.util.Set;
 /**
  * 2021-7-20
  * 1、将数据库中表的列名和java bean中的成员变量映射到一个map里，完成插入数据的操作
- *
+ * <p>
  * 2021-7-21
- *
  *
  * @param <T>
  */
@@ -186,30 +186,29 @@ public class BaseDao<T> implements IBaseDao<T> {
     }
 
     /**
-     *
      * @param entity 待插入的数据
-     * @param where 要修改的对象，如果为null表示所有的都要修改
+     * @param where  要修改的对象，如果为null表示所有的都要修改
      * @return
      */
     @Override
     public int update(T entity, T where) {
-        Map<String,String> values = getValues(entity);
+        Map<String, String> values = getValues(entity);
 
         ContentValues contentValues = getContentValues(values);
 
-        Map<String,String> whereClauseMap = getValues(where);
+        Map<String, String> whereClauseMap = getValues(where);
 
         Condition condition = new Condition(whereClauseMap);
 
-        return  sqLiteDatabase.update(tabName,contentValues,condition.whereClause,condition.whereArgs);
+        return sqLiteDatabase.update(tabName, contentValues, condition.whereClause, condition.whereArgs);
     }
 
-    static class Condition{
+    static class Condition {
 
         String whereClause;
         String[] whereArgs;
 
-        public Condition(Map<String,String> whereClauseMap){
+        public Condition(Map<String, String> whereClauseMap) {
             ArrayList<String> arrayList = new ArrayList<>();
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(" 1=1");
@@ -229,13 +228,85 @@ public class BaseDao<T> implements IBaseDao<T> {
 
     @Override
     public int delete(T where) {
-        Map<String,String> map = getValues(where);
+        Map<String, String> map = getValues(where);
         Condition condition = new Condition(map);
-        return sqLiteDatabase.delete(tabName,condition.whereClause,condition.whereArgs);
+        return sqLiteDatabase.delete(tabName, condition.whereClause, condition.whereArgs);
     }
 
     @Override
     public List<T> query(T where) {
-        return null;
+
+        return query(where, null, null, null, null, null);
+    }
+
+    @Override
+    public List<T> query(T where, String groupBy, String having, String orderBy, String startIndex, String limit) {
+        Map<String, String> map = getValues(where);
+        Condition condition = new Condition(map);
+        String limitString = null;
+        if (startIndex != null && limit != null) {
+            limitString = startIndex + " , " + limit;
+        }
+        Cursor cursor = sqLiteDatabase.query(tabName, null, condition.whereClause, condition.whereArgs, groupBy, having, orderBy, limitString);
+
+        List<T> result = getResult(cursor,where);
+        cursor.close();
+        return result;
+    }
+
+    private List<T> getResult(Cursor cursor, T where) {
+        ArrayList list = new ArrayList<>();
+
+        Object item;
+
+        while (cursor.moveToNext()) {
+            try {
+                item = where.getClass().newInstance();
+                Iterator iterator = fieldCacheMap.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iterator.next();
+                    String column = (String) entry.getKey();
+                    //通过列名找到游标的索引
+                    Integer columnIndex = cursor.getColumnIndex(column);
+                    Field field = (Field) entry.getValue();
+                    field.setAccessible(true);
+                    Class type = field.getType();
+
+                    if (columnIndex != -1) {
+                        if (type == String.class) {
+
+                            field.set(item, cursor.getString(columnIndex));
+
+                        } else if (type == Double.class) {
+
+                            field.set(item, cursor.getDouble(columnIndex));
+
+                        } else if (type == Integer.class) {
+
+                            field.set(item, cursor.getInt(columnIndex));
+
+                        } else if (type == Long.class) {
+
+                            field.set(item, cursor.getLong(columnIndex));
+
+                        } else if (type == byte[].class) {
+
+                            field.set(item, cursor.getBlob(columnIndex));
+
+                        }
+                    }else{
+                        continue;
+                    }
+
+                }
+
+                list.add(item);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
     }
 }

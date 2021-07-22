@@ -12,5 +12,7 @@ public interface IBaseDao<T> {
 
     List<T> query(T where);
 
+    List<T> query(T where,  String groupBy, String having, String orderBy, String startIndex,String limit);
+
 
 }
