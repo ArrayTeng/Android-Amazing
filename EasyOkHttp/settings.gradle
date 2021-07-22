@@ -1,0 +1,2 @@
+rootProject.name = "EasyOkHttp"
+include ':app'
