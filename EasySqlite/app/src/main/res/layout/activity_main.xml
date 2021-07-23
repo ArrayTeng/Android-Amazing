@@ -31,4 +31,10 @@
         android:text="查询数据的操作"
         android:onClick="query"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人数据库 - 当前登录用户插入数据"
+        android:onClick="personalDb"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
