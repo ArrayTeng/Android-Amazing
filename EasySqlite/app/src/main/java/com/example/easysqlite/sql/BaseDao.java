@@ -12,6 +12,7 @@ import com.example.easysqlite.sql.annotion.DbTable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,8 @@ public class BaseDao<T> implements IBaseDao<T> {
      * 表名
      */
     private String tabName;
+
+
 
     protected BaseDao() {
         fieldCacheMap = new HashMap<>();

@@ -6,6 +6,12 @@ import com.example.easysqlite.sql.annotion.DbTable;
 @DbTable("tab_user")
 public class User {
 
+    @DbFiled("filed_id")
+    public Integer id;
+
+    @DbFiled("filed_status")
+    public String status;
+
     @DbFiled("filed_name")
     public String name;
 
@@ -15,7 +21,9 @@ public class User {
     public User() {
     }
 
-    public User(String name, Integer age) {
+    public User(Integer id, String status, String name, Integer age) {
+        this.id = id;
+        this.status = status;
         this.name = name;
         this.age = age;
     }

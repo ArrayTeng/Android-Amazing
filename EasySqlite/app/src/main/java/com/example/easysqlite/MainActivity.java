@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.easysqlite.bean.Personal;
 import com.example.easysqlite.bean.User;
+import com.example.easysqlite.dao.UserDao;
 import com.example.easysqlite.sql.BaseDao;
 import com.example.easysqlite.sql.BaseDaoFactory;
 import com.example.easysqlite.sql.IBaseDao;
@@ -19,7 +21,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private IBaseDao<User> iBaseDao;
+    private UserDao dao;
+
+    private static int loginTag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermission(this);
 
-        iBaseDao = BaseDaoFactory.getInstance().createBaseDao(BaseDao.class, User.class);
+        dao = BaseDaoFactory.getInstance().allUserDao(UserDao.class, User.class);
     }
 
     private boolean checkPermission(Activity activity) {
@@ -44,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insert(View view) {
-        iBaseDao.insert(new User("滕飞",27));
-        iBaseDao.insert(new User("tengfei",18));
-        iBaseDao.insert(new User("xiaoming",25));
+        loginTag++;
+        dao.insert(new User(loginTag,"登录","庞菲菲  "+loginTag,27));
+        //dao.insert(new User(1,"登录","tengfei",18));
+        //dao.insert(new User(1,"登录","xiaoming",25));
     }
 
     public void update(View view) {
@@ -54,19 +59,27 @@ public class MainActivity extends AppCompatActivity {
         User user = new User();
         user.name = "xiaoming";
 
-        iBaseDao.update(new User("滕大肥",25),user);
+        dao.update(new User(1,"登录","滕大肥",25),user);
 
     }
 
     public void delete(View view) {
 
-        iBaseDao.delete(new User("滕大肥",25));
+        dao.delete(new User(1,"登录","滕大肥",25));
     }
 
     public void query(View view) {
 
-        List<User> list = iBaseDao.query(new User());
+        List<User> list = dao.query(new User());
 
         Log.e("tmd",list.size()+"");
+    }
+
+    public void personalDb(View view) {
+        BaseDao<Personal> personalDao = BaseDaoFactory.getInstance().personalDao(BaseDao.class, Personal.class);
+
+        Personal personal = new Personal("MessageMessageMessageMessage");
+
+        personalDao.insert(personal);
     }
 }
