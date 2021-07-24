@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.easyokhttp"
-        minSdkVersion 16
+        minSdkVersion 27
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -42,4 +42,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //implementation("com.squareup.okhttp3:okhttp:3.14.2")
+
+    implementation("com.squareup.okio:okio:3.0.0-alpha.8")
+    implementation("org.conscrypt:conscrypt-openjdk-uber:2.5.2")
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
+    implementation("org.codehaus.mojo:animal-sniffer-annotations:1.19")
 }
