@@ -70,11 +70,13 @@ open class OkHttpClient internal constructor(
   //存储 cookie 的容器
   @get:JvmName("cookieJar") val cookieJar: CookieJar = builder.cookieJar
 
-  //
+  //缓存
   @get:JvmName("cache") val cache: Cache? = builder.cache
 
+  //域名解析系统
   @get:JvmName("dns") val dns: Dns = builder.dns
 
+  //代理
   @get:JvmName("proxy") val proxy: Proxy? = builder.proxy
 
   @get:JvmName("proxySelector") val proxySelector: ProxySelector =
@@ -84,21 +86,27 @@ open class OkHttpClient internal constructor(
         else -> builder.proxySelector ?: ProxySelector.getDefault() ?: NullProxySelector
       }
 
+  //代理授权失效处理
   @get:JvmName("proxyAuthenticator") val proxyAuthenticator: Authenticator =
       builder.proxyAuthenticator
 
+  //进行Http请求本质上是一个 Socket ，socketFactory用于创建 Socket
   @get:JvmName("socketFactory") val socketFactory: SocketFactory = builder.socketFactory
 
+  //创建加密连接 sslSocketFactoryOrNull
   private val sslSocketFactoryOrNull: SSLSocketFactory?
 
   @get:JvmName("sslSocketFactory") val sslSocketFactory: SSLSocketFactory
     get() = sslSocketFactoryOrNull ?: throw IllegalStateException("CLEARTEXT-only client")
 
+  //系统提供的类 X509 表示证书的格式，x509TrustManager 证书验证器
   @get:JvmName("x509TrustManager") val x509TrustManager: X509TrustManager?
 
+  //连接标准规范
   @get:JvmName("connectionSpecs") val connectionSpecs: List<ConnectionSpec> =
       builder.connectionSpecs
 
+  //支持的协议
   @get:JvmName("protocols") val protocols: List<Protocol> = builder.protocols
 
   @get:JvmName("hostnameVerifier") val hostnameVerifier: HostnameVerifier = builder.hostnameVerifier
@@ -107,22 +115,15 @@ open class OkHttpClient internal constructor(
 
   @get:JvmName("certificateChainCleaner") val certificateChainCleaner: CertificateChainCleaner?
 
-  /**
-   * Default call timeout (in milliseconds). By default there is no timeout for complete calls, but
-   * there is for the connect, write, and read actions within a call.
-   */
+
   @get:JvmName("callTimeoutMillis") val callTimeoutMillis: Int = builder.callTimeout
 
-  /** Default connect timeout (in milliseconds). The default is 10 seconds. */
   @get:JvmName("connectTimeoutMillis") val connectTimeoutMillis: Int = builder.connectTimeout
 
-  /** Default read timeout (in milliseconds). The default is 10 seconds. */
   @get:JvmName("readTimeoutMillis") val readTimeoutMillis: Int = builder.readTimeout
 
-  /** Default write timeout (in milliseconds). The default is 10 seconds. */
   @get:JvmName("writeTimeoutMillis") val writeTimeoutMillis: Int = builder.writeTimeout
 
-  /** Web socket and HTTP/2 ping interval (in milliseconds). By default pings are not sent. */
   @get:JvmName("pingIntervalMillis") val pingIntervalMillis: Int = builder.pingInterval
 
   /**
