@@ -51,6 +51,7 @@ import okhttp3.internal.withSuppressed
  * This interceptor recovers from failures and follows redirects as necessary. It may throw an
  * [IOException] if the call was canceled.
  */
+//专门处理连接出错和重定向的问题
 class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Interceptor {
 
   @Throws(IOException::class)
@@ -71,12 +72,15 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
         if (call.isCanceled()) {
           throw IOException("Canceled")
         }
-
+        //第一阶段：重试阶段请求的时候发生 RouteException 和 IOException 会进行判断是否重新发起请求
+        //在第一阶段中通过 recover 函数来
         try {
+          //获取后面的拦截器返回的response
           response = realChain.proceed(request)
           newExchangeFinder = true
         } catch (e: RouteException) {
-          // The attempt to connect via a route failed. The request will not have been sent.
+          //路由异常连接未成功请求还没有发出去
+            //recover函数表示出错重试如果返回true表示可以进行出错重试
           if (!recover(e.lastConnectException, call, request, requestSendStarted = false)) {
             throw e.firstConnectException.withSuppressed(recoveredFailures)
           } else {
@@ -85,7 +89,7 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
           newExchangeFinder = false
           continue
         } catch (e: IOException) {
-          // An attempt to communicate with a server failed. The request may have been sent.
+          //请求发出去了，但是与服务器通信失败
           if (!recover(e, call, request, requestSendStarted = e !is ConnectionShutdownException)) {
             throw e.withSuppressed(recoveredFailures)
           } else {
@@ -105,6 +109,8 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
         }
 
         val exchange = call.interceptorScopedExchange
+        //第二阶段处理重定向
+        //followUpRequest重定向处理
         val followUp = followUpRequest(response, exchange)
 
         if (followUp == null) {
@@ -147,13 +153,13 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
     userRequest: Request,
     requestSendStarted: Boolean
   ): Boolean {
-    // The application layer has forbidden retries.
+    // 在 OkHttpClient 中可以配置 retryOnConnectionFailure  当值为true的时候请求失败连接失败的时候帮你重试，默认为true
     if (!client.retryOnConnectionFailure) return false
 
     // We can't send the request body again.
     if (requestSendStarted && requestIsOneShot(e, userRequest)) return false
 
-    // This exception is fatal.
+    // 判断是不是属于重试的异常
     if (!isRecoverable(e, requestSendStarted)) return false
 
     // No more routes to attempt.
@@ -170,7 +176,7 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
   }
 
   private fun isRecoverable(e: IOException, requestSendStarted: Boolean): Boolean {
-    // If there was a protocol problem, don't recover.
+    // 出现协议异常，不能重试
     if (e is ProtocolException) {
       return false
     }
@@ -181,8 +187,7 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
       return e is SocketTimeoutException && !requestSendStarted
     }
 
-    // Look for known client-side or negotiation errors that are unlikely to be fixed by trying
-    // again with a different route.
+   //SSL握手过程中证书出现问题不能重试
     if (e is SSLHandshakeException) {
       // If the problem was a CertificateException from the X509TrustManager,
       // do not retry.
@@ -190,6 +195,8 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
         return false
       }
     }
+
+    //SSL握手未授权异常不能重试
     if (e is SSLPeerUnverifiedException) {
       // e.g. a certificate pinning error.
       return false
