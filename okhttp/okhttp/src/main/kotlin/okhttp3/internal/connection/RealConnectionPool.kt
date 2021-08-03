@@ -84,6 +84,7 @@ class RealConnectionPool(
       synchronized(connection) {
         if (requireMultiplexed && !connection.isMultiplexed) return@synchronized
         if (!connection.isEligible(address, routes)) return@synchronized
+        //如果这个连接是可用的执行下一步操作：使用这个connection
         call.acquireConnectionNoEvents(connection)
         return true
       }

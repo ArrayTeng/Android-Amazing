@@ -71,6 +71,7 @@ class ExchangeFinder(
     chain: RealInterceptorChain
   ): ExchangeCodec {
     try {
+      //找到一个健康的连接
       val resultConnection = findHealthyConnection(
           connectTimeout = chain.connectTimeoutMillis,
           readTimeout = chain.readTimeoutMillis,
@@ -79,6 +80,7 @@ class ExchangeFinder(
           connectionRetryEnabled = client.retryOnConnectionFailure,
           doExtensiveHealthChecks = chain.request.method != "GET"
       )
+      //基于这个连接去创建一个编码解码器
       return resultConnection.newCodec(client, chain)
     } catch (e: RouteException) {
       trackFailure(e.lastConnectException)
@@ -102,7 +104,9 @@ class ExchangeFinder(
     connectionRetryEnabled: Boolean,
     doExtensiveHealthChecks: Boolean
   ): RealConnection {
+    //反复的尝试去拿到一个健康的连接
     while (true) {
+      //拿到一个可用连接
       val candidate = findConnection(
           connectTimeout = connectTimeout,
           readTimeout = readTimeout,
@@ -176,7 +180,7 @@ class ExchangeFinder(
     connectionShutdownCount = 0
     otherFailureCount = 0
 
-    // Attempt to get a connection from the pool.
+    //第一次尝试去连接：帮你的call去尝试拿一个放在池里的连接
     if (connectionPool.callAcquirePooledConnection(address, call, null, false)) {
       val result = call.connection!!
       eventListener.connectionAcquired(call, result)

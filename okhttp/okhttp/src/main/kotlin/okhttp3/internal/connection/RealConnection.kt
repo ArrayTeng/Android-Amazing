@@ -529,6 +529,7 @@ class RealConnection(
     assertThreadHoldsLock()
 
     // If this connection is not accepting new exchanges, we're done.
+    //每一个连接承受的请求数量是有限制的，在Http2到来之前每一个TCP连接最多只能承受一个请求 allocationLimit 的值为 1
     if (calls.size >= allocationLimit || noNewExchanges) return false
 
     // If the non-host fields of the address don't overlap, we're done.

@@ -39,6 +39,7 @@ import okio.Source
 import okio.buffer
 
 /** Serves requests from the cache and writes responses to the cache. */
+//缓存拦截器
 class CacheInterceptor(internal val cache: Cache?) : Interceptor {
 
   @Throws(IOException::class)

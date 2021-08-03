@@ -254,7 +254,10 @@ class RealCall(
     }
 
     val exchangeFinder = this.exchangeFinder!!
+    //exchangeFinder exchange 寻找器
+    //编码解码器，发送请求报文需要按照格式去读，按http1还是http2的格式去读，这种不同的格式就是不同的编码
     val codec = exchangeFinder.find(client, chain)
+    //利用 codec 拼一个 Exchange
     val result = Exchange(this, eventListener, exchangeFinder, codec)
     this.interceptorScopedExchange = result
     this.exchange = result

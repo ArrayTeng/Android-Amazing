@@ -68,6 +68,7 @@ class BridgeInterceptor(private val cookieJar: CookieJar) : Interceptor {
     var transparentGzip = false
     if (userRequest.header("Accept-Encoding") == null && userRequest.header("Range") == null) {
       transparentGzip = true
+      //可以接受的压缩编码
       requestBuilder.header("Accept-Encoding", "gzip")
     }
 
