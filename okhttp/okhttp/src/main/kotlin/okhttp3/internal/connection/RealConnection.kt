@@ -533,6 +533,7 @@ class RealConnection(
     if (calls.size >= allocationLimit || noNewExchanges) return false
 
     // If the non-host fields of the address don't overlap, we're done.
+    //我现在所做的请求跟我现在的这个连接是否是同一个地方
     if (!this.route.address.equalsNonHost(address)) return false
 
     // If the host exactly matches, we're done: this connection can carry the address.
