@@ -64,6 +64,7 @@ class RetryAndFollowUpInterceptor(private val client: OkHttpClient) : Intercepto
     var newExchangeFinder = true
     var recoveredFailures = listOf<IOException>()
     while (true) {
+      //前置工作
       call.enterNetworkInterceptorExchange(request, newExchangeFinder)
 
       var response: Response

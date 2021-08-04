@@ -31,6 +31,9 @@ import okio.buffer
  * request. Then it proceeds to call the network. Finally it builds a user response from the network
  * response.
  */
+
+//BridgeInterceptor，连接应用程序和服务器的桥梁，我们发出的请求将会经过它的处理才能发给服务器，
+//比如设置请求内容长度，编码，gzip压缩，cookie等，获取响应后保存Cookie等操作。这个拦截器相对比较简单
 class BridgeInterceptor(private val cookieJar: CookieJar) : Interceptor {
 
   @Throws(IOException::class)

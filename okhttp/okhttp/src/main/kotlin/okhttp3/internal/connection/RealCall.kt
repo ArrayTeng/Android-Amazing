@@ -178,9 +178,13 @@ class RealCall(
     // Build a full stack of interceptors.
     val interceptors = mutableListOf<Interceptor>()
     interceptors += client.interceptors
+    //重试和重定向拦截器
     interceptors += RetryAndFollowUpInterceptor(client)
+    //桥接拦截器
     interceptors += BridgeInterceptor(client.cookieJar)
+    //缓存拦截器
     interceptors += CacheInterceptor(client.cache)
+    //拦截拦截器
     interceptors += ConnectInterceptor
     if (!forWebSocket) {
       interceptors += client.networkInterceptors
