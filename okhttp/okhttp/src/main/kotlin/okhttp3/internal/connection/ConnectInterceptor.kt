@@ -25,7 +25,7 @@ import okhttp3.internal.http.RealInterceptorChain
  * Opens a connection to the target server and proceeds to the next interceptor. The network might
  * be used for the returned response, or to validate a cached response with a conditional GET.
  */
-//建立连接拦截器
+//建立连接拦截器 打开与目标服务器的链接
 object ConnectInterceptor : Interceptor {
   @Throws(IOException::class)
   override fun intercept(chain: Interceptor.Chain): Response {
