@@ -525,27 +525,26 @@ class RealConnection(
    * Returns true if this connection can carry a stream allocation to `address`. If non-null
    * `route` is the resolved route for a connection.
    */
+
+  //1、请求个数没有超限 2、通过同一个方式去连接
   internal fun isEligible(address: Address, routes: List<Route>?): Boolean {
     assertThreadHoldsLock()
 
-    // If this connection is not accepting new exchanges, we're done.
     //每一个连接承受的请求数量是有限制的，在Http2到来之前每一个TCP连接最多只能承受一个请求 allocationLimit 的值为 1
+    // noNewExchanges 表示是否愿意接受新的请求
     if (calls.size >= allocationLimit || noNewExchanges) return false
 
-    // If the non-host fields of the address don't overlap, we're done.
-    //我现在所做的请求跟我现在的这个连接是否是同一个地方
+    //我现在所做的请求跟我现在的这个连接是否是同一个地方，ip地址和tcp端口都要正确才能往同一个地方发请求，具体可以看 equalsNonHost 的代码
     if (!this.route.address.equalsNonHost(address)) return false
 
-    // If the host exactly matches, we're done: this connection can carry the address.
+    // 主机名也要一样
     if (address.url.host == this.route().address.url.host) {
       return true // This connection is a perfect match.
     }
 
-    // At this point we don't have a hostname match. But we still be able to carry the request if
-    // our connection coalescing requirements are met. See also:
-    // https://hpbn.co/optimizing-application-delivery/#eliminate-domain-sharding
-    // https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/
+    //如果没有传 routes 的话只能走到上面的代码，在第一次执行 callAcquirePooledConnection 时只能拿到http1的连接或者这里就直接返回false了
 
+    //以下针对http2 当上面的代码都校验失败后，如果你是http2的连接走下面的流程，对于http2证书和ip地址一样允许连接重用
     // 1. This connection must be HTTP/2.
     if (http2Connection == null) return false
 

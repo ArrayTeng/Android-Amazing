@@ -77,11 +77,16 @@ class RealConnectionPool(
   fun callAcquirePooledConnection(
     address: Address,
     call: RealCall,
+    //Route ：ip地址，tcp端口以及代理模式
     routes: List<Route>?,
+    //是否只拿多路复用的连接
     requireMultiplexed: Boolean
   ): Boolean {
     for (connection in connections) {
+      //对这个连接池中的所有连接都检查下看看能不能用
       synchronized(connection) {
+        //isMultiplexed 看看这个连接是否是多路复用，只有Http2的连接才有多路复用
+        //注意 requireMultiplexed 这个变量，在第一次尝试去获取连接的时候传入的值是 false
         if (requireMultiplexed && !connection.isMultiplexed) return@synchronized
         if (!connection.isEligible(address, routes)) return@synchronized
         //如果这个连接是可用的执行下一步操作：使用这个connection
