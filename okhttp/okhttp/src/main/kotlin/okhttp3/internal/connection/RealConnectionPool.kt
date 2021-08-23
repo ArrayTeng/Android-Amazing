@@ -99,7 +99,10 @@ class RealConnectionPool(
          * connection.isEligible 可以看做这个连接是否可用，不可用就在循环一次
          */
         if (!connection.isEligible(address, routes)) return@synchronized
-        //如果这个连接是可用的执行下一步操作：使用这个connection
+        /**
+         * 如果这个连接是可用的执行下一步操作：使用这个connection
+         * acquireConnectionNoEvents 函数中会给 RealCall 的 connection 属性赋值
+         */
         call.acquireConnectionNoEvents(connection)
         return true
       }
