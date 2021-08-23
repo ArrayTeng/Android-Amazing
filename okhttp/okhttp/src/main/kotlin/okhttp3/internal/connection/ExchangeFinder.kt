@@ -154,9 +154,15 @@ class ExchangeFinder(
     pingIntervalMillis: Int,
     connectionRetryEnabled: Boolean
   ): RealConnection {
+    /**
+     * 如果请求已经被取消了直接抛出异常
+     */
     if (call.isCanceled()) throw IOException("Canceled")
 
-    // 首先去看下 RealCall 里有没有一个可用连接，不过在第一时间里是没有的
+    /**
+     *1、首先去看下 RealCall 里有没有一个可用连接，不过在第一时间里是没有的 ， 在你第一次利用 OkHttp 发起
+     * 网络请求的时候 call.connection 的值为 null
+     */
     val callConnection = call.connection // This may be mutated by releaseConnectionNoEvents()!
     if (callConnection != null) {
       var toClose: Socket? = null
@@ -183,7 +189,12 @@ class ExchangeFinder(
     connectionShutdownCount = 0
     otherFailureCount = 0
 
-    //第一次尝试去连接：帮你的call去尝试拿一个放在池里的连接
+    /**
+     * 2、第一次尝试去连接：帮你的call去尝试拿一个放在池里的连接,
+     * 这里的 callAcquirePooledConnection 的 routes 入参和 requireMultiplexed 的值一个为null 一个为 false
+     * 这里注意下，在下面的操作中要用，routes 是一个 Route 集合，在 Route 里封装了ip地址，代理模式等，
+     * requireMultiplexed 表示是否只拿多路复用的连接
+     */
     if (connectionPool.callAcquirePooledConnection(address, call, null, false)) {
       val result = call.connection!!  //拿到里一个可用的连接
       eventListener.connectionAcquired(call, result)

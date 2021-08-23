@@ -256,9 +256,17 @@ class RealCall(
       check(!responseBodyOpen)
       check(!requestBodyOpen)
     }
-    //在 initExchange 函数中
+
+    /**
+     * 在 initExchange 函数中，ExchangeFinder - Exchange 寻找器，在连接重试拦截器 RetryAndFollowUpInterceptor 中 enterNetworkInterceptorExchange 函数
+     * 会做一些连接前的准备工作，比如说创建 ExchangeFinder 对象，执行 createAddress 创建 Address 对象.
+     *
+     * 第一步：到这一步你只需要理解：1、RetryAndFollowUpInterceptor 会执行一些准备工作创建 ExchangeFinder 对象以及将Address包装到 ExchangeFinder中
+     *
+     */
     val exchangeFinder = this.exchangeFinder!!
-    //exchangeFinder exchange 寻找器
+
+    //第二步：通过 ExchangeFinder 的 find 函数来新建一个 ExchangeCodec：
     //编码解码器，发送请求报文需要按照格式去读，按http1还是http2的格式去读，这种不同的格式就是不同的编码
     val codec = exchangeFinder.find(client, chain)
     //利用 codec 拼一个 Exchange
