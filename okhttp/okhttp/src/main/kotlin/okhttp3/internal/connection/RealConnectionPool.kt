@@ -75,6 +75,7 @@ class RealConnectionPool(
    * and `square.ca`.
    */
   fun callAcquirePooledConnection(
+    //其实这里的 Address 你应该很眼熟，在连接重试拦截器里我们创建 ExchangeFinder 的操作中会有 createAddress 的操作
     address: Address,
     call: RealCall,
     //Route ：ip地址，tcp端口以及代理模式
@@ -83,11 +84,20 @@ class RealConnectionPool(
     requireMultiplexed: Boolean
   ): Boolean {
     for (connection in connections) {
-      //对这个连接池中的所有连接都检查下看看能不能用
+      /**
+       * 对这个连接池中的所有连接都检查下看看能不能用
+       */
       synchronized(connection) {
-        //isMultiplexed 看看这个连接是否是多路复用，只有Http2的连接才有多路复用
-        //注意 requireMultiplexed 这个变量，在第一次尝试去获取连接的时候传入的值是 false
+
+        /**
+         * requireMultiplexed 在前文中已经解释过了是否允许多路复用，第一次尝试去获取连接的时候传入的值是 false
+         *
+         * 如果允许多路复用，并且此刻这个 connection 不是http2的请求，就继续循环
+         */
         if (requireMultiplexed && !connection.isMultiplexed) return@synchronized
+        /**
+         * connection.isEligible 可以看做这个连接是否可用，不可用就在循环一次
+         */
         if (!connection.isEligible(address, routes)) return@synchronized
         //如果这个连接是可用的执行下一步操作：使用这个connection
         call.acquireConnectionNoEvents(connection)

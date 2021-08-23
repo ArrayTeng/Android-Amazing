@@ -180,7 +180,10 @@ open class OkHttpClient internal constructor(
     }
   }
 
-  /** Prepares the [request] to be executed at some point in the future. */
+  /** Prepares the [request] to be executed at some point in the future.
+   *  OkHttpClient 会调用 newCall 来返回一个 RealCall 对象，RealCall 是核心类之一，最终会调用同步或者异步方法来
+   *  发现网路请求
+   */
   override fun newCall(request: Request): Call = RealCall(this, request, forWebSocket = false)
 
   /** Uses [request] to connect a new web socket. */
