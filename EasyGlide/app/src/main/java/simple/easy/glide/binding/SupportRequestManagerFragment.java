@@ -1,23 +1,20 @@
 package simple.easy.glide.binding;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import simple.easy.glide.RequestManager;
 
-@SuppressLint("ValidFragment")
-public class RequestManagerFragment extends Fragment {
+public class SupportRequestManagerFragment extends Fragment {
 
-    private ActivityFragmentLifecycle lifecycle;
+    private final ActivityFragmentLifecycle lifecycle;
 
     private RequestManager requestManager;
 
-    public RequestManagerFragment(){
+    public SupportRequestManagerFragment(){
         this(new ActivityFragmentLifecycle());
     }
 
-    @SuppressLint("ValidFragment")
-    public RequestManagerFragment(ActivityFragmentLifecycle lifecycle) {
+    public SupportRequestManagerFragment(ActivityFragmentLifecycle lifecycle){
         this.lifecycle = lifecycle;
     }
 
@@ -27,10 +24,6 @@ public class RequestManagerFragment extends Fragment {
 
     public RequestManager getRequestManager(){
         return requestManager;
-    }
-
-    public ActivityFragmentLifecycle getGlideLifecycle(){
-        return lifecycle;
     }
 
     @Override
@@ -49,5 +42,9 @@ public class RequestManagerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         lifecycle.onDestroy();
+    }
+
+    public ActivityFragmentLifecycle getGlideLifecycle(){
+        return lifecycle;
     }
 }
