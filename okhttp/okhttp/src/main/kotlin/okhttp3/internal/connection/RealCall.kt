@@ -56,6 +56,8 @@ import okio.AsyncTimeout
  * blast radius possible. If an HTTP/2 stream is active, canceling will cancel that stream but not
  * the other streams sharing its connection. But if the TLS handshake is still in progress then
  * canceling may break the entire connection.
+ *
+ * RealCall 试一次请求响应过程中的所有过程的管理类
  */
 class RealCall(
   //OkHttpClient对象
@@ -266,11 +268,20 @@ class RealCall(
      */
     val exchangeFinder = this.exchangeFinder!!
 
-    //第二步：通过 ExchangeFinder 的 find 函数来新建一个 ExchangeCodec：
-    //编码解码器，发送请求报文需要按照格式去读，按http1还是http2的格式去读，这种不同的格式就是不同的编码
+    /**
+     * 第二步：通过 ExchangeFinder 的 find 函数来新建一个 ExchangeCodec（ coder & decoder）
+     * 编码解码器，发送请求报文需要按照格式去读，按http1还是http2的格式去读，这种不同的格式就是不同的编码
+     *
+     * 按照Http1的请求就返回一个http1的 codec
+     * 按照Http2的请求就返回一个http2的 codec
+     */
     val codec = exchangeFinder.find(client, chain)
-    //利用 codec 拼一个 Exchange
+
+    /**
+     * 利用 codec 拼一个 Exchange
+     */
     val result = Exchange(this, eventListener, exchangeFinder, codec)
+
     this.interceptorScopedExchange = result
     this.exchange = result
     synchronized(this) {

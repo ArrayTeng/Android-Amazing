@@ -67,20 +67,15 @@ class RealConnectionPool(
   }
 
   /**
-   * Attempts to acquire a recycled connection to [address] for [call]. Returns true if a connection
-   * was acquired.
-   *
-   * If [routes] is non-null these are the resolved routes (ie. IP addresses) for the connection.
-   * This is used to coalesce related domains to the same HTTP/2 connection, such as `square.com`
-   * and `square.ca`.
+   * address:其实这里的 Address 你应该很眼熟，在连接重试拦截器里我们创建 ExchangeFinder 的操作中会有 createAddress 的操作
+   * routes:
+   * requireMultiplexed:是否只拿多路复用的连接
    */
   fun callAcquirePooledConnection(
-    //其实这里的 Address 你应该很眼熟，在连接重试拦截器里我们创建 ExchangeFinder 的操作中会有 createAddress 的操作
     address: Address,
     call: RealCall,
     //Route ：ip地址，tcp端口以及代理模式
     routes: List<Route>?,
-    //是否只拿多路复用的连接
     requireMultiplexed: Boolean
   ): Boolean {
     for (connection in connections) {
@@ -93,6 +88,8 @@ class RealConnectionPool(
          * requireMultiplexed 在前文中已经解释过了是否允许多路复用，第一次尝试去获取连接的时候传入的值是 false
          *
          * 如果允许多路复用，并且此刻这个 connection 不是http2的请求，就继续循环
+         *
+         * 在 ExchangeFinder#第二步 中去尝试从连接池中获取可用连接时 requireMultiplexed == false ，直接执行 if 代码块后面的逻辑
          */
         if (requireMultiplexed && !connection.isMultiplexed) return@synchronized
         /**
