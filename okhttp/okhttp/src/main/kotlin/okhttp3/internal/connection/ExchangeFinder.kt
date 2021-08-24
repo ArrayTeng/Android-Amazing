@@ -71,7 +71,9 @@ class ExchangeFinder(
     chain: RealInterceptorChain
   ): ExchangeCodec {
     try {
-      //找到一个健康的连接，这个健康的连接的意思你可以理解为是一个当前可用的 RealConnection 对象
+      /**
+       * 1、找到一个健康的连接，这个健康的连接的意思你可以理解为是一个当前可用的 RealConnection 对象
+       */
       val resultConnection = findHealthyConnection(
           connectTimeout = chain.connectTimeoutMillis,
           readTimeout = chain.readTimeoutMillis,
@@ -80,7 +82,10 @@ class ExchangeFinder(
           connectionRetryEnabled = client.retryOnConnectionFailure,
           doExtensiveHealthChecks = chain.request.method != "GET"
       )
-      //基于这个连接去创建一个编码解码器
+      /**
+       * 2、基于这个连接去创建一个编码解码器,确定编码规则
+       * 是按照Http1的方式去写请求和读响应还是按照Http2的方式去写请求和读响应
+       */
       return resultConnection.newCodec(client, chain)
     } catch (e: RouteException) {
       trackFailure(e.lastConnectException)
@@ -104,9 +109,15 @@ class ExchangeFinder(
     connectionRetryEnabled: Boolean,
     doExtensiveHealthChecks: Boolean
   ): RealConnection {
-    //反复的尝试去拿到一个健康的连接
+    /**
+     * 反复的尝试去拿到一个健康的连接，先去拿到一个连接然后去验证是否“健康”，如果不健康就去 container 一下重新来一次循环，
+     * 不要被 while(true) 欺骗，这里撑死了极端情况下只会执行 5 次，因为 findConnection 里一共只有 5 种情况去获取一个可用连接，RealCall中获取，连接池中获取，直接自己新建
+     */
     while (true) {
-      //拿到一个可用连接
+      /**
+       * 1、拿到一个可用连接
+       * question：什么是可用连接？
+       */
       val candidate = findConnection(
           connectTimeout = connectTimeout,
           readTimeout = readTimeout,
@@ -115,12 +126,17 @@ class ExchangeFinder(
           connectionRetryEnabled = connectionRetryEnabled
       )
 
-      // 验证这个连接是够"健康"
+      /**
+       * 2、验证这个连接是够"健康"
+       * question：怎么判断这个连接是健康的？
+       */
       if (candidate.isHealthy(doExtensiveHealthChecks)) {
         return candidate
       }
 
-      //如果不健康执行下面的逻辑 continue 继续一次循环
+      /**
+       * 3、如果不健康执行下面的逻辑 continue 继续一次循环，以下的代码忽略不计，我看了下每个版本的有点区别，但不是我们看的重点
+       */
 
       // If it isn't, take it out of the pool.
       candidate.noNewExchanges()
@@ -140,12 +156,9 @@ class ExchangeFinder(
   }
 
   /**
-   * Returns a connection to host a new stream. This prefers the existing connection if it exists,
-   * then the pool, finally building a new connection.
    *
-   * This checks for cancellation before each blocking operation.
+   * 在 findConnection 中okhttp会多次去尝试获取可用连接，最多5次，通过5种不同方式去获取可用连接
    */
-  // 在 findConnection 中okhttp会多次去尝试获取可用连接，最多5次，通过5种不同方式去获取可用连接
   @Throws(IOException::class)
   private fun findConnection(
     connectTimeout: Int,
@@ -163,12 +176,16 @@ class ExchangeFinder(
      *1、首先去看下 RealCall 里有没有一个可用连接，不过在第一时间里是没有的 ， 在你第一次利用 OkHttp 发起
      * 网络请求的时候 call.connection 的值为 null
      */
-    val callConnection = call.connection // This may be mutated by releaseConnectionNoEvents()!
+    val callConnection = call.connection
     if (callConnection != null) {
       var toClose: Socket? = null
       synchronized(callConnection) {
         if (callConnection.noNewExchanges || !sameHostAndPort(callConnection.route().address.url)) {
-          //你有一个可用连接，但是这个连接不符合这次新请求，就把它扔了
+          /**
+           * callConnection 不满足条件直接抛弃
+           * 1、noNewExchanges 不接受新的请求
+           * 2、域名和端口号不相同
+           */
           toClose = call.releaseConnectionNoEvents()
         }
       }
@@ -226,7 +243,9 @@ class ExchangeFinder(
 
       if (call.isCanceled()) throw IOException("Canceled")
 
-     //如果拿不到就重新再去拿一次，在重试重定向拦截器中会创建 address address 就是包装你访问的主机和端口  routes 就是指你的ip地址 tcp端口 代理等
+      /**
+       * 3、如果拿不到就重新再去拿一次，在重试重定向拦截器中会创建 address address 就是包装你访问的主机和端口  routes 就是指你的ip地址 tcp端口 代理等
+       */
       if (connectionPool.callAcquirePooledConnection(address, call, routes, false)) {
         val result = call.connection!!
         eventListener.connectionAcquired(call, result)
@@ -236,7 +255,9 @@ class ExchangeFinder(
       route = localRouteSelection.next()
     }
 
-    // Connect. Tell the call about the connecting call so async cancels work.
+    /**
+     * 4、自己新建一个 RealConnection 然后去连接
+     */
     val newConnection = RealConnection(connectionPool, route)
     call.connectionToCancel = newConnection
     try {
@@ -254,7 +275,9 @@ class ExchangeFinder(
     }
     call.client.routeDatabase.connected(newConnection.route())
 
-    // requireMultiplexed 的参数为 true 表示只能拿到 http2 的多路复用的连接了
+    /**
+     * 5、在调用一次 callAcquirePooledConnection requireMultiplexed == true 表示只拿Http2的连接
+     */
     if (connectionPool.callAcquirePooledConnection(address, call, routes, true)) {
       val result = call.connection!!
       nextRouteToTry = route

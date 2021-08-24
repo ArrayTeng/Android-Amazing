@@ -530,17 +530,30 @@ class RealConnection(
   internal fun isEligible(address: Address, routes: List<Route>?): Boolean {
     assertThreadHoldsLock()
 
-    //每一个连接承受的请求数量是有限制的，在Http2到来之前每一个TCP连接最多只能承受一个请求 allocationLimit 的值为 1
-    // noNewExchanges 表示是否愿意接受新的请求
+    /**
+     * 每一个连接承受的请求数量是有限制的，在Http2到来之前每一个TCP连接最多只能承受一个请求 allocationLimit 的值为 1
+     *  noNewExchanges 表示是否愿意接受新的请求
+     *
+     *  如果当前这个
+     */
     if (calls.size >= allocationLimit || noNewExchanges) return false
 
-    //我现在所做的请求跟我现在的这个连接是否是同一个地方，ip地址和tcp端口都要正确才能往同一个地方发请求，具体可以看 equalsNonHost 的代码
+    /**
+     * 我现在所做的请求跟我现在的这个连接是否是同一个地方，ip地址和tcp端口都要正确才能往同一个地方发请求，具体可以看 equalsNonHost 的代码,
+     * 对于http1而言只要满足主机名相同以及 equalsNonHost 里面的条件就可以确定这个连接是可用的
+     */
     if (!this.route.address.equalsNonHost(address)) return false
 
     // 主机名也要一样
     if (address.url.host == this.route().address.url.host) {
       return true // This connection is a perfect match.
     }
+
+    /**
+     * 上面的代码针对 http1
+     * ---------------------------------------------------------------------------------------------
+     * 下面的代码针对 http2
+     */
 
     //如果没有传 routes 的话只能走到上面的代码，在第一次执行 callAcquirePooledConnection 时只能拿到http1的连接或者这里就直接返回false了
 
