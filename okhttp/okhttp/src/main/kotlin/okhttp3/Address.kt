@@ -186,8 +186,10 @@ class Address(
 
   internal fun equalsNonHost(that: Address): Boolean {
     return this.dns == that.dns &&
+      //代理
         this.proxyAuthenticator == that.proxyAuthenticator &&
         this.protocols == that.protocols &&
+      //加密连接配置
         this.connectionSpecs == that.connectionSpecs &&
         this.proxySelector == that.proxySelector &&
         this.proxy == that.proxy &&

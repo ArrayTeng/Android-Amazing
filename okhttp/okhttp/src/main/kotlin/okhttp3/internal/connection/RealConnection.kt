@@ -527,14 +527,15 @@ class RealConnection(
    */
 
   //1、请求个数没有超限 2、通过同一个方式去连接
+  /**
+   * isEligible 主要用于判断这个连接是否符合我的要求
+   */
   internal fun isEligible(address: Address, routes: List<Route>?): Boolean {
     assertThreadHoldsLock()
 
     /**
      * 每一个连接承受的请求数量是有限制的，在Http2到来之前每一个TCP连接最多只能承受一个请求 allocationLimit 的值为 1
      *  noNewExchanges 表示是否愿意接受新的请求
-     *
-     *  如果当前这个
      */
     if (calls.size >= allocationLimit || noNewExchanges) return false
 
@@ -553,15 +554,26 @@ class RealConnection(
      * 上面的代码针对 http1
      * ---------------------------------------------------------------------------------------------
      * 下面的代码针对 http2
+     * http2呢不需要你的域名地址必须一样，主要你的ip一致加上端口号加上其它的一些条件就可以连接复用
+     * 但是这会导致一个问题，ip地址相同，但是配置了虚拟主机，所以可能就出现连接错误的问题，解决这个
+     * 问题需要的是证书签名
+     *
+     * 连接要重用之前会判断必须是https连接，并且上一次的那个连接所接到的证书也合适那么就可以连接重用
      */
 
     //如果没有传 routes 的话只能走到上面的代码，在第一次执行 callAcquirePooledConnection 时只能拿到http1的连接或者这里就直接返回false了
 
     //以下针对http2 当上面的代码都校验失败后，如果你是http2的连接走下面的流程，对于http2证书和ip地址一样允许连接重用
     // 1. This connection must be HTTP/2.
+
+
     if (http2Connection == null) return false
 
     // 2. The routes must share an IP address.
+
+    /**
+     * 必须有 routes 才能连接合并
+     */
     if (routes == null || !routeMatchesAny(routes)) return false
 
     // 3. This connection's server certificate's must cover the new host.
@@ -570,6 +582,9 @@ class RealConnection(
 
     // 4. Certificate pinning must match the host.
     try {
+      /**
+       * 目前要重用的那个连接它目前拿到的证书是否符合我要访问的那个网站的证书
+       */
       address.certificatePinner!!.check(address.url.host, handshake()!!.peerCertificates)
     } catch (_: SSLPeerUnverifiedException) {
       return false

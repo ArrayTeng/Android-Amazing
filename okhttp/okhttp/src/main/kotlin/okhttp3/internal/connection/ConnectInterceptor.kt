@@ -30,11 +30,17 @@ import okhttp3.internal.http.RealInterceptorChain
 object ConnectInterceptor : Interceptor {
   @Throws(IOException::class)
   override fun intercept(chain: Interceptor.Chain): Response {
+    /**
+     * 前置工作 start
+     */
     val realChain = chain as RealInterceptorChain
     //创建一个 Exchange 对象，Exchange 从字面意思上理解是交换的意思，用在这里其实也很贴切，客户端与服务端之间的数据交换
     val exchange = realChain.call.initExchange(chain)
     //copy出一个新的 Chain 给 exchange 赋值进行后置操作将 request 发送给下一个拦截器 CallServerInterceptor
     val connectedChain = realChain.copy(exchange = exchange)
+    /**
+     * 中置工作，把任务往后推
+     */
     return connectedChain.proceed(realChain.request)
   }
 }

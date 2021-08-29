@@ -158,6 +158,7 @@ class ExchangeFinder(
   /**
    *
    * 在 findConnection 中okhttp会多次去尝试获取可用连接，最多5次，通过5种不同方式去获取可用连接
+   * 看下是哪 5 种方式
    */
   @Throws(IOException::class)
   private fun findConnection(
@@ -245,6 +246,8 @@ class ExchangeFinder(
 
       /**
        * 3、如果拿不到就重新再去拿一次，在重试重定向拦截器中会创建 address address 就是包装你访问的主机和端口  routes 就是指你的ip地址 tcp端口 代理等
+       *
+       * address 在连接重试拦截器中被创建，封装了 host 、 port 以及在OkhttpClient中封装的数据，用于后面配置路由
        */
       if (connectionPool.callAcquirePooledConnection(address, call, routes, false)) {
         val result = call.connection!!
