@@ -12,6 +12,7 @@ public class RequestManagerFragment extends Fragment {
 
     private RequestManager requestManager;
 
+    //创建Fragment对象的时候已经new了一个ActivityFragmentLifecycle用开监听Fragment生命周期的变化
     public RequestManagerFragment(){
         this(new ActivityFragmentLifecycle());
     }

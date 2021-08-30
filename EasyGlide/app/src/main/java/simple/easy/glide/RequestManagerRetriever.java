@@ -79,6 +79,7 @@ public class RequestManagerRetriever implements Handler.Callback {
         } else {
             //判断当前的Activity不处于destroy中
             Util.assertNotDestroyed(activity);
+            //通过当前 Activity 获取 FragmentManager
             android.app.FragmentManager fm = activity.getFragmentManager();
             return fragmentGet(activity, fm);
         }
@@ -115,12 +116,15 @@ public class RequestManagerRetriever implements Handler.Callback {
      * 兼容 android.app.Fragment
      */
     private RequestManager fragmentGet(Context context, android.app.FragmentManager fm) {
+        //创建 RequestManagerFragment 对象，并在这个 Fragment 中维护一个 RequestManager 对象
         RequestManagerFragment current = getRequestManagerFragment(fm);
         //从 Fragment 中获取 RequestManager
         RequestManager requestManager = current.getRequestManager();
 
         //首次获取实例化 RequestManager
         if (requestManager == null) {
+            //在 RequestManager 的构造函数中传入了 ActivityFragmentLifecycle 对象
+            //所以在 RequestManager 中可以感应到生命周期的变化
             requestManager = RequestManager.getInstance(current.getGlideLifecycle(), context);
             current.setRequestManager(requestManager);
         }
@@ -141,6 +145,7 @@ public class RequestManagerRetriever implements Handler.Callback {
                 //创建一个空的Fragment用于管理生命周期
                 current = new RequestManagerFragment();
                 pendingRequestManagerFragments.put(fm, current);
+                //开启一个事务添加一个空的Fragment
                 fm.beginTransaction().add(current, FRAGMENT_TAG).commitAllowingStateLoss();
                 //发送消息通知移除旧的Fragment
                 handler.obtainMessage(ID_REMOVE_FRAGMENT_MANAGER, fm).sendToTarget();
