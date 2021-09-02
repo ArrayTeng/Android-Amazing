@@ -8,6 +8,9 @@ import androidx.fragment.app.FragmentActivity;
 /**
  * 1、Glide.with的作用：创建空Fragment管理Glide生命周期、创建RequestManager对象
  * RequestManger类似于一个请求管理的类
+ *
+ * 本次分享的重点是Glide生命周期的管理以及三级缓存处理（活动缓存、内存缓存、磁盘缓存）
+ *
  */
 public class Glide {
 
@@ -30,6 +33,8 @@ public class Glide {
 
     /**
      * 适配Androidx
+     * RequestManagerRetriever 可以看做是 RequestManager 的管理类
+     * getRetriever(activity).get(activity); get函数内部创建了一个空的fragment
      */
     public static RequestManager with(FragmentActivity activity){
         return  getRetriever(activity).get(activity);
