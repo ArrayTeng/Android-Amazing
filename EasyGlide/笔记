@@ -1,0 +1,36 @@
+RequestBuilder->into->buildRequest->buildRequestRecursive->obtainRequest-> SingleRequest
+
+	SingleRequest ->Request ->requestManager.track(target, request); 返回RequestManager-
+
+	RequestManager->requestTracker.runRequest(request)-》request.begin(); 到SingleRequest的onSizeReady
+
+	SingleRequest-》engine.load-》Engin->loadFromActiveResources/loadFromCache
+
+	Engine-》waitForExistingOrStartNewJob->jobs.get(key, onlyRetrieveFromCache)->engineJob.start(decodeJob);
+
+	EngineJob->willDecodeFromCache->executor.execute(decodeJob);
+
+	DecodeJob->run方法,执行线程->runWrapped() ->INITIALIZE->runGenerators ->getNextGenerator-
+	DecodeJob->SourceGenerator->currentGenerator.startNext()->DataCacheGenerator
+
+	DataCacheGenerator->startNext()->buildLoadData
+
+	HttpGlideUrlLoader->HttpUrlFetcher->loadDataWithRedirects-> urlConnection.connect()
+
+	HttpGlideUrlLoader-->getStreamForSuccessfulRequest->callback.onDataReady(result)
+
+	DataCacheGenerator->cb.onDataFetcherReady->DecodeJob->decodeFromRetrievedData();
+
+	->decodeFromData->decodeFromFetcher->runLoadPath->path.load->LoadPath:loadWithExceptionList
+
+	-> path.decode->DecodePath:decodeResource -> callback.onResourceDecoded -> onResourceDecoded
+
+	->DecodeJob:notifyEncodeAndRelease->notifyComplete(result, dataSource);
+
+	->callback.onResourceReady(resource, dataSource);->notifyCallbacksOfResult -
+
+	EngineJob>engineJobListener.onEngineJobComplete->Engine:activeResources.activate(key, resource);
+
+	SingleRequest->onResourceReady
+
+	ImageViewTarget:onResourceReady->setResource->DrawableImageViewTarget-> view.setImageDrawable(resource);
