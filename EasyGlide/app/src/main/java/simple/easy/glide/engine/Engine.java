@@ -16,14 +16,14 @@ import simple.easy.glide.util.Tool;
  * 1、读缓存（1级、2级、3级）
  * 2、分发给EngineJob
  */
-public class Engine implements ValueCallBack {
+public class Engine implements ValueCallBack ,ResponseListener{
     private Context glideContext;
     private String path;
     private String key;
 
-    //活动缓存
+    //活动缓存 - 只针对当前页面有效
     private ActiveCache activeCache;
-    //内存缓存
+    //内存缓存 - 在整个APP运行期间有效
     private MemoryCache memoryCache;
     //磁盘缓存
     private DiskBitmapCache diskLruCache;
@@ -76,10 +76,14 @@ public class Engine implements ValueCallBack {
         //判断读取逻辑，活动缓存有就从活动缓存中然后是内存缓存，磁盘缓存
         Value value = activeCache.get(key);
         if (value!=null){
+            memoryCache.put(key,value);
+//            activeCache.recycleActive();
             return value;
         }
         value = memoryCache.get(key);
         if (value!=null){
+            activeCache.put(key,value);
+            memoryCache.remove(key);
             return value;
         }
         value = diskLruCache.get(key);
@@ -87,7 +91,7 @@ public class Engine implements ValueCallBack {
             return value;
         }
         //从服务器中去找，通过EngineJob加载资源
-        return value;
+        return null;
     }
 
 
@@ -96,6 +100,20 @@ public class Engine implements ValueCallBack {
 
     @Override
     public void valueNonUseListener(String key, Value value) {
+
+    }
+
+    @Override
+    public void responseSuccess(String key, Value value) {
+        value.setKey(key);
+        if (diskLruCache!=null){
+            activeCache.put(key,value);
+            diskLruCache.put(key,value);
+        }
+    }
+
+    @Override
+    public void responseException(Exception e) {
 
     }
 }
