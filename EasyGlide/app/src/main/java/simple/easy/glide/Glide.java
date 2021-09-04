@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentActivity;
 /**
  * 1、Glide.with的作用：创建空Fragment管理Glide生命周期、创建RequestManager对象
  * RequestManger类似于一个请求管理的类
+ *
+ * 2、三级缓存：活动缓存、内存缓存、磁盘缓存
  */
 public class Glide {
 
