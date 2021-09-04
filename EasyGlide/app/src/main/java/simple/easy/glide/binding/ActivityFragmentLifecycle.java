@@ -8,6 +8,11 @@ import java.util.WeakHashMap;
 import simple.easy.glide.binding.inter.Lifecycle;
 import simple.easy.glide.binding.inter.LifecycleListener;
 
+/**
+ * 生命周期回调的管理类，实现了Lifecycle接口。所有的LifecycleListener会添加到一个集合中，
+ * 当RequestManagerFragment生命周期方法触发时，会调用ActivityFragmentLifecycle相应生命周期方法，
+ * 这个方法然后再遍历调用所有LifecycleListener的生命周期方法
+ */
 public class ActivityFragmentLifecycle implements Lifecycle {
 
     private final Set<LifecycleListener> lifecycleListeners =

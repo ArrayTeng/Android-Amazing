@@ -29,6 +29,10 @@ public class RequestManagerRetriever implements Handler.Callback {
 
     private static final int ID_REMOVE_SUPPORT_FRAGMENT_MANAGER = 2; // androidx Fragment 空白
 
+    /**
+     * 为什么要使用 pendingRequestManagerFragments 和 pendingSupportRequestManagerFragments 来管理临时缓存，明明刚建立就移除掉了这么做的意义在哪里？
+     * 参考资料:深入解析Glide生命周期管理 : https://zhuanlan.zhihu.com/p/124172454
+     */
     final Map<android.app.FragmentManager, RequestManagerFragment> pendingRequestManagerFragments = new HashMap<>();
 
 
@@ -45,6 +49,7 @@ public class RequestManagerRetriever implements Handler.Callback {
 
     /**
      * 适配androidx版本的 FragmentActivity
+     *
      */
     public RequestManager get(FragmentActivity fragmentActivity) {
         if (Util.isOnBackgroundThread()) {
@@ -53,6 +58,7 @@ public class RequestManagerRetriever implements Handler.Callback {
             //判断当前的Activity不处于destroy中
             Util.assertNotDestroyed(fragmentActivity);
             androidx.fragment.app.FragmentManager fm = fragmentActivity.getSupportFragmentManager();
+
             return supportFragmentGet(fragmentActivity, fm);
         }
 
@@ -158,9 +164,12 @@ public class RequestManagerRetriever implements Handler.Callback {
      * 兼容 androidx.fragment.app
      */
     private RequestManager supportFragmentGet(Context context, androidx.fragment.app.FragmentManager fm) {
+        //创建 SupportRequestManagerFragment 对象，Fragment 内部包装了 RequestManager 对象
         SupportRequestManagerFragment current = getSupportRequestManagerFragment(fm);
+        //获取当前Fragment里维护的RequestManager对象
         RequestManager requestManager = current.getRequestManager();
         if (requestManager == null) {
+            //如果为null新建一个然后塞入，负责生命周期管理的 ActivityFragmentLifecycle 被传入 RequestManager 中管理
             requestManager = RequestManager.getInstance(current.getGlideLifecycle(), context);
             current.setRequestManager(requestManager);
         }
@@ -168,6 +177,9 @@ public class RequestManagerRetriever implements Handler.Callback {
         return requestManager;
     }
 
+    /**
+     * 创建Fragment对象
+     */
     private SupportRequestManagerFragment getSupportRequestManagerFragment(androidx.fragment.app.FragmentManager fm) {
         SupportRequestManagerFragment current = (SupportRequestManagerFragment) fm.findFragmentByTag(FRAGMENT_TAG);
         if (current == null) {
