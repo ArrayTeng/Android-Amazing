@@ -185,8 +185,10 @@ public class RequestManagerRetriever implements Handler.Callback {
         if (current == null) {
             current = pendingSupportRequestManagerFragments.get(fm);
             if (current == null) {
+                //为什么对Fragment对象缓存查看 https://www.jianshu.com/p/190285e18ae1 这篇文章
                 current = new SupportRequestManagerFragment();
                 pendingSupportRequestManagerFragments.put(fm, current);
+                //添加事务的操作最终是通过 FragmentManagerImpl 的 scheduleCommit 函数通过handler发送消息来执行的
                 fm.beginTransaction().add(current, FRAGMENT_TAG).commitAllowingStateLoss();
                 handler.obtainMessage(ID_REMOVE_SUPPORT_FRAGMENT_MANAGER, fm).sendToTarget();
             }

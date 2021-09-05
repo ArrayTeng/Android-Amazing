@@ -13,6 +13,9 @@ import simple.easy.glide.work.DefaultConnectivity;
 import simple.easy.glide.work.ImageViewTarget;
 import simple.easy.glide.work.TargetTracker;
 
+/**
+ * Fragment的生命周期回调会回调RequestManager的生命周期然后进行相关资源的释放操作
+ */
 public class RequestManager implements LifecycleListener {
 
     private static volatile RequestManager requestManager;

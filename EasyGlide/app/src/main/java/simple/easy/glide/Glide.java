@@ -35,6 +35,10 @@ public class Glide {
      * 适配Androidx
      * RequestManagerRetriever 可以看做是 RequestManager 的管理类
      * getRetriever(activity).get(activity); get函数内部创建了一个空的fragment
+     *
+     * Glide.with(this) 绑定了Activity的生命周期。在Activity内新建了一个无UI的Fragment，
+     * 这个Fragment持有一个Lifecycle，通过Lifecycle在Fragment关键生命周期通知RequestManager
+     * 进行相关的操作，在生命周期onStart时继续加载，onStop时暂停加载，onDestroy时停止加载任务和清除操作
      */
     public static RequestManager with(FragmentActivity activity){
         return  getRetriever(activity).get(activity);

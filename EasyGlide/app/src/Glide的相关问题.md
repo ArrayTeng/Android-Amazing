@@ -1,0 +1,8 @@
+1、Glide的生命周期管理
+
+2、Glide如何监听网络变化
+在 RequestManager 的构造函数中通过 ConnectivityMonitorFactory 的 build 函数构建出 ConnectivityMonitor （连接监视器）对象，
+调用 lifecycle.addListener(connectivityMonitor); 将其添加到 ActivityFragmentLifecycle ，Fragment生命周期的变化会通知到
+默认实现类 DefaultConnectivityMonitor 中并且回调它的相关的生命周期函数，在onStart中registerReceiver（注册监听手机网络变化的广播），
+在onStop中unregisterReceiver。有网络重连后重启请求。在 RequestManagerConnectivityListener 的 onConnectivityChanged 函数中
+执行网络重连后的重启请求

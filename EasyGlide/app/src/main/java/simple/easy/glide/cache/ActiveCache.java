@@ -37,6 +37,13 @@ public class ActiveCache {
         return null;
     }
 
+    public void deleteActive(String key){
+        if (mapList!=null){
+            mapList.remove(key);
+        }
+
+    }
+
     public void recycleActive(){
         Iterator<Map.Entry<String,Value>> it = mapList.entrySet().iterator();
         while (it.hasNext()){

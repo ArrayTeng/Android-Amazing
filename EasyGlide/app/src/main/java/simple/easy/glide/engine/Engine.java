@@ -61,23 +61,24 @@ public class Engine implements ValueCallBack ,ResponseListener{
         diskLruCache = DiskBitmapCache.getInstance(glideContext);
     }
 
-    //读缓存
+    //读取缓存的方式
     public void into(ImageView imageView) {
-        Tool.assertBackgroundThread();
+        Tool.assertMainThread();
         //本地有缓存直接渲染
-        Value value = cacheAction();
+        Value value = cacheAction(imageView);
 
         if (value != null) {
             imageView.setImageBitmap(value.getBitmap());
         }
     }
 
-    private Value cacheAction() {
+    private Value cacheAction(ImageView imageView) {
         //判断读取逻辑，活动缓存有就从活动缓存中然后是内存缓存，磁盘缓存
         Value value = activeCache.get(key);
         if (value!=null){
             memoryCache.put(key,value);
-//            activeCache.recycleActive();
+            //发现活动缓存里有就方法内存缓存，移除活动缓存
+            activeCache.deleteActive(key);
             return value;
         }
         value = memoryCache.get(key);
@@ -88,9 +89,14 @@ public class Engine implements ValueCallBack ,ResponseListener{
         }
         value = diskLruCache.get(key);
         if (value!=null){
+            //磁盘缓存中有，就放到活动缓存，然后移除内存缓存
+            activeCache.put(key,value);
+            memoryCache.remove(key);
+
             return value;
         }
         //从服务器中去找，通过EngineJob加载资源
+        new EngineJob().loadResource(path,this,glideContext,imageView);
         return null;
     }
 

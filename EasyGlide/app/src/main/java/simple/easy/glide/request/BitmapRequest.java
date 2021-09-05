@@ -8,6 +8,7 @@ import java.lang.ref.SoftReference;
 
 import simple.easy.glide.RequestManager;
 import simple.easy.glide.binding.ApplicationLifecycle;
+import simple.easy.glide.engine.Engine;
 
 public class BitmapRequest {
 
@@ -36,6 +37,7 @@ public class BitmapRequest {
     //加载URL
     public BitmapRequest loadUrl(String url){
         this.url = url;
+        Engine.getInstance().load(url,mContext);
         return this;
     }
 
@@ -53,9 +55,10 @@ public class BitmapRequest {
 
     //显示图片控件
     public void into(ImageView imageView){
-        imageView.setTag(urlMd5);
+        //imageView.setTag(urlMd5);
         this.imageView = new SoftReference<>(imageView);
-        RequestManager.getInstance(new ApplicationLifecycle(),mContext).addBitmapRequest(this);
+        Engine.getInstance().into(imageView);
+        //RequestManager.getInstance(new ApplicationLifecycle(),mContext).addBitmapRequest(this);
     }
 
     public String getUrl() {

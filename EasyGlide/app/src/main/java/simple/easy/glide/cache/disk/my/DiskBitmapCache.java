@@ -111,6 +111,9 @@ public class DiskBitmapCache implements BitmapCache{
         InputStream inputStream = null;
         try {
             DiskLruCache.Snapshot snapshot = diskLruCache.get(key);
+            if (snapshot == null){
+                return null;
+            }
             inputStream = snapshot.getInputStream(0);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             value.setBitmap(bitmap);
