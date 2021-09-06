@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import simple.easy.glide.Glide
+import simple.easy.glide.request.RequestOptions
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,8 +21,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun bt(view: View) {
+        val requestOptions:RequestOptions = RequestOptions().override(400,300)
         Glide.with(this)
             .load("https://img1.baidu.com/it/u=4186787118,517350218&fm=26&fmt=auto&gp=0.jpg")
+            .apply(requestOptions)
             .into(imageView)
     }
 

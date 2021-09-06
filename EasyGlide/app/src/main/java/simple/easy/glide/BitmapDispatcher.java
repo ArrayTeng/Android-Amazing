@@ -15,6 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import simple.easy.glide.request.BitmapRequest;
 import simple.easy.glide.request.RequestListener;
 
+@Deprecated
 public class BitmapDispatcher extends Thread{
 
     private Handler handler = new Handler(Looper.getMainLooper());

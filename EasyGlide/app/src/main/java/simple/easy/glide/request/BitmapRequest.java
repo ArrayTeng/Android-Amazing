@@ -10,6 +10,7 @@ import simple.easy.glide.RequestManager;
 import simple.easy.glide.binding.ApplicationLifecycle;
 import simple.easy.glide.engine.Engine;
 
+@Deprecated
 public class BitmapRequest {
 
     //请求路径
@@ -57,7 +58,8 @@ public class BitmapRequest {
     public void into(ImageView imageView){
         //imageView.setTag(urlMd5);
         this.imageView = new SoftReference<>(imageView);
-        Engine.getInstance().into(imageView);
+        //Engine.getInstance().into(imageView);
+        //4.0之前的版本的写法现在舍弃不用了
         //RequestManager.getInstance(new ApplicationLifecycle(),mContext).addBitmapRequest(this);
     }
 
