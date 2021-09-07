@@ -8,10 +8,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import simple.easy.glide.binding.inter.Lifecycle;
 import simple.easy.glide.binding.inter.LifecycleListener;
-import simple.easy.glide.request.BitmapRequest;
 import simple.easy.glide.request.RequestBuilder;
 import simple.easy.glide.work.DefaultConnectivity;
-import simple.easy.glide.work.ImageViewTarget;
+
 import simple.easy.glide.work.TargetTracker;
 
 /**
@@ -21,8 +20,6 @@ public class RequestManager implements LifecycleListener {
 
     private static volatile RequestManager requestManager;
 
-    @Deprecated
-    private LinkedBlockingQueue<BitmapRequest> requestQueue = new LinkedBlockingQueue<>();
 
     //先认为是 ActivityFragmentLifecycle 对象
     private Lifecycle lifecycle;
