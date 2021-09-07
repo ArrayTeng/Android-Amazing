@@ -1,4 +1,5 @@
 1、Glide的生命周期管理
+Glide.with 流程中会通过创建一个空的Fragment来感应生命周期，具体的管理类是ActivityFragmentLifecycle
 
 2、Glide如何监听网络变化
 在 RequestManager 的构造函数中通过 ConnectivityMonitorFactory 的 build 函数构建出 ConnectivityMonitor （连接监视器）对象，
@@ -6,3 +7,9 @@
 默认实现类 DefaultConnectivityMonitor 中并且回调它的相关的生命周期函数，在onStart中registerReceiver（注册监听手机网络变化的广播），
 在onStop中unregisterReceiver。有网络重连后重启请求。在 RequestManagerConnectivityListener 的 onConnectivityChanged 函数中
 执行网络重连后的重启请求
+
+3、开发一款网络请求框架需要考虑什么
+图片下载是个耗时过程，我们首先需要考虑的就是图片缓存的问题
+图片加载也是个耗内存的操作，很多OOM都是图片加载导致的，所以我们也要考虑内存优化问题
+图片加载到一半，页面关闭了，图片加载也应该中止，这又牵扯到了生命周期管理的问题
+还有就是图片加载框架是否支持大图加载？大图情况下会有什么问题？
