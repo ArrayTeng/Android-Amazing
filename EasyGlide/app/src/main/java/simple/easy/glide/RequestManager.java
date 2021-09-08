@@ -1,7 +1,9 @@
 package simple.easy.glide;
 
 import android.content.Context;
+import android.net.Uri;
 
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -49,6 +51,14 @@ public class RequestManager implements LifecycleListener {
 
     public RequestBuilder load(String url){
         return new RequestBuilder(context).load(url);
+    }
+
+    public RequestBuilder load(Uri uri){
+        return new RequestBuilder(context).load(uri);
+    }
+
+    public RequestBuilder load(File file){
+        return new RequestBuilder(context).load(file);
     }
 
 

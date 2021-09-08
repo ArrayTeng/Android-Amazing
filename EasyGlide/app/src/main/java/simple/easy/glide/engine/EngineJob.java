@@ -40,7 +40,14 @@ public class EngineJob implements Runnable {
         if ("HTTP".equalsIgnoreCase(uri.getScheme())||"HTTPS".equalsIgnoreCase(uri.getScheme())){
             ThreadPoolManager.getInstance().execute(this);
         }else {
-
+            //区分本地还是网络
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            Value value = new Value();
+            value.setBitmap(bitmap);
+            String key = new Key(path).getKey();
+            value.setKey(key);
+            imageViewTarget.setResource(bitmap);
+            responseListener.responseSuccess(key,value);
         }
         return null;
     }

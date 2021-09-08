@@ -25,6 +25,9 @@ public class DiskBitmapCache implements BitmapCache{
 
     private DiskLruCache diskLruCache;
 
+    private File file;
+    private Context context;
+
     //1、单例模式
     private static volatile DiskBitmapCache instance;
 
@@ -43,6 +46,8 @@ public class DiskBitmapCache implements BitmapCache{
     private DiskBitmapCache(Context context){
 
         File file = getImageCacheFile(context,IMAGE_CACHE_PATH);
+        this.file = file;
+        this.context = context;
         if (!file.exists()){
             file.mkdirs();
         }
@@ -85,19 +90,30 @@ public class DiskBitmapCache implements BitmapCache{
         DiskLruCache.Editor editor =null;
         OutputStream outputStream = null;
         try {
+            if (diskLruCache.isClosed()){
+                diskLruCache = DiskLruCache.open(file,getAppVersion(context),1,MAXSIZE);
+            }
             editor = diskLruCache.edit(key);
-            outputStream = editor.newOutputStream(0);
-            Bitmap bitmap = value.getBitmap();
-            bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
-            outputStream.flush();
+            if (editor != null){
+                outputStream = editor.newOutputStream(0);
+                Bitmap bitmap = value.getBitmap();
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+                outputStream.flush();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
             try {
-                editor.commit();
-                diskLruCache.close();
-                if(outputStream!=null){
-                    outputStream.close();
+                if (editor!=null){
+                    editor.commit();
+                    if (diskLruCache.isClosed()){
+                        diskLruCache = DiskLruCache.open(file,getAppVersion(context),1,MAXSIZE);
+                    }
+                    diskLruCache.close();
+                    if(outputStream!=null){
+                        outputStream.close();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -110,6 +126,9 @@ public class DiskBitmapCache implements BitmapCache{
         Value value = new Value();
         InputStream inputStream = null;
         try {
+            if (diskLruCache.isClosed()){
+                diskLruCache = DiskLruCache.open(file,getAppVersion(context),1,MAXSIZE);
+            }
             DiskLruCache.Snapshot snapshot = diskLruCache.get(key);
             if (snapshot == null){
                 return null;

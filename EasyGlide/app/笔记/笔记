@@ -11,6 +11,7 @@ RequestBuilder->into->buildRequest->buildRequestRecursive->obtainRequest-> Singl
 	EngineJob->willDecodeFromCache->executor.execute(decodeJob);
 
 	DecodeJob->run方法,执行线程->runWrapped() ->INITIALIZE->runGenerators ->getNextGenerator-
+
 	DecodeJob->SourceGenerator->currentGenerator.startNext()->DataCacheGenerator
 
 	DataCacheGenerator->startNext()->buildLoadData

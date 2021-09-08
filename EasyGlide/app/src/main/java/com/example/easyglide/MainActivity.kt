@@ -9,7 +9,7 @@ import simple.easy.glide.request.RequestOptions
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var imageView:ImageView
+    lateinit var imageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun bt(view: View) {
-        val requestOptions:RequestOptions = RequestOptions().override(400,300)
+
+        val requestOptions: RequestOptions =
+            RequestOptions().override(400, 300).placeholder(R.mipmap.ic_launcher)
+
         Glide.with(this)
             .load("https://img1.baidu.com/it/u=4186787118,517350218&fm=26&fmt=auto&gp=0.jpg")
             .apply(requestOptions)

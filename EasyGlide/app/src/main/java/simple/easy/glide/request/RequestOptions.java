@@ -8,9 +8,24 @@ public class RequestOptions {
     private int width;
     private int height;
 
-    public RequestOptions override(int width,int height){
+    private int resId;
+
+    public int getResId() {
+        return resId;
+    }
+
+    public void setResId(int resId) {
+        this.resId = resId;
+    }
+
+    public RequestOptions override(int width, int height){
         this.width = width;
         this.height = height;
+        return this;
+    }
+
+    public RequestOptions placeholder(int resId){
+        this.resId = resId;
         return this;
     }
 

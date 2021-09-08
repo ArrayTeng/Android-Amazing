@@ -3,7 +3,10 @@ package simple.easy.glide.engine;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.widget.ImageView;
+
+import java.io.File;
 
 import simple.easy.glide.cache.ActiveCache;
 import simple.easy.glide.cache.MemoryCache;
@@ -70,6 +73,20 @@ public class Engine implements ValueCallBack ,ResponseListener{
         diskLruCache = DiskBitmapCache.getInstance(glideContext);
     }
 
+    public void load(Uri uri, Context context) {
+        this.path = uri.getPath();
+        this.glideContext = context;
+        this.key = new Key(path).getKey();
+        diskLruCache = DiskBitmapCache.getInstance(glideContext);
+    }
+
+    public void load(File file, Context context) {
+        this.path = file.getAbsolutePath();
+        this.glideContext = context;
+        this.key = new Key(path).getKey();
+        diskLruCache = DiskBitmapCache.getInstance(glideContext);
+    }
+
     //读取缓存的方式
     public void into( RequestOptions requestOptions,ImageViewTarget imageViewTarget) {
         Tool.assertMainThread();
@@ -81,7 +98,9 @@ public class Engine implements ValueCallBack ,ResponseListener{
         if (value != null) {
             Bitmap bitmap = value.getBitmap();
             Matrix matrix = new Matrix();
-            bitmap = Bitmap.createBitmap(bitmap,0,0,requestOptions.getWidth(),requestOptions.getHeight(),matrix,true);
+            if (bitmap!=null){
+                bitmap = Bitmap.createBitmap(bitmap,0,0,requestOptions.getWidth(),requestOptions.getHeight(),matrix,true);
+            }
             //imageView.setImageBitmap(bitmap);
             imageViewTarget.setResource(bitmap);
         }
