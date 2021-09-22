@@ -6,6 +6,7 @@ import com.example.rxjava.Emitter
 import com.example.rxjava.Observable
 import com.example.rxjava.ObservableOnSubscribe
 import com.example.rxjava.Observer
+import com.example.rxjava.map.Function
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
         Observable.create(object :ObservableOnSubscribe<String>{
             override fun subscribe(emitter: Emitter<String>?) {
                 emitter?.onNext("发送消息")
+            }
+        }).map(object:Function<String,String>{
+            override fun apply(t: String?): String {
+
+                return ""
             }
         }).subscribeObserver(object:Observer<String>{
             override fun onNext(t: String?) {

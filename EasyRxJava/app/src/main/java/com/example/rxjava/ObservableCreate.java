@@ -1,9 +1,6 @@
 package com.example.rxjava;
 
-/**
- *
- */
-public class ObservableCreate<T> extends Observable{
+public class ObservableCreate<T> extends Observable<T>{
 
     final ObservableOnSubscribe<T> source;
 
@@ -12,9 +9,9 @@ public class ObservableCreate<T> extends Observable{
     }
 
     @Override
-    protected void subscribeActual(Observer observer) {
+    protected void subscribeActual(Observer<T> observer) {
         observer.onSubscribe();
-        CreateEmitter createEmitter = new CreateEmitter(observer);
+        CreateEmitter<T> createEmitter = new CreateEmitter<>(observer);
         source.subscribe(createEmitter);
     }
 
