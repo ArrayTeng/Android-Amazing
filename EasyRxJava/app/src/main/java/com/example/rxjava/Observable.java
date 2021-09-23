@@ -3,6 +3,7 @@ package com.example.rxjava;
 import com.example.rxjava.map.Function;
 import com.example.rxjava.map.ObservableMap;
 import com.example.rxjava.thread.ObservableObserverOn;
+import com.example.rxjava.thread.ObservableSubscribeOn;
 
 /**
  * 具体的被观察者
@@ -29,6 +30,10 @@ public abstract class Observable<T> implements ObservableSource<T>{
 
     public final Observable<T> observerOn(){
         return new ObservableObserverOn<T>(this);
+    }
+
+    public final Observable<T> subscribeOn(){
+        return new ObservableSubscribeOn<>(this);
     }
 
 }
