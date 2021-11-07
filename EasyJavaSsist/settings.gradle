@@ -1,0 +1,3 @@
+rootProject.name = "EasyJavaSsist"
+include ':app'
+include ':javassist'
